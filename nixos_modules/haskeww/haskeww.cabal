@@ -1,0 +1,205 @@
+cabal-version: 3.0
+name:          haskeww
+version:       0.1.0.0
+
+common warnings
+  ghc-options: -Wall
+
+library
+  import:           warnings
+  build-depends:
+    , base
+    , process
+
+  default-language: Haskell2010
+  exposed-modules:  EWWLib
+  ghc-options:      -threaded
+  hs-source-dirs:   lib src/workspaces
+
+executable lockScreen
+  import:           warnings
+  main-is:          LockScreen.hs
+  build-depends:
+    , base
+    , haskeww
+    , process
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src/powermenu/
+
+executable manageBattery
+  import:           warnings
+  main-is:          ManageBattery.hs
+  build-depends:
+    , base
+    , directory
+    , filepath
+    , haskeww
+    , megaparsec
+    , process
+    , text
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable manageCryptos
+  import:           warnings
+  main-is:          ManageCryptos.hs
+  build-depends:
+    , aeson
+    , base
+    , directory
+    , filepath
+    , haskeww
+    , http-client
+    , http-conduit
+    , lens
+    , lens-aeson
+    , split
+    , yaml
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable manageGPU
+  import:           warnings
+  main-is:          ManageGPU.hs
+  build-depends:
+    , aeson
+    , base
+    , bytestring
+    , haskeww
+    , process
+    , text
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src/
+
+executable manageTime
+  import:           warnings
+  main-is:          ManageTime.hs
+  build-depends:
+    , base
+    , haskeww
+    , raw-strings-qq
+    , time
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable manageWeather
+  import:           warnings
+  main-is:          ManageWeather.hs
+  build-depends:
+    , base
+    , directory
+    , filepath
+    , haskeww
+    , http-client
+    , http-conduit
+    , lens
+    , lens-aeson
+    , text
+    , yaml
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable manageWorkspaces
+  import:           warnings
+  main-is:          ManageWorkspaces.hs
+  build-depends:
+    , aeson
+    , base
+    , directory
+    , filepath
+    , haskeww
+    , network
+    , process
+    , raw-strings-qq
+    , split
+    , unordered-containers
+    , utf8-string
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src/workspaces
+  other-modules:
+    GetAppIcon
+    GetWorkspaceGroups
+
+executable mySuspend
+  import:           warnings
+  main-is:          Suspend.hs
+  build-depends:
+    , base
+    , haskeww
+    , process
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src/powermenu/
+
+executable updatePowermenuState
+  import:           warnings
+  main-is:          UpdatePowermenuState.hs
+  build-depends:
+    , base
+    , haskeww
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src/powermenu/
+
+executable manageNetwork
+  import:           warnings
+  main-is:          ManageNetwork.hs
+  build-depends:
+    , base
+    , haskeww
+    , process
+    , text
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable toggleBattery
+  import:           warnings
+  main-is:          ToggleBattery.hs
+  build-depends:
+    , base
+    , haskeww
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable toggleWeather
+  import:           warnings
+  main-is:          ToggleWeather.hs
+  build-depends:
+    , base
+    , haskeww
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src
+
+executable batteryTime
+  import:           warnings
+  main-is:          BatteryTime.hs
+  build-depends:
+    , base
+    , haskeww
+    , process
+
+  default-language: Haskell2010
+  ghc-options:      -threaded
+  hs-source-dirs:   src

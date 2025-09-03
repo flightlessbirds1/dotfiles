@@ -1,0 +1,15 @@
+(defvar time0 "(label :text \"...\")")
+(defvar time1 "(label :text \"...\")")
+(defvar timeSelected 0)
+
+(defwidget time []
+  (stack
+    :selected timeSelected
+    (literal
+      :content time0
+    )
+    (literal
+      :content time1
+    )
+  )
+)

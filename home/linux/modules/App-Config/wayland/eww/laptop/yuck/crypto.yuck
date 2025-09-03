@@ -1,0 +1,43 @@
+(defvar cryptoImagePath0 "/home/insomniac/.config/eww/images/crypto/bitcoin.png")
+(defvar cryptoImagePath1 "/home/insomniac/.config/eww/images/crypto/bitcoin.png")
+(defvar cryptoPrice0 "0")
+(defvar cryptoPrice1 "0")
+(defvar cryptoSelected 0)
+
+(defwidget crypto []
+  (box 
+    :class "crypto"
+    (stack
+      :selected cryptoSelected
+      :transition "crossfade"
+      (cryptoBox
+        :price cryptoPrice0
+        :imagePath cryptoImagePath0
+      )
+      (cryptoBox
+        :price cryptoPrice1
+        :imagePath cryptoImagePath1
+      )
+    )
+  )
+)
+
+(defwidget cryptoBox
+  [
+    price
+    imagePath
+  ]
+  (box
+    :class "cryptoInnerBox"
+    :space-evenly false
+    :spacing 7
+    (image
+      :image-height 25
+      :image-width 25
+      :path imagePath
+    )
+    (label
+      :text price
+    )
+  )
+)

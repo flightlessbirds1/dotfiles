@@ -1,0 +1,78 @@
+(defvar temperature0 "0")
+(defvar temperature1 "0")
+(defvar weatherImagePath0 "/home/insomniac/.config/eww/images/weather/01d.png")
+(defvar weatherImagePath1 "/home/insomniac/.config/eww/images/weather/01d.png")
+(defvar weatherSelected 0)
+(defvar weatherPopupVisible false)
+(defvar weatherEventboxClass "weatherEventboxClosed")
+(defvar weatherDescription0 "Clear sky")
+(defvar weatherDescription1 "Clear sky")
+(defvar weatherHumidity0 "0")
+(defvar weatherHumidity1 "0")
+(defvar weatherPressure0 "0")
+(defvar weatherPressure1 "0")
+(defvar weatherWindSpeed0 "0")
+(defvar weatherWindSpeed1 "0")
+(defvar weatherFeelsLike0 "0")
+(defvar weatherFeelsLike1 "0")
+
+(defwidget weather []
+  (eventbox
+    :class weatherEventboxClass
+    :cursor "pointer"
+    :onclick "toggleWeather ${weatherPopupVisible}"
+    (box
+      :class "weather"
+      :space-evenly false
+      (stack
+        :selected weatherSelected
+        :transition "crossfade"
+        (weatherBox
+          :imagePath weatherImagePath0
+          :temperature temperature0
+        )
+        (weatherBox
+          :imagePath weatherImagePath1
+          :temperature temperature1
+        )
+      )
+      (revealer
+        :duration "250ms"
+        :reveal weatherPopupVisible
+        :transition "slideright"
+        (weatherPopupContent)
+      )
+    )
+  )
+)
+
+(defwidget weatherBox
+  [
+    imagePath
+    temperature
+  ]
+  (box
+    ; :class "weather"
+    :space-evenly false
+    :spacing 4
+    (image
+      :image-height 25
+      :image-width 25
+      :path imagePath
+    )
+    (label
+      :text temperature
+    )
+  )
+)
+
+(defwidget weatherPopupContent []
+  (box
+    :class "weatherPopup"
+    :orientation "horizontal"
+    :space-evenly false
+    :spacing 8
+    (label :text {weatherSelected == 0 ? weatherFeelsLike0 : weatherFeelsLike1})
+    (label :text "${weatherSelected == 0 ? weatherHumidity0 : weatherHumidity1}%")
+  )
+)

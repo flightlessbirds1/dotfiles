@@ -1,0 +1,18 @@
+diff --git a/zathura/zathura.c b/zathura/zathura.c
+index fbb9e1d..7aabb69 100644
+--- a/zathura/zathura.c
++++ b/zathura/zathura.c
+@@ -155,6 +155,13 @@ void zathura_update_view_ppi(zathura_t* zathura) {
+ 
+   /* get view widget GdkMonitor */
+   GdkWindow* window = gtk_widget_get_window(zathura->ui.session->gtk.view); // NULL if not realized
++  GtkWidget* topLevelWidget = gtk_widget_get_toplevel(zathura->ui.session->gtk.view); 
++  // TopLevel is (in zathura) always a GtkWindow, so we just check to see if it is NULL to prevent crashing.
++  if (topLevelWidget == NULL) {
++    return;
++  }
++  // Casting GtkWindow to the GtkWidget to fit the function and creating a new (empty) titlebar.
++  gtk_window_set_titlebar(GTK_WINDOW(topLevelWidget), gtk_header_bar_new()); 
+   if (window == NULL) {
+     return;
+   }
