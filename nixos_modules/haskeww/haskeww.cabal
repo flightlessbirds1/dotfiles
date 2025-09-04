@@ -44,26 +44,6 @@ executable manageBattery
   ghc-options:      -threaded
   hs-source-dirs:   src
 
-executable manageCryptos
-  import:           warnings
-  main-is:          ManageCryptos.hs
-  build-depends:
-    , aeson
-    , base
-    , directory
-    , filepath
-    , haskeww
-    , http-client
-    , http-conduit
-    , lens
-    , lens-aeson
-    , split
-    , yaml
-
-  default-language: Haskell2010
-  ghc-options:      -threaded
-  hs-source-dirs:   src
-
 executable manageGPU
   import:           warnings
   main-is:          ManageGPU.hs

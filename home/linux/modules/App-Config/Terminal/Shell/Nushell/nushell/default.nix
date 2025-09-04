@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [ ./shekl.nix ];
   home.packages = with pkgs; [ nix-your-shell ];
 
@@ -12,8 +13,8 @@
       sleep 7ms
       $env.config = { show_banner: false }
     '';
-    environmentVariables =
-      builtins.mapAttrs (name: value: builtins.toString value)
-      config.home.sessionVariables;
+    environmentVariables = builtins.mapAttrs (
+      name: value: builtins.toString value
+    ) config.home.sessionVariables;
   };
 }

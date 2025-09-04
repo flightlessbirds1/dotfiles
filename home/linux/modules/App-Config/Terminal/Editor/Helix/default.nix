@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   home.sessionVariables.EDITOR = "hx";
 
   home.packages = with pkgs; [
@@ -59,23 +60,34 @@
           auto-format = true;
           formatter = {
             command = "nixfmt";
-            args = [ "--width" "2" ];
+            args = [
+              "--width"
+              "2"
+            ];
           };
         }
         {
           name = "python";
-          language-servers = [ "ruff" "pylsp" ];
+          language-servers = [
+            "ruff"
+            "pylsp"
+          ];
           auto-format = true;
           formatter = {
             command = "black";
-            args = [ "-q" "-" ];
+            args = [
+              "-q"
+              "-"
+            ];
           };
         }
         {
           name = "bash";
           language-servers = [ ]; # no dedicated LSP in your packages
           auto-format = true;
-          formatter = { command = "shfmt"; };
+          formatter = {
+            command = "shfmt";
+          };
         }
         {
           name = "rust";
@@ -83,14 +95,19 @@
           auto-format = true;
           formatter = {
             command = "rustfmt";
-            args = [ "--emit" "stdout" ];
+            args = [
+              "--emit"
+              "stdout"
+            ];
           };
         }
         {
           name = "haskell";
           language-servers = [ "hls" ];
           auto-format = true;
-          formatter = { command = "stylish-haskell"; };
+          formatter = {
+            command = "stylish-haskell";
+          };
         }
         {
           name = "swift";
@@ -98,15 +115,22 @@
           auto-format = true;
           formatter = {
             command = "swift-format";
-            args =
-              [ "--stdin" "--assume-filename" "dummy.swift" "--indent" "2" ];
+            args = [
+              "--stdin"
+              "--assume-filename"
+              "dummy.swift"
+              "--indent"
+              "2"
+            ];
           };
         }
         {
           name = "typst";
           language-servers = [ "tinymist" ];
           auto-format = true;
-          formatter = { command = "typstfmt"; };
+          formatter = {
+            command = "typstfmt";
+          };
         }
         {
           name = "yaml";
@@ -123,7 +147,10 @@
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.css" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.css"
+            ];
           };
         }
         {
@@ -132,7 +159,10 @@
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.scss" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.scss"
+            ];
           };
         }
         {
@@ -141,7 +171,10 @@
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.svelte" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.svelte"
+            ];
           };
         }
       ];
@@ -151,15 +184,25 @@
           command = "ruff";
           args = [ "server" ];
         };
-        pylsp = { command = "pylsp"; };
-        "rust-analyzer" = { command = "rust-analyzer"; };
+        pylsp = {
+          command = "pylsp";
+        };
+        "rust-analyzer" = {
+          command = "rust-analyzer";
+        };
         hls = {
           command = "haskell-language-server-wrapper";
           args = [ "--lsp" ];
         };
-        nil = { command = "nil"; };
-        "sourcekit-lsp" = { command = "sourcekit-lsp"; };
-        tinymist = { command = "tinymist"; };
+        nil = {
+          command = "nil";
+        };
+        "sourcekit-lsp" = {
+          command = "sourcekit-lsp";
+        };
+        tinymist = {
+          command = "tinymist";
+        };
         "yaml-language-server" = {
           command = "yaml-language-server";
           args = [ "--stdio" ];
@@ -168,7 +211,9 @@
           command = "vscode-css-language-server";
           args = [ "--stdio" ];
         };
-        svelteserver = { command = "svelteserver"; };
+        svelteserver = {
+          command = "svelteserver";
+        };
       };
     };
   };

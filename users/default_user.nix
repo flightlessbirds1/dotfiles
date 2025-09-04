@@ -87,7 +87,6 @@ in
           nodePackages_latest.prettier
           calibre
           foliate
-          libsForQt5.okular
           kdePackages.kdenlive
           brightnessctl
           parsec-bin

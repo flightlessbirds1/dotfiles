@@ -10,7 +10,6 @@ Haskeww is a set of Haskell scripts for powering my EWW bar:
 
 - `lockScreen`
 - `manageBattery`
-- `manageCryptos`
 - `manageGPU`
 - `manageTime`
 - `manageWeather`

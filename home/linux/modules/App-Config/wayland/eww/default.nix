@@ -7,7 +7,9 @@
   ...
 }:
 let
-  inherit (flake.self.packages.${pkgs.system}) haskeww;
+  inherit (flake.self.packages.${pkgs.system})
+    haskeww
+    ;
   makeEWWService = bin: envFile: {
     Unit = {
       Description = "Eww feeder: ${bin}";
@@ -15,8 +17,12 @@ let
         "graphical-session.target"
         "eww.service"
       ];
-      Wants = [ "eww.service" ];
-      PartOf = [ "graphical-session.target" ];
+      Wants = [
+        "eww.service"
+      ];
+      PartOf = [
+        "graphical-session.target"
+      ];
     };
 
     Service = lib.mkMerge [
@@ -25,11 +31,15 @@ let
         Restart = "always";
         RestartSec = 5;
       }
-      (lib.optionalAttrs (envFile != null) { EnvironmentFile = envFile; })
+      (lib.optionalAttrs (envFile != null) {
+        EnvironmentFile = envFile;
+      })
     ];
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = [
+        "graphical-session.target"
+      ];
     };
   };
 in
@@ -48,8 +58,12 @@ in
     eww = {
       Unit = {
         Description = "Eww daemon";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
+        After = [
+          "graphical-session.target"
+        ];
+        PartOf = [
+          "graphical-session.target"
+        ];
       };
       Service = {
         Type = "oneshot";
@@ -57,11 +71,12 @@ in
         ExecStart = "${pkgs.bash}/bin/bash -c '${lib.getExe pkgs.eww} ping || exec ${lib.getExe pkgs.eww} daemon'";
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [
+          "graphical-session.target"
+        ];
       };
     };
 
-    eww-manage-cryptos = makeEWWService "manageCryptos" null;
     eww-manage-gpu = makeEWWService "manageGPU" null;
     eww-manage-network = makeEWWService "manageNetwork" null;
     eww-manage-time = makeEWWService "manageTime" null;
