@@ -5,14 +5,14 @@
   hostname,
   flake,
   ...
-}:
-let
+}: let
   helper = import ../../../../../../lib/Helper-Functions/System-Checker.nix;
-
-in
-{
+in {
   programs.waybar = helper.system-checker {
-    inherit username hostname;
+    inherit
+      username
+      hostname
+      ;
     concatenation_type = "attribute";
     portable_content = {
       enable = true;
@@ -53,7 +53,9 @@ in
             };
             format = " {:%I:%M %p}";
             tooltip = true;
-            tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
+            tooltip-format = ''
+              <big>{:%B %Y}</big>
+              <tt><small>{calendar}</small></tt>'';
             format-alt = " {:%m/%d/%Y}";
           };
 
@@ -73,11 +75,11 @@ in
               sort-by-number = true;
             };
             persistent-workspaces = {
-              "1" = [ ];
-              "2" = [ ];
-              "3" = [ ];
-              "4" = [ ];
-              "5" = [ ];
+              "1" = [];
+              "2" = [];
+              "3" = [];
+              "4" = [];
+              "5" = [];
             };
           };
 
@@ -190,10 +192,18 @@ in
             format = " {status}";
             format-connected = " {device_alias}";
             format-connected-battery = " {device_alias} {device_battery_percentage}%";
-            tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-            tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
-            tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-            tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+            tooltip-format = ''
+              {controller_alias}	{controller_address}
+
+              {num_connections} connected'';
+            tooltip-format-connected = ''
+              {controller_alias}	{controller_address}
+
+              {num_connections} connected
+
+              {device_enumerate}'';
+            tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
+            tooltip-format-enumerate-connected-battery = "{device_alias}	{device_address}	{device_battery_percentage}%";
             on-click = "blueman-manager";
             format-disabled = " Disabled";
           };
@@ -289,7 +299,6 @@ in
       '';
     };
     unportable_content = {
-
       enable = true;
       systemd.enable = false;
       # systemd.target = "graphical-session.target";
@@ -332,7 +341,9 @@ in
             };
             format = " {:%I:%M %p}";
             tooltip = true;
-            tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
+            tooltip-format = ''
+              <big>{:%B %Y}</big>
+              <tt><small>{calendar}</small></tt>'';
             format-alt = " {:%m/%d/%Y}";
           };
 
@@ -360,11 +371,11 @@ in
               sort-by-number = true;
             };
             persistent-workspaces = {
-              "1" = [ ];
-              "2" = [ ];
-              "3" = [ ];
-              "4" = [ ];
-              "5" = [ ];
+              "1" = [];
+              "2" = [];
+              "3" = [];
+              "4" = [];
+              "5" = [];
             };
           };
 
@@ -477,10 +488,18 @@ in
             format = " {status}";
             format-connected = " {device_alias}";
             format-connected-battery = " {device_alias} {device_battery_percentage}%";
-            tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-            tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
-            tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-            tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+            tooltip-format = ''
+              {controller_alias}	{controller_address}
+
+              {num_connections} connected'';
+            tooltip-format-connected = ''
+              {controller_alias}	{controller_address}
+
+              {num_connections} connected
+
+              {device_enumerate}'';
+            tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
+            tooltip-format-enumerate-connected-battery = "{device_alias}	{device_address}	{device_battery_percentage}%";
             on-click = "blueman-manager";
             format-disabled = " Disabled";
           };
@@ -574,14 +593,16 @@ in
             background-color: rgba(203, 166, 247, 0.2);
         }
       '';
-
     };
-    backup_content = { };
+    backup_content = {};
   };
   home.file.".config/scripts/get_weather.sh" = helper.system-checker {
-    inherit username hostname;
+    inherit
+      username
+      hostname
+      ;
     concatenation_type = "attribute";
-    portable_content = { };
+    portable_content = {};
     unportable_content = {
       executable = true;
       text = ''
@@ -609,7 +630,7 @@ in
 
         # Check if jq is available
         if ! command -v jq >/dev/null 2>&1; then
-          echo "{\"text\": \"🌡️ Error: jq not found\", \"tooltip\": \"Please install jq\"}" 
+          echo "{\"text\": \"🌡️ Error: jq not found\", \"tooltip\": \"Please install jq\"}"
           echo "$(date): jq not found" >> "$LOG_FILE"
           exit 1
         fi
@@ -617,23 +638,23 @@ in
         # Fetch weather data with verbose error logging
         get_weather_data() {
           echo "$(date): Attempting to fetch weather data..." >> "$LOG_FILE"
-          
+
           # Parse location - use lat,lon format
           lat=$(echo "$WEATHER_LOCATION" | cut -d',' -f1)
           lon=$(echo "$WEATHER_LOCATION" | cut -d',' -f2)
-          
+
           weather=$(curl -s --connect-timeout 15 \
             "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$WEATHER_API_KEY&units=imperial" \
             2>> "$LOG_FILE")
           curl_status=$?
-          
+
           echo "$(date): curl exit status: $curl_status" >> "$LOG_FILE"
           if [ $curl_status -eq 0 ] && [ -n "$weather" ]; then
             # Check if the result is valid JSON
             if echo "$weather" | jq . >/dev/null 2>&1; then
               api_code=$(echo "$weather" | jq -r '.cod')
               echo "$(date): API response code: $api_code" >> "$LOG_FILE"
-              
+
               if [ "$api_code" = "200" ]; then
                 echo "$(date): Successfully fetched valid weather data" >> "$LOG_FILE"
                 printf "%s\n" "$weather"
@@ -642,7 +663,7 @@ in
                 # Handle specific API error codes
                 error_msg=$(echo "$weather" | jq -r '.message // "Unknown error"' 2>/dev/null || echo "Unknown error")
                 echo "$(date): API error (code $api_code): $error_msg" >> "$LOG_FILE"
-                
+
                 case "$api_code" in
                   "401")
                     echo "{\"text\": \"🔑 API Key Issue\", \"tooltip\": \"API key invalid or not activated yet. New keys take up to 2 hours to activate.\"}"
@@ -666,7 +687,7 @@ in
           else
             echo "$(date): Failed to fetch data (curl failed or empty response)" >> "$LOG_FILE"
           fi
-          
+
           echo "{\"text\": \"🌐 Connection Error\", \"tooltip\": \"Unable to connect to weather service\"}"
           return 1
         }
@@ -743,7 +764,7 @@ in
 
           # Create tooltip with additional weather info including city name
           tooltip="$city_name: $condition - ''${temp_f}°F (feels like ''${feels_like_f}°F)\nHumidity: ''${humidity}%\nWind: ''${wind_speed} mph $wind_dir"
-            
+
           # Output the weather information in JSON format
           result="{\"text\": \"$icon ''${temp_f}°F (''${feels_like_f}°F)\", \"tooltip\": \"$tooltip\"}"
           printf "%s\n" "$result"
@@ -755,6 +776,6 @@ in
         fi
       '';
     };
-    backup_content = { };
+    backup_content = {};
   };
 }

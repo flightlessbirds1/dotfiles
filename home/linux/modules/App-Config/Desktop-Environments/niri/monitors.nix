@@ -4,17 +4,16 @@
   flake,
   lib,
   ...
-}:
-
-let
+}: let
   helper = import ../../../../../../lib/Helper-Functions/System-dependent-checker.nix;
-in
-
-{
+in {
   programs.niri.settings = helper.system-dependent-checker {
-    inherit username hostname;
+    inherit
+      username
+      hostname
+      ;
     concatenation_type = "attribute";
-    portable_content = { };
+    portable_content = {};
     laptop_content = {
       outputs = {
         "eDP-1" = {
@@ -56,10 +55,7 @@ in
         };
         # DP-1.transform.rotation = 90;
       };
-
     };
-    backup_content = { };
-
+    backup_content = {};
   };
-
 }

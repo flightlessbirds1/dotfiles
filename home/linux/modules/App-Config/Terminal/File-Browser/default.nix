@@ -1,15 +1,22 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
     keymap.mgr.prepend_keymap = [
       {
-        on = [ "Q" ];
+        on = [
+          "Q"
+        ];
         run = "quit";
       }
       {
-        on = [ "q" ];
+        on = [
+          "q"
+        ];
         run = "quit --no-cwd-file";
       }
     ];

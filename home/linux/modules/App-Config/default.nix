@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./Communication
     ./Gaming

@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   force = true;
   settings = [
     {
@@ -249,18 +248,15 @@
     }
     {
       name = "Save for Read Later";
-      bookmarks = [
-      ];
+      bookmarks = [];
     }
     {
       name = "Other Bookmarks";
-      bookmarks = [
-      ];
+      bookmarks = [];
     }
     {
       name = "Synced Bookmarks";
-      bookmarks = [
-      ];
+      bookmarks = [];
     }
   ];
 }

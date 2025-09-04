@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   networking.wg-quick.interfaces = {
     AirVPN-America = {
       address = [
@@ -16,7 +15,9 @@
         {
           publicKey = "PyLCXAQT8KkM4T+dUsOQfn+Ub3pGxfGlxkIApuig+hk=";
           presharedKeyFile = "/root/wireguard-keys/preshared-key";
-          allowedIPs = [ "0.0.0.0/0,::/0" ];
+          allowedIPs = [
+            "0.0.0.0/0,::/0"
+          ];
           endpoint = "america3.vpn.airdns.org:1637";
           persistentKeepalive = 15;
         }

@@ -7,11 +7,9 @@
   system,
   stateVersion,
   ...
-}:
-let
+}: let
   NM = ../../nixos_modules;
-in
-{
+in {
   imports = [
     ./hardware-configuration.nix
     ../shared/default.nix
@@ -20,9 +18,7 @@ in
     # (NM + /networking-laptop.nix)
     ../../users/default_user.nix
     (NM + /battery.nix)
-
   ];
 
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = with pkgs; [];
 }

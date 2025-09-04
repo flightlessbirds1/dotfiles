@@ -3,11 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   extensions = inputs.nix-vscode-extensions.extensions.${pkgs.system};
-in
-{
+in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;

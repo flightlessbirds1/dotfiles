@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   ublock_origin = "uBlock0@raymondhill.net";
   dark_reader = "addon@darkreader.org";
   matte_black_theme = "{f2b832a9-f0f5-4532-934c-74b25eb23fb9}";

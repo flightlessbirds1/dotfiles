@@ -4,8 +4,7 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   username = config.home.username;
   profiles = import ./profiles.nix {
     inherit
@@ -18,17 +17,19 @@ let
   };
 
   package = pkgs.firefox;
-in
-{
-  imports = [
-  ];
+in {
+  imports = [];
 
   programs.firefox = {
     enable = true;
 
-    inherit package;
+    inherit
+      package
+      ;
 
-    nativeMessagingHosts = [ pkgs.gnome-browser-connector ];
+    nativeMessagingHosts = [
+      pkgs.gnome-browser-connector
+    ];
 
     policies = import ./policies.nix {
       inherit
@@ -39,6 +40,8 @@ in
         ;
     };
 
-    inherit profiles;
+    inherit
+      profiles
+      ;
   };
 }

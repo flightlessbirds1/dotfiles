@@ -6,7 +6,9 @@
         domain = "www.reddit.com";
       };
       targets = [
-        { domain = "libreddit.kavin.rocks"; }
+        {
+          domain = "libreddit.kavin.rocks";
+        }
       ];
     };
   };

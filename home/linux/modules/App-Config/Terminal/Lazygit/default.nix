@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}:
-{
-  home.packages = with pkgs; [ lazygit ];
+}: {
+  home.packages = with pkgs; [
+    lazygit
+  ];
 }

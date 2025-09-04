@@ -1,10 +1,14 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   lockCmd = "${pkgs.swaylock}/bin/swaylock";
   displayOnCmd = "${pkgs.wlr-randr}/bin/wlr-randr --output ALL --on";
-in
-{
-  home.packages = [ pkgs.wlr-randr ];
+in {
+  home.packages = [
+    pkgs.wlr-randr
+  ];
 
   services.swayidle.enable = false;
 

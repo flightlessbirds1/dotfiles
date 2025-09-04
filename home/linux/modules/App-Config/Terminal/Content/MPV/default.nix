@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.mpv = {
     enable = true;
     config = {
@@ -160,7 +162,7 @@
     color=success=00ff00
     color=error=ff0000
 
-    # Behavior  
+    # Behavior
     autohide=yes
     curtain_opacity=0.8
     refr rate=60

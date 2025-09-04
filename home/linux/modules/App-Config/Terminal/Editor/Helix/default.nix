@@ -1,10 +1,12 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   home.sessionVariables.EDITOR = "hx";
 
   home.packages = with pkgs; [
     nil
-    nixfmt-classic
-
     python3Packages.python-lsp-server
     python3Packages.ruff
     python3Packages.black
@@ -55,93 +57,141 @@
       language = [
         {
           name = "nix";
-          language-servers = [ "nil" ];
+          language-servers = [
+            "nil"
+          ];
           auto-format = true;
           formatter = {
-            command = "nixfmt";
-            args = [ "--width" "2" ];
+            command = "alejandra";
           };
         }
         {
           name = "python";
-          language-servers = [ "ruff" "pylsp" ];
+          language-servers = [
+            "ruff"
+            "pylsp"
+          ];
           auto-format = true;
           formatter = {
             command = "black";
-            args = [ "-q" "-" ];
+            args = [
+              "-q"
+              "-"
+            ];
           };
         }
         {
           name = "bash";
-          language-servers = [ ]; # no dedicated LSP in your packages
+          language-servers = [];
           auto-format = true;
-          formatter = { command = "shfmt"; };
+          formatter = {
+            command = "shfmt";
+          };
         }
         {
           name = "rust";
-          language-servers = [ "rust-analyzer" ];
+          language-servers = [
+            "rust-analyzer"
+          ];
           auto-format = true;
           formatter = {
             command = "rustfmt";
-            args = [ "--emit" "stdout" ];
+            args = [
+              "--emit"
+              "stdout"
+            ];
           };
         }
         {
           name = "haskell";
-          language-servers = [ "hls" ];
+          language-servers = [
+            "hls"
+          ];
           auto-format = true;
-          formatter = { command = "stylish-haskell"; };
+          formatter = {
+            command = "stylish-haskell";
+          };
         }
         {
           name = "swift";
-          language-servers = [ "sourcekit-lsp" ];
+          language-servers = [
+            "sourcekit-lsp"
+          ];
           auto-format = true;
           formatter = {
             command = "swift-format";
-            args =
-              [ "--stdin" "--assume-filename" "dummy.swift" "--indent" "2" ];
+            args = [
+              "--stdin"
+              "--assume-filename"
+              "dummy.swift"
+              "--indent"
+              "2"
+            ];
           };
         }
         {
           name = "typst";
-          language-servers = [ "tinymist" ];
+          language-servers = [
+            "tinymist"
+          ];
           auto-format = true;
-          formatter = { command = "typstfmt"; };
+          formatter = {
+            command = "typstfmt";
+          };
         }
         {
           name = "yaml";
-          language-servers = [ "yaml-language-server" ];
+          language-servers = [
+            "yaml-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "yamlfmt";
-            args = [ "-in" ];
+            args = [
+              "-in"
+            ];
           };
         }
         {
           name = "css";
-          language-servers = [ "vscode-css-language-server" ];
+          language-servers = [
+            "vscode-css-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.css" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.css"
+            ];
           };
         }
         {
           name = "scss";
-          language-servers = [ "vscode-css-language-server" ];
+          language-servers = [
+            "vscode-css-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.scss" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.scss"
+            ];
           };
         }
         {
           name = "svelte";
-          language-servers = [ "svelteserver" ];
+          language-servers = [
+            "svelteserver"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
-            args = [ "--stdin-filepath" "dummy.svelte" ];
+            args = [
+              "--stdin-filepath"
+              "dummy.svelte"
+            ];
           };
         }
       ];
@@ -149,26 +199,46 @@
       language-server = {
         ruff = {
           command = "ruff";
-          args = [ "server" ];
+          args = [
+            "server"
+          ];
         };
-        pylsp = { command = "pylsp"; };
-        "rust-analyzer" = { command = "rust-analyzer"; };
+        pylsp = {
+          command = "pylsp";
+        };
+        "rust-analyzer" = {
+          command = "rust-analyzer";
+        };
         hls = {
           command = "haskell-language-server-wrapper";
-          args = [ "--lsp" ];
+          args = [
+            "--lsp"
+          ];
         };
-        nil = { command = "nil"; };
-        "sourcekit-lsp" = { command = "sourcekit-lsp"; };
-        tinymist = { command = "tinymist"; };
+        nil = {
+          command = "nil";
+        };
+        "sourcekit-lsp" = {
+          command = "sourcekit-lsp";
+        };
+        tinymist = {
+          command = "tinymist";
+        };
         "yaml-language-server" = {
           command = "yaml-language-server";
-          args = [ "--stdio" ];
+          args = [
+            "--stdio"
+          ];
         };
         "vscode-css-language-server" = {
           command = "vscode-css-language-server";
-          args = [ "--stdio" ];
+          args = [
+            "--stdio"
+          ];
         };
-        svelteserver = { command = "svelteserver"; };
+        svelteserver = {
+          command = "svelteserver";
+        };
       };
     };
   };

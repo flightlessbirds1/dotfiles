@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   # Catppuccin Macchiato palette
   base = "24273a"; # window background. Do NOT change.
   mantle = "1e2030";
@@ -27,8 +26,7 @@ let
   sapphire = "7dc4e4";
   blue = "8aadf4";
   lavender = "b7bdf8";
-in
-{
+in {
   programs.fuzzel = {
     enable = true;
     settings = {

@@ -1,16 +1,15 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   additional_filters_url = "https://gitlab.com/-/snippets/4789825/raw/main/snippetfile1.txt";
-  unbreak_rules = import ./unbreak_rules.nix { };
+  unbreak_rules = import ./unbreak_rules.nix {};
 
   ENABLE_ADDITIONAL_FILTERS = true;
   ENABLE_UNBREAK_RULES = true;
-in
-{
-  userSettings =
-    let
-      importedLists = [ additional_filters_url ];
-    in
+in {
+  userSettings = let
+    importedLists = [
+      additional_filters_url
+    ];
+  in
     [
       [
         "uiTheme"
@@ -38,19 +37,18 @@ in
       ]
     ]
     ++ (
-      if ENABLE_ADDITIONAL_FILTERS then
+      if ENABLE_ADDITIONAL_FILTERS
+      then [
         [
-          [
-            "importedLists"
-            (builtins.toJSON additional_filters_url)
-          ]
-          [
-            "externalLists"
-            (lib.concatStringsSep "\n" importedLists)
-          ]
+          "importedLists"
+          (builtins.toJSON additional_filters_url)
         ]
-      else
-        [ ]
+        [
+          "externalLists"
+          (lib.concatStringsSep "\n" importedLists)
+        ]
+      ]
+      else []
     );
   adminSettings = builtins.toJSON {
     selectedFilterLists = [
@@ -102,7 +100,11 @@ in
       behind-the-scene * 3p-script noop
       behind-the-scene * image noop
       behind-the-scene * inline-script noop
-      ${if ENABLE_UNBREAK_RULES then unbreak_rules else ""}
+      ${
+        if ENABLE_UNBREAK_RULES
+        then unbreak_rules
+        else ""
+      }
     '';
   };
 }

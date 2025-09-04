@@ -1,10 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # https://emulation.gametechwiki.com/index.php/Main_Page
   # Forks for retroarch tend to be behind
   home.packages =
     builtins.attrValues {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         # Nintendo
         mesen # NES
         # ares # Accurate N64 - Supports many other systems: https://ares-emu.net/
@@ -35,23 +35,24 @@
     ++ [
       (pkgs.retroarch.withCores (
         cores:
-        builtins.attrValues {
-          inherit (pkgs.libretro)
-            # Nintendo
-            mesen # NES - Fork! Not Mesen2
-            snes9x # SNES
-            mupen64plus # N64 - Fork!
-            mgba # GBA - Fork!
-            dolphin # GameCube/Wii - Fork!
-            melonds # DS - Fork!
-            citra # 3DS - Fork!
+          builtins.attrValues {
+            inherit
+              (pkgs.libretro)
+              # Nintendo
+              mesen # NES - Fork! Not Mesen2
+              snes9x # SNES
+              mupen64plus # N64 - Fork!
+              mgba # GBA - Fork!
+              dolphin # GameCube/Wii - Fork!
+              melonds # DS - Fork!
+              citra # 3DS - Fork!
 
-            # Sony
-            swanstation # PS1 - Fork!
-            beetle-psx-hw # PS1 - Fork!
-            pcsx2 # PS2 - Fork!
-            ;
-        }
+              # Sony
+              swanstation # PS1 - Fork!
+              beetle-psx-hw # PS1 - Fork!
+              pcsx2 # PS2 - Fork!
+              ;
+          }
       ))
     ];
 }

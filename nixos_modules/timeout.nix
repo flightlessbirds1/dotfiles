@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   systemd.settings.Manager = {
     DefaultTimeoutStopSec = "15s";
   };

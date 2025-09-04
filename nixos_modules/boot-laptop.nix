@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
@@ -18,12 +17,15 @@
     loader.efi.canTouchEfiVariables = true;
     loader.grub = {
       enable = true;
-      devices = [ "nodev" ];
+      devices = [
+        "nodev"
+      ];
       efiSupport = true;
       configurationLimit = 10;
-      extraConfig = "
-acpi /ssdt-csc3551.aml
-";
+      extraConfig = ''
+
+        acpi /ssdt-csc3551.aml
+      '';
     };
   };
 }

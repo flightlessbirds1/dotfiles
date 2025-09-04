@@ -7,48 +7,57 @@
   system,
   stateVersion,
   ...
-}:
-let
+}: let
   helper = import ../../lib/Helper-Functions/System-Checker.nix;
   NM = ../../nixos_modules;
-in
-{
-  imports = [
-    #    NM + /boot.nix
-    (NM + /gnome.nix)
-    (NM + /printing.nix)
-    (NM + /sound.nix)
-    (NM + /steam.nix)
-    (NM + /electron_wayland.nix)
-    (NM + /doas.nix)
-    (NM + /fonts.nix)
-    (NM + /xdg-portals.nix)
-    # (NM + /hyprland.nix)
-    # (NM + /cosmic.nix)
-    (NM + /ramswap.nix)
-    # (NM + /plasma.nix)
-    (NM + /udev-rules.nix)
-    (NM + /hyprland.nix)
-    (NM + /networking.nix)
-    (NM + /niri.nix)
-    (NM + /i2c.nix)
-    (NM + /wallet.nix)
-    (NM + /documentation.nix)
-    (NM + /timeout.nix)
-    (NM + /cron.nix)
-    (NM + /nh)
-  ]
-  ++ (
-    if hostname == "laptop" || hostname == "desktop" then [ ../../nixos_modules/sops.nix ] else [ ]
-  );
+in {
+  imports =
+    [
+      #    NM + /boot.nix
+      (NM + /gnome.nix)
+      (NM + /printing.nix)
+      (NM + /sound.nix)
+      (NM + /steam.nix)
+      (NM + /electron_wayland.nix)
+      (NM + /doas.nix)
+      (NM + /fonts.nix)
+      (NM + /xdg-portals.nix)
+      # (NM + /hyprland.nix)
+      # (NM + /cosmic.nix)
+      (NM + /ramswap.nix)
+      # (NM + /plasma.nix)
+      (NM + /udev-rules.nix)
+      (NM + /hyprland.nix)
+      (NM + /networking.nix)
+      (NM + /niri.nix)
+      (NM + /i2c.nix)
+      (NM + /wallet.nix)
+      (NM + /documentation.nix)
+      (NM + /timeout.nix)
+      (NM + /cron.nix)
+      (NM + /nh)
+    ]
+    ++ (
+      if hostname == "laptop" || hostname == "desktop"
+      then [
+        ../../nixos_modules/sops.nix
+      ]
+      else []
+    );
 
   nix = {
     package = pkgs.nixVersions.stable;
     extraOptions = "experimental-features = nix-command flakes";
-    settings.allowed-users = [ "@wheel" ];
+    settings.allowed-users = [
+      "@wheel"
+    ];
   };
 
-  system = { inherit stateVersion; };
+  system = {
+    inherit
+      stateVersion
+      ;
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -85,7 +94,6 @@ in
     sops
     nekoray
     nh
-    nixfmt-rfc-style
     claude-code
     waypaper
     waytrogen
@@ -104,9 +112,12 @@ in
     dysk
     bottom
     resources
+    alejandra
   ];
 
   programs.zsh.enable = false;
   users.defaultUserShell = pkgs.nushell;
-  environment.shells = with pkgs; [ nushell ];
+  environment.shells = with pkgs; [
+    nushell
+  ];
 }

@@ -109,8 +109,8 @@ makeImageBoxEWWString home Nothing workspaceIsFocused =
         :class "image|]
     <> classStringSegment
     <> [r|ocused"
-        :image-height 30
-        :image-width 30
+        :image-height 29
+        :image-width 29
         :path "|]
     <> (home </> ".config/eww/images/empty_set_" <> emptySetStringSegment <> ".svg")
     <> [r|"
@@ -129,8 +129,8 @@ makeImageBoxEWWString _ (Just windows) _ =
                  else "Unf"
              )
           <> [r|ocused"
-        :image-height 30
-        :image-width 30
+        :image-height 29
+        :image-width 29
         :path "|]
           <> windowIcon
           <> [r|"

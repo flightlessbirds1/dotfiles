@@ -1,4 +1,5 @@
-{ ... }:
-{
-  imports = [ ./Helix ];
+{...}: {
+  imports = [
+    ./Helix
+  ];
 }

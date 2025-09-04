@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   networking = {
     useNetworkd = true;
     dhcpcd.enable = false;
@@ -36,7 +35,9 @@
       "9.9.9.9"
       "149.112.112.9"
     ];
-    domains = [ "~." ];
+    domains = [
+      "~."
+    ];
     dnsovertls = "opportunistic";
     dnssec = "allow-downgrade";
     extraConfig = ''

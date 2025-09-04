@@ -4,8 +4,7 @@
   pkgs,
   flake,
   ...
-}:
-{
+}: {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;

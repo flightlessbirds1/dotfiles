@@ -8,10 +8,11 @@
   username,
   hostname,
   ...
-}:
-let
+}: let
   a = config.lib.niri.actions;
+
   exe = lib.getExe;
+
   ws = {
     terminal = "01-terminal";
     web = "02-web";
@@ -22,10 +23,11 @@ let
     gaming = "07-gaming";
     misc = "08-misc";
   };
+
   script = "${config.home.homeDirectory}/Desktop/dotfiles/home/linux/modules/System-Config/start-scripts";
+
   helper = import ../../../../../../lib/Helper-Functions/System-dependent-checker.nix;
-in
-{
+in {
   imports = [
     ./switch-binds.nix
   ];
@@ -187,7 +189,6 @@ in
             "systemctl suspend"
           ];
         };
-
       };
     };
   };

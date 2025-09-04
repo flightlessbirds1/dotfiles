@@ -3,8 +3,7 @@
   pkgs,
   osConfig,
   ...
-}:
-{
+}: {
   programs.nushell.shellAliases = {
     # ─── AirVPN ────────────────────────────────────────────────────────────────
     start-AA = "sudo systemctl start wg-quick-AirVPN-America.service";

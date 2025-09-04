@@ -8,11 +8,9 @@
   pkgs,
   username,
   ...
-}:
-let
+}: let
   helper = import ../lib/Helper-Functions/System-Checker.nix;
-in
-{
+in {
   imports = [
     ../home/linux/default.nix
   ];
@@ -38,78 +36,71 @@ in
       initialPassword = "nixos";
     };
   };
-  home-manager.users.${username} =
-    {
-      pkgs,
-      ...
-    }:
-    let
-      hs = ../home/linux/modules;
-    in
-    {
-      imports = [
-        ../home/linux/modules
-        ../home/linux/modules/App-Config/browser/firefox
-        ../home/linux/modules/App-Config/browser/brave
+  home-manager.users.${username} = {pkgs, ...}: let
+    hs = ../home/linux/modules;
+  in {
+    imports = [
+      ../home/linux/modules
+      ../home/linux/modules/App-Config/browser/firefox
+      ../home/linux/modules/App-Config/browser/brave
+    ];
+    home = {
+      inherit
+        username
+        stateVersion
+        ;
+      homeDirectory = "/home/${username}";
+      packages = with pkgs; [
+        discord
+        neovim
+        git
+        vesktop
+        bottles
+        fastfetch
+        lutris
+        bitwarden-desktop
+        telegram-desktop
+        localsend
+        pcsx2
+        qbittorrent
+        libreoffice
+        discord-canary
+        zotero
+        plex-desktop
+        rnote
+        proxychains-ng
+        scrcpy
+        jq
+        curl
+        grim
+        slurp
+        wl-clipboard
+        blueman
+        nodePackages_latest.prettier
+        calibre
+        foliate
+        libsForQt5.okular
+        kdePackages.kdenlive
+        brightnessctl
+        parsec-bin
+        # rustdesk
+        git-credential-manager
+        pdfarranger
+        tokei
+        imagemagick
+        gpick
+        spotdl
+        nomacs-qt6
+        qview
+        ffmpeg
+        mediainfo
+        floorp
+        xwayland-satellite
+        anki
+        btop
       ];
-      home = {
-        inherit
-          username
-          stateVersion
-          ;
-        homeDirectory = "/home/${username}";
-        packages = with pkgs; [
-          discord
-          neovim
-          git
-          vesktop
-          bottles
-          fastfetch
-          lutris
-          bitwarden-desktop
-          telegram-desktop
-          localsend
-          pcsx2
-          qbittorrent
-          libreoffice
-          discord-canary
-          zotero
-          plex-desktop
-          rnote
-          proxychains-ng
-          scrcpy
-          jq
-          curl
-          grim
-          slurp
-          wl-clipboard
-          blueman
-          nodePackages_latest.prettier
-          calibre
-          foliate
-          libsForQt5.okular
-          kdePackages.kdenlive
-          brightnessctl
-          parsec-bin
-          # rustdesk
-          git-credential-manager
-          pdfarranger
-          tokei
-          imagemagick
-          gpick
-          spotdl
-          nomacs-qt6
-          qview
-          ffmpeg
-          mediainfo
-          floorp
-          xwayland-satellite
-          anki
-          btop
-          htop
-        ];
-      };
     };
+  };
   services = {
     flatpak = {
       enable = true;

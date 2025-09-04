@@ -1,6 +1,14 @@
-{ config, pkgs, ... }: {
-  imports = [ ./shekl.nix ];
-  home.packages = with pkgs; [ nix-your-shell ];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./shekl.nix
+  ];
+  home.packages = with pkgs; [
+    nix-your-shell
+  ];
 
   home.file."${config.xdg.configHome}/nushell/nix-your-shell.nu".source =
     pkgs.nix-your-shell.generate-config "nu";
@@ -13,7 +21,9 @@
       $env.config = { show_banner: false }
     '';
     environmentVariables =
-      builtins.mapAttrs (name: value: builtins.toString value)
+      builtins.mapAttrs (
+        name: value: builtins.toString value
+      )
       config.home.sessionVariables;
   };
 }

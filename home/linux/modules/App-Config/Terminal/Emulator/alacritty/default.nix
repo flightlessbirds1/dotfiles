@@ -4,8 +4,7 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   programs.alacritty = {
     enable = true;
     settings = {

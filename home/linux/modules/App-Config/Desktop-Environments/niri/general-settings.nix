@@ -1,4 +1,4 @@
-{ ... }:
+{...}:
 # This file is basically just for general settings that don't quite fit in other files
 {
   programs.niri = {
