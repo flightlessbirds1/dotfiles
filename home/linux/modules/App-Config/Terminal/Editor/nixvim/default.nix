@@ -1,5 +1,8 @@
-{ inputs, nixvim, ... }:
 {
+  inputs,
+  nixvim,
+  ...
+}: {
   imports = [
     ./config/plugins/avante.nix
     ./config/plugins/bufferline.nix

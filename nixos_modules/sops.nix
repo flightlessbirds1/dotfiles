@@ -4,10 +4,13 @@
   lib,
   config,
   ...
-}:
-{
-  imports = [ inputs.sops-nix.nixosModules.default ];
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+}: {
+  imports = [
+    inputs.sops-nix.nixosModules.default
+  ];
+  sops.age.sshKeyPaths = [
+    "/etc/ssh/ssh_host_ed25519_key"
+  ];
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.generateKey = true;
 
@@ -40,7 +43,9 @@
   # Export both weather secrets to environment
   systemd.services.export-weather-secrets = {
     description = "Export weather secrets to environment file";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [
+      "multi-user.target"
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;

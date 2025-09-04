@@ -7,12 +7,10 @@
   system,
   stateVersion,
   ...
-}:
-let
+}: let
   NM = ../../nixos_modules;
   users = ../../users;
-in
-{
+in {
   imports = [
     ../shared/default.nix
     ./hardware-configuration.nix

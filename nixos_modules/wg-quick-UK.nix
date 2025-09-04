@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   networking.wg-quick.interfaces = {
     proton-uk = {
       address = [
@@ -13,7 +12,9 @@
       peers = [
         {
           publicKey = "lMm8Gocz1SIU/eAhpBzPHIWvAxJ30Oyeaj2PvmNl/Qk=";
-          allowedIPs = [ "0.0.0.0/0, ::/0" ];
+          allowedIPs = [
+            "0.0.0.0/0, ::/0"
+          ];
           endpoint = "146.70.204.178:51820";
           persistentKeepalive = 25;
         }

@@ -1,11 +1,12 @@
-{ inputs, pkgs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   home.sessionVariables.EDITOR = "hx";
 
   home.packages = with pkgs; [
     nil
-    nixfmt-classic
-
     python3Packages.python-lsp-server
     python3Packages.ruff
     python3Packages.black
@@ -56,14 +57,12 @@
       language = [
         {
           name = "nix";
-          language-servers = [ "nil" ];
+          language-servers = [
+            "nil"
+          ];
           auto-format = true;
           formatter = {
-            command = "nixfmt";
-            args = [
-              "--width"
-              "2"
-            ];
+            command = "alejandra";
           };
         }
         {
@@ -83,7 +82,7 @@
         }
         {
           name = "bash";
-          language-servers = [ ]; # no dedicated LSP in your packages
+          language-servers = [];
           auto-format = true;
           formatter = {
             command = "shfmt";
@@ -91,7 +90,9 @@
         }
         {
           name = "rust";
-          language-servers = [ "rust-analyzer" ];
+          language-servers = [
+            "rust-analyzer"
+          ];
           auto-format = true;
           formatter = {
             command = "rustfmt";
@@ -103,7 +104,9 @@
         }
         {
           name = "haskell";
-          language-servers = [ "hls" ];
+          language-servers = [
+            "hls"
+          ];
           auto-format = true;
           formatter = {
             command = "stylish-haskell";
@@ -111,7 +114,9 @@
         }
         {
           name = "swift";
-          language-servers = [ "sourcekit-lsp" ];
+          language-servers = [
+            "sourcekit-lsp"
+          ];
           auto-format = true;
           formatter = {
             command = "swift-format";
@@ -126,7 +131,9 @@
         }
         {
           name = "typst";
-          language-servers = [ "tinymist" ];
+          language-servers = [
+            "tinymist"
+          ];
           auto-format = true;
           formatter = {
             command = "typstfmt";
@@ -134,16 +141,22 @@
         }
         {
           name = "yaml";
-          language-servers = [ "yaml-language-server" ];
+          language-servers = [
+            "yaml-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "yamlfmt";
-            args = [ "-in" ];
+            args = [
+              "-in"
+            ];
           };
         }
         {
           name = "css";
-          language-servers = [ "vscode-css-language-server" ];
+          language-servers = [
+            "vscode-css-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
@@ -155,7 +168,9 @@
         }
         {
           name = "scss";
-          language-servers = [ "vscode-css-language-server" ];
+          language-servers = [
+            "vscode-css-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
@@ -167,7 +182,9 @@
         }
         {
           name = "svelte";
-          language-servers = [ "svelteserver" ];
+          language-servers = [
+            "svelteserver"
+          ];
           auto-format = true;
           formatter = {
             command = "prettier";
@@ -182,7 +199,9 @@
       language-server = {
         ruff = {
           command = "ruff";
-          args = [ "server" ];
+          args = [
+            "server"
+          ];
         };
         pylsp = {
           command = "pylsp";
@@ -192,7 +211,9 @@
         };
         hls = {
           command = "haskell-language-server-wrapper";
-          args = [ "--lsp" ];
+          args = [
+            "--lsp"
+          ];
         };
         nil = {
           command = "nil";
@@ -205,11 +226,15 @@
         };
         "yaml-language-server" = {
           command = "yaml-language-server";
-          args = [ "--stdio" ];
+          args = [
+            "--stdio"
+          ];
         };
         "vscode-css-language-server" = {
           command = "vscode-css-language-server";
-          args = [ "--stdio" ];
+          args = [
+            "--stdio"
+          ];
         };
         svelteserver = {
           command = "svelteserver";

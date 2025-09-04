@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}:
-{
-  home.packages = with pkgs; [ signal-desktop-bin ];
+}: {
+  home.packages = with pkgs; [
+    signal-desktop-bin
+  ];
 }

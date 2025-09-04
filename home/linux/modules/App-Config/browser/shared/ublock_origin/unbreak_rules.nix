@@ -1,5 +1,4 @@
-{ ... }:
-''
+{...}: ''
   www.accuweather.com awxcdn.com * noop
   www.accuweather.com a1060.dscapi5.akamai.net * noop
   www.accuweather.com dscx.akamaiedge.net * noop

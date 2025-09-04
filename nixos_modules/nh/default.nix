@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   programs.nh = {
     enable = true;
     flake = "/home/insomniac/Desktop/dotfiles";

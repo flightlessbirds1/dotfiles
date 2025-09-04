@@ -1,10 +1,7 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   home.packages = builtins.attrValues {
-    inherit (pkgs.kdePackages)
+    inherit
+      (pkgs.kdePackages)
       kwallet-pam
       # kwalletmanager
       ;
@@ -13,6 +10,6 @@
     enable = true;
   };
 }
-
 # use this to make annoying shit go away:
 # gpg --pinentry-mode loopback --full-generate-key
+

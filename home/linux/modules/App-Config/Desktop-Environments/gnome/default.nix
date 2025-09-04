@@ -2,11 +2,9 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   username = config.home.username;
-in
-{
+in {
   home = {
     file.".local/share/backgrounds/.background-image".source =
       ../../../../../../deploy/.background-image;
@@ -32,7 +30,9 @@ in
 
       "org/gnome/mutter" = {
         dynamic-workspaces = true;
-        experimental-features = [ "scale-monitor-framebuffer" ];
+        experimental-features = [
+          "scale-monitor-framebuffer"
+        ];
       };
 
       # This picture comes from deploy/.background-image
@@ -56,7 +56,7 @@ in
       # Enable Gnome extensions
       "org/gnome/shell" = {
         disable-user-extensions = false;
-        disabled-extensions = [ ];
+        disabled-extensions = [];
         enabled-extensions = [
           "compiz-windows-effect@hermes83.github.com"
           "logomenu@aryan_k"

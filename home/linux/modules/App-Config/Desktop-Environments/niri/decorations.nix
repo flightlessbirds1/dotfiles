@@ -3,9 +3,7 @@
   lib,
   flake,
   ...
-}:
-
-{
+}: {
   programs.niri.settings = {
     window-rules = [
       {
@@ -19,52 +17,72 @@
       }
       {
         matches = [
-          { app-id = "ghostty"; }
-          { app-id = "org.gnome.Nautilus"; }
+          {
+            app-id = "ghostty";
+          }
+          {
+            app-id = "org.gnome.Nautilus";
+          }
         ];
         open-on-workspace = "01-terminal";
         open-maximized = true;
-
       }
       {
         matches = [
-          { app-id = "firefox"; }
+          {
+            app-id = "firefox";
+          }
         ];
         open-on-workspace = "02-web";
         open-maximized = true;
-
       }
       {
         matches = [
-          { app-id = "code"; }
-          { app-id = "codium"; }
-          { app-id = "zed"; }
-          { app-id = "spotify"; }
+          {
+            app-id = "code";
+          }
+          {
+            app-id = "codium";
+          }
+          {
+            app-id = "zed";
+          }
+          {
+            app-id = "spotify";
+          }
         ];
         open-on-workspace = "03-code";
         open-maximized = true;
-
       }
       {
         matches = [
-          { app-id = "vesktop"; }
+          {
+            app-id = "vesktop";
+          }
         ];
         open-on-workspace = "04-music";
         open-maximized = true;
-
       }
       {
         matches = [
-          { app-id = "discord"; }
-          { app-id = "signal-desktop"; }
+          {
+            app-id = "discord";
+          }
+          {
+            app-id = "signal-desktop";
+          }
         ];
         open-on-workspace = "05-chat";
         open-maximized = true;
       }
       {
         matches = [
-          { app-id = "steam"; }
-          { app-id = "steam_app_.*"; }
+          {
+            app-id = "steam";
+          }
+          {
+            app-id = "steam_app_.*";
+          }
         ];
         open-on-workspace = "07-gaming";
       }
@@ -85,7 +103,6 @@
         inactive = {
           color = "#453a4a";
         };
-
       };
       focus-ring.enable = false;
       default-column-width = {

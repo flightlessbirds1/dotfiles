@@ -4,12 +4,10 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   ThirdParty = "3rdparty";
-  extensions = import ./extension_ids.nix { };
-in
-{
+  extensions = import ./extension_ids.nix {};
+in {
   AppAutoUpdate = false;
   RequestedLocales = "es-ES,es,en-US,en";
 
@@ -106,7 +104,11 @@ in
   };
 
   ${ThirdParty}.Extensions = {
-    "uBlock0@raymondhill.net" = import ../shared/ublock_origin { inherit lib; };
+    "uBlock0@raymondhill.net" = import ../shared/ublock_origin {
+      inherit
+        lib
+        ;
+    };
 
     "${extensions.redirect}" = import ./redirect/settings.nix;
   };
@@ -119,9 +121,15 @@ in
           domain = "www.reddit.com";
         };
         targets = [
-          { domain = "safereddit.com"; }
-          { domain = "redlib.ducks.party"; }
-          { domain = "redlib.tux.pizza"; }
+          {
+            domain = "safereddit.com";
+          }
+          {
+            domain = "redlib.ducks.party";
+          }
+          {
+            domain = "redlib.tux.pizza";
+          }
         ];
       };
     };
@@ -142,8 +150,7 @@ in
     "browser.search.openintab" = true;
 
     # Adblocking and Annoyances
-    "browser.contentblocking.features.strict" =
-      "tp,tpPrivate,cookieBehavior5,cookieBehaviorPBM5,cm,fp,stp,emailTP,emailTPPrivate,lvl2,rp,rpTop,ocsp,qps,qpsPBM,fpp,fppPrivate";
+    "browser.contentblocking.features.strict" = "tp,tpPrivate,cookieBehavior5,cookieBehaviorPBM5,cm,fp,stp,emailTP,emailTPPrivate,lvl2,rp,rpTop,ocsp,qps,qpsPBM,fpp,fppPrivate";
     "browser.contentblocking.category" = "strict";
     "browser.newtabpage.activity-stream.showSponsored" = false;
     "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;

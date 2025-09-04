@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   default_newtab = [
     {
       baseDomain = "youtube.com";
@@ -229,5 +228,4 @@
       baseDomain = "mail.google.com";
     }
   ];
-
 }

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   disabledModules = [
     "services/display-managers/cosmic-greeter.nix"
     "nixos/modules/services/display-managers/cosmic-greeter.nix"

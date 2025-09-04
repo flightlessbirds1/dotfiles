@@ -4,8 +4,7 @@
   lib,
   inputs,
   ...
-}:
-{
+}: {
   programs.ghostty = {
     enable = true;
     settings = {

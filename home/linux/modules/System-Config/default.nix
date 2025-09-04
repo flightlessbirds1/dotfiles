@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./Session-Variables
     ./Default-Apps

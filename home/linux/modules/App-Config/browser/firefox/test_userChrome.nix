@@ -1,5 +1,4 @@
-{ ... }:
-''
+{...}: ''
   @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
   /* TABS: bottom - Firefox 65 and later - updated for 89+ */

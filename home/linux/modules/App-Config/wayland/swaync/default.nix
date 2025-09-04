@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   services.swaync = {
     enable = true;
     settings = {
@@ -63,7 +61,7 @@
       }
 
       .floating-notifications.background .notification-row .notification-background {
-        box-shadow: 
+        box-shadow:
           0 8px 32px rgba(0, 0, 0, 0.4),
           0 4px 16px rgba(0, 0, 0, 0.3),
           inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -80,7 +78,7 @@
 
       .floating-notifications.background .notification-row .notification-background:hover {
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 
+        box-shadow:
           0 12px 40px rgba(0, 0, 0, 0.5),
           0 6px 20px rgba(0, 0, 0, 0.4),
           inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -96,7 +94,7 @@
       .floating-notifications.background .notification-row .notification-background .notification.critical {
         background: linear-gradient(135deg, rgba(243, 139, 168, 0.1), rgba(243, 139, 168, 0.05));
         border: 1px solid rgba(243, 139, 168, 0.3);
-        box-shadow: 
+        box-shadow:
           0 0 20px rgba(243, 139, 168, 0.2),
           0 8px 32px rgba(0, 0, 0, 0.4);
         animation: pulse 2s infinite;
@@ -162,7 +160,7 @@
       }
 
       .control-center {
-        box-shadow: 
+        box-shadow:
           0 16px 64px rgba(0, 0, 0, 0.5),
           0 8px 32px rgba(0, 0, 0, 0.3),
           inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -238,7 +236,7 @@
 
       .notification-row:focus-visible .notification-background {
         border-color: rgba(203, 166, 247, 0.6);
-        box-shadow: 
+        box-shadow:
           0 0 0 2px rgba(203, 166, 247, 0.2),
           0 8px 32px rgba(0, 0, 0, 0.4);
       }

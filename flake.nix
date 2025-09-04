@@ -61,61 +61,63 @@
     niri-flake = {
       url = "github:sodiboo/niri-flake";
     };
+    alejandra = {
+      url = "github:kamadorueda/alejandra/4.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs =
-    inputs@{
-      self,
-      flake-parts,
-      nixpkgs,
-      nixvim,
-      treefmt-nix,
-      ...
-    }:
-    let
-      stateVersion = "25.11";
-    in
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    nixpkgs,
+    nixvim,
+    treefmt-nix,
+    ...
+  }: let
+    stateVersion = "25.11";
+  in
+    flake-parts.lib.mkFlake
+    {
+      inherit
+        inputs
+        ;
+    }
+    {
       imports = [
         inputs.pre-commit-hooks-nix.flakeModule
         ./lib
         ./nixos_modules/haskeww
       ];
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+      ];
 
-      flake =
-        { config, ... }:
-        let
-          eachSystem =
-            f: nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: f nixpkgs.legacyPackages.${system});
-          # Eval the treefmt modules from ./treefmt.nix
-          treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-        in
-        {
-          # for `nix fmt`
-          formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      flake = {config, ...}: let
+        eachSystem = f:
+          nixpkgs.lib.genAttrs [
+            "x86_64-linux"
+          ] (system: f nixpkgs.legacyPackages.${system});
+        # Eval the treefmt modules from ./treefmt.nix
+        treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      in {
+        # for `nix fmt`
+        formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
-          nixosConfigurations = {
-            desktop =
-              let
-                system = "x86_64-linux";
-              in
-              self.lib.systems.mkLinuxSystem "desktop" "insomniac" system stateVersion [
-              ] { };
+        nixosConfigurations = {
+          desktop = let
+            system = "x86_64-linux";
+          in
+            self.lib.systems.mkLinuxSystem "desktop" "insomniac" system stateVersion [] {};
 
-            laptop =
-              let
-                system = "x86_64-linux";
-              in
-              self.lib.systems.mkLinuxSystem "laptop" "insomniac" system stateVersion [
-              ] { };
-            portable =
-              let
-                system = "x86_64-linux";
-              in
-              self.lib.systems.mkLinuxSystem "portable" "insomniac" system stateVersion [
-              ] { };
-
-          };
+          laptop = let
+            system = "x86_64-linux";
+          in
+            self.lib.systems.mkLinuxSystem "laptop" "insomniac" system stateVersion [] {};
+          portable = let
+            system = "x86_64-linux";
+          in
+            self.lib.systems.mkLinuxSystem "portable" "insomniac" system stateVersion [] {};
         };
+      };
     };
 }

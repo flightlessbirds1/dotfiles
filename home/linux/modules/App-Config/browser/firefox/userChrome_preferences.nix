@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   # Fixes issue where window border in GTK is curved but content pokes out
   "widget.gtk.rounded-bottom-corners.enabled" = true;
 

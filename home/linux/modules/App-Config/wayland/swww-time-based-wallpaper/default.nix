@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.file."scripts/wallpaper-switcher" = {
     source = ../../../System-Config/start-scripts/wallpaper-switcher;
     executable = true;
@@ -9,8 +11,12 @@
   systemd.user.services.swww-daemon = {
     Unit = {
       Description = "swww wallpaper daemon";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
+      PartOf = [
+        "graphical-session.target"
+      ];
+      After = [
+        "graphical-session.target"
+      ];
       ConditionEnvironment = "WAYLAND_DISPLAY";
     };
     Service = {
@@ -29,14 +35,20 @@
         "SWWW_TRANSITION_DURATION=0"
       ];
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [
+      "graphical-session.target"
+    ];
   };
 
   systemd.user.services.wallpaper-switcher = {
     Unit = {
       Description = "Time-based wallpaper switcher";
-      After = [ "swww-daemon.service" ];
-      Wants = [ "swww-daemon.service" ];
+      After = [
+        "swww-daemon.service"
+      ];
+      Wants = [
+        "swww-daemon.service"
+      ];
     };
     Service = {
       Type = "oneshot";
@@ -58,7 +70,9 @@
       Persistent = true;
       AccuracySec = "1min";
     };
-    Install.WantedBy = [ "timers.target" ];
+    Install.WantedBy = [
+      "timers.target"
+    ];
   };
 
   systemd.user.services.wallpaper-startup = {
@@ -68,7 +82,9 @@
         "graphical-session.target"
         "swww-daemon.service"
       ];
-      Wants = [ "swww-daemon.service" ];
+      Wants = [
+        "swww-daemon.service"
+      ];
       # Don't block login
       DefaultDependencies = false;
     };
@@ -85,6 +101,8 @@
       Nice = 15;
       IOSchedulingClass = "idle";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [
+      "graphical-session.target"
+    ];
   };
 }

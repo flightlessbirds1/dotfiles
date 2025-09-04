@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   networking.wg-quick.interfaces = {
     AirVPN-DC = {
       address = [
@@ -16,7 +15,9 @@
         {
           publicKey = "PyLCXAQT8KkM4T+dUsOQfn+Ub3pGxfGlxkIApuig+hk=";
           presharedKeyFile = config.sops.secrets.preshared.path;
-          allowedIPs = [ "0.0.0.0/0,::/0" ];
+          allowedIPs = [
+            "0.0.0.0/0,::/0"
+          ];
           endpoint = "198.54.128.117:1637";
           persistentKeepalive = 10;
         }

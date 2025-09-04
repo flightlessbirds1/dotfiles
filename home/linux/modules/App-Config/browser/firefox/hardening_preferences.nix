@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   # Get rid of prefetching
   "network.prefetch-next" = false;
   "network.dns.disablePrefetch" = true;
