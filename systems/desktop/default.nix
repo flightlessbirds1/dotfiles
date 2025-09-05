@@ -22,8 +22,10 @@ in {
     (NM + /wg-quick-EU.nix)
     (NM + /wg-quick.nix)
     (NM + /wg-quick-NL.nix)
+    (NM + /kernel-parameters.nix)
   ];
 
+  services.logind.killUserProcesses = true;
   environment.systemPackages = with pkgs; [
     # rustdesk
   ];

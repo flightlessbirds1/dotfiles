@@ -13,6 +13,8 @@
       # Memory management optimizations
       "transparent_hugepage=madvise"
       "vm.swappiness=10"
+      # Avoid annoying USB suspend issues
+      "usbcore.autosuspend=-1"
     ];
     loader.efi.canTouchEfiVariables = true;
     loader.grub = {
@@ -22,8 +24,10 @@
       ];
       efiSupport = true;
       configurationLimit = 10;
-      extraConfig = ''
 
+      gfxmodeEfi = "1024x768";
+      fontSize = 24;
+      extraConfig = ''
         acpi /ssdt-csc3551.aml
       '';
     };

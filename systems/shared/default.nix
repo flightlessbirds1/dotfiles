@@ -36,6 +36,7 @@ in {
       (NM + /timeout.nix)
       (NM + /cron.nix)
       (NM + /nh)
+      (NM + /fans.nix)
     ]
     ++ (
       if hostname == "laptop" || hostname == "desktop"

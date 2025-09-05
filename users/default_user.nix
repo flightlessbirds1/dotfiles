@@ -9,7 +9,9 @@
   username,
   ...
 }: let
-  helper = import ../lib/Helper-Functions/System-Checker.nix;
+  helper =
+    import
+    ../lib/Helper-Functions/System-Checker.nix;
 in {
   imports = [
     ../home/linux/default.nix
@@ -22,22 +24,26 @@ in {
     concatenation_type = "attribute";
     portable_content = {
       home = "/home/${username}";
-      isNormalUser = true;
+      isNormalUser =
+        true;
       extraGroups = [
         "networkManager"
         "wheel"
       ];
-      shell = pkgs.nushell;
+      shell =
+        pkgs.nushell;
     };
     unportable_content = {
-      hashedPasswordFile = config.sops.secrets.password.path;
+      hashedPasswordFile =
+        config.sops.secrets.password.path;
     };
     backup_content = {
       initialPassword = "nixos";
     };
   };
   home-manager.users.${username} = {pkgs, ...}: let
-    hs = ../home/linux/modules;
+    hs =
+      ../home/linux/modules;
   in {
     imports = [
       ../home/linux/modules
@@ -79,7 +85,6 @@ in {
         nodePackages_latest.prettier
         calibre
         foliate
-        libsForQt5.okular
         kdePackages.kdenlive
         brightnessctl
         parsec-bin
@@ -103,7 +108,8 @@ in {
   };
   services = {
     flatpak = {
-      enable = true;
+      enable =
+        true;
     };
   };
 }
