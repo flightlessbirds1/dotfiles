@@ -8,7 +8,7 @@
         name: let
           dirContents = builtins.readDir ./${name};
         in
-          !(builtins.hasAttr "non-module.nix" dirContents)
+          !(builtins.hasAttr "non-module" dirContents)
       )
       first-filter;
   in

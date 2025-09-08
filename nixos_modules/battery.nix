@@ -45,13 +45,16 @@
   };
 
   services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchDocked = "suspend";
-    lidSwitchExternalPower = "suspend";
-    powerKey = "suspend";
-    suspendKey = "suspend";
+    settings = {
+      Login = {
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchDocked = "suspend";
+        HandleLidSwitchExternalPower = "suspend";
+        HandlePowerKey = "suspend";
+        HandleSuspendKey = "suspend";
+      };
+    };
   };
-
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=3600
     SuspendState=mem
