@@ -40,7 +40,7 @@ in {
 
   ExtensionSettings = with extensions; {
     # also blocks about:debugging
-    "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+    "*".installation_mode = "allowed"; # blocks all addons except the ones specified below
 
     "${ublock_origin}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
@@ -100,10 +100,6 @@ in {
     "${chameleon-ext}" = {
       installation_mode = "allowed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/chameleon-ext/latest.xpi";
-    };
-    "${ff2mpv}" = {
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ff2mpv/latest.xpi";
     };
   };
 

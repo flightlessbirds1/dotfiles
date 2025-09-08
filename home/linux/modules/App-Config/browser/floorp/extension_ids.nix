@@ -16,5 +16,4 @@
   kagi-search = "search@kagi.com";
   movie-web = "{b0a674f9-f848-9cfd-0feb-583d211308b0}";
   chameleon-ext = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-  ff2mpv = "ff2mpv@yossarian.net";
 }

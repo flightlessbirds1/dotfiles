@@ -130,7 +130,6 @@
       kagi-search
       mal-sync
       violentmonkey
-      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-default.nix {};
@@ -153,7 +152,6 @@
       redirect
       kagi-search
       movie-web
-      ff2mpv
     ])
     {};
 
@@ -181,7 +179,6 @@
       translate-web-pages
       kagi-search
       chameleon-ext
-      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-school.nix {};
@@ -202,7 +199,6 @@
       zotero-connector
       translate-web-pages
       kagi-search
-      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-study.nix {};

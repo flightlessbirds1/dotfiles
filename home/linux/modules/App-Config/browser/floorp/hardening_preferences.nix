@@ -9,7 +9,7 @@
   "network.file.disable_unc_paths" = true;
 
   # Don't cache
-  "browser.cache.disk.enable" = true;
+  "browser.cache.disk.enable" = false;
   "browser.sessionstore.privacy_level" = 2;
   "browser.sessionstore.resume_from_crash" = false;
   "browser.pagethumbnails.capturing_disabled" = true;
@@ -24,7 +24,7 @@
   "media.peerconnection.ice.proxy_only_if_behind_proxy" = true;
   "media.peerconnection.ice.default_address_only" = true;
   "media.peerconnection.ice.no_host" = true;
-  "webgl.disabled" = true;
+  "webgl.disabled" = false;
   "media.autoplay.default" = 5;
   "media.eme.enabled" = false;
 

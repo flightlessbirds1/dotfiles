@@ -49,6 +49,7 @@ in {
       ../home/linux/modules
       ../home/linux/modules/App-Config/browser/firefox
       ../home/linux/modules/App-Config/browser/brave
+      ../home/linux/modules/App-Config/browser/floorp
     ];
     home = {
       inherit
@@ -99,10 +100,10 @@ in {
         qview
         ffmpeg
         mediainfo
-        floorp
         xwayland-satellite
         anki
         btop
+        ff2mpv-rust
       ];
     };
   };
