@@ -114,6 +114,7 @@ in {
     bottom
     resources
     alejandra
+    libinput
   ];
 
   programs.zsh.enable = false;

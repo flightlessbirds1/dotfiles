@@ -1,206 +1,47 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: {
   networking = {
-    useNetworkd =
-      true;
-    dhcpcd.enable =
-      false;
-    networkmanager.enable =
-      false;
+    useNetworkd = true;
+    dhcpcd.enable = false;
+    networkmanager.enable = true;
+
     wireless.iwd = {
-      enable =
-        true;
-      settings = {
-        General = {
-          EnableNetworkConfiguration =
-            true;
-          Country = "US";
-          AddressRandomization = "once";
-        };
-        Network = {
-          NameResolvingService = "systemd";
-          EnableIPv6 =
-            true;
-          RoutePriorityOffset =
-            300;
-        };
-        Settings = {
-          AutoConnect =
-            true;
-          DisableANQP =
-            true;
-          DisableRoamRetryLimit =
-            true;
-        };
-        IPv6 = {
-          Enabled =
-            true;
-        };
-        Scan = {
-          DisablePeriodicScan =
-            true;
-          InitialPeriodicScanInterval =
-            10;
-          MaxPeriodicScanInterval =
-            300;
-        };
-        BSS = {
-          RoamThreshold =
-            -70;
-          RoamThreshold5G =
-            -76;
-        };
-        Security = {
-          EAP-Method = "TTLS";
-        };
-        DriverQuirks.DefaultInterface =
-          true;
-      };
-    };
-    firewall = {
-      enable =
-        true;
-      allowedTCPPorts = [
-        22
-        443
-        19216
-        53317
-      ];
-      allowedUDPPorts = [
-        19216
-        53317
-      ];
+      enable = false;
+      #   settings = {
+      #     General = {
+      #       EnableNetworkConfiguration = true; # iwd writes .network files & does DHCP
+      #       Country = "US";
+      #       AddressRandomization = "default"; # keep default while debugging
+      #     };
+      #     Network = {
+      #       NameResolvingService = "systemd";
+      #       EnableIPv6 = true;
+      #     };
+      #     # IMPORTANT: leave out Security/Scan/BSS customizations for stability
+      #   };
     };
   };
 
+  # systemd-resolved for DNS
   services.resolved = {
-    enable =
-      true;
-    fallbackDns = [
-      "1.1.1.1"
-      "1.0.0.1"
-      "2606:4700:4700::1111"
-      "2606:4700:4700::1001"
-    ];
-    domains = [
-      "~."
-    ];
-    dnsovertls = "opportunistic";
+    enable = true;
+    # minimal, let DHCP supply DNS; you can keep fallback if you like
+    fallbackDns = ["1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001"];
     dnssec = "allow-downgrade";
-    extraConfig = ''
-      DNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
-      Cache=yes
-      DNSStubListener=yes
-      EDNS0=yes
-      CacheFromLocalhost=no
-      DNSStubListenerExtra=127.0.0.53
-    '';
   };
 
-  systemd.network = {
-    enable =
-      true;
-    networks."40-wlan" = {
-      matchConfig = {
-        Name = "wlan*";
-        Type = "wlan";
-      };
-      networkConfig = {
-        DHCP = "yes";
-        IPv6PrivacyExtensions = "yes";
-        IPv6AcceptRA =
-          true;
-        ConfigureWithoutCarrier =
-          true;
-        KeepConfiguration = "yes";
-        MulticastDNS =
-          false;
-        LLMNR =
-          false;
-        LinkLocalAddressing = "ipv6";
-      };
-      dhcpV4Config = {
-        UseDNS =
-          true;
-        UseNTP =
-          true;
-        UseDomains =
-          true;
-        RapidCommit =
-          true;
-        MaxAttempts =
-          2;
-      };
-      dhcpV6Config = {
-        UseDNS =
-          true;
-        UseNTP =
-          true;
-        UseDomains =
-          true;
-        RapidCommit =
-          true;
-        WithoutRA = "solicit";
-      };
-      ipv6AcceptRAConfig = {
-        UseAutonomousPrefix =
-          true;
-        UseOnLinkPrefix =
-          true;
-        UseDNS =
-          true;
-        UseDomains =
-          true;
-        DHCPv6Client = "always";
-      };
-    };
-    links."40-wlan" = {
-      matchConfig = {
-        Name = "wlan*";
-        Type = "wlan";
-      };
-      linkConfig = {
-        WakeOnLan = "off";
-        GenericSegmentationOffload =
-          true;
-        TCPSegmentationOffload =
-          true;
-        TCP6SegmentationOffload =
-          true;
-        GenericReceiveOffload =
-          true;
-        LargeReceiveOffload =
-          true;
-        MTUBytes = "1500";
-      };
-    };
-  };
+  systemd.network.enable = true;
 
-  boot.kernel.sysctl = {
-    "net.ipv6.conf.all.accept_ra" =
-      1;
-    "net.ipv6.conf.all.accept_ra_defrtr" =
-      1;
-    "net.ipv6.conf.all.accept_ra_pinfo" =
-      1;
-    "net.ipv4.tcp_syn_retries" =
-      3;
-    "net.ipv4.tcp_synack_retries" =
-      3;
-    "net.ipv6.conf.all.dad_transmits" =
-      1;
-  };
+  systemd.network.wait-online.enable = false;
 
-  systemd.network.wait-online = {
-    enable =
-      false;
+  environment.systemPackages = with pkgs; [iw iwgtk];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [22 443 19216 53317];
+    allowedUDPPorts = [19216 53317];
   };
-
-  environment.systemPackages = with pkgs; [
-    iw
-    iwgtk
-  ];
 }

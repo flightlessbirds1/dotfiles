@@ -131,6 +131,7 @@
       mal-sync
       violentmonkey
       ff2mpv
+      chameleon-ext
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-default.nix {};
