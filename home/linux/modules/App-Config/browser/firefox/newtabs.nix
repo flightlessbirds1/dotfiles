@@ -55,6 +55,11 @@
       url = "https://mail.google.com/";
       baseDomain = "mail.google.com";
     }
+    {
+      label = "SpanishDict";
+      url = "https://www.spanishdict.com";
+      baseDomain = "spanishdict.com";
+    }
   ];
 
   personal_newtab = [
@@ -226,6 +231,11 @@
       label = "Gmail";
       url = "https://mail.google.com/";
       baseDomain = "mail.google.com";
+    }
+    {
+      label = "SpanishDict";
+      url = "https://www.spanishdict.com";
+      baseDomain = "spanishdict.com";
     }
   ];
 }

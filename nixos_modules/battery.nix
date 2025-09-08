@@ -14,7 +14,7 @@
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 80;
 
-      # PCIe ASPM + runtime PM = big wins with minimal downsides
+      # PCIe ASPM + runtime PM
       PCIE_ASPM_POLICY = "powersupersave";
       RUNTIME_PM_ON_BAT = "auto";
       RUNTIME_PM_ON_AC = "auto";

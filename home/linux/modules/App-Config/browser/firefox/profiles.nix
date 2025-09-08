@@ -130,6 +130,7 @@
       kagi-search
       mal-sync
       violentmonkey
+      chameleon-ext
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-default.nix {};
