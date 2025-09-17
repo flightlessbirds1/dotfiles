@@ -27,6 +27,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    old-nixpkgs = {
+      url = "github:NixOS/nixpkgs/d70bd19e0a38ad4790d3913bf08fcbfc9eeca507";
+    };
     # Commented out to use helix from nixpkgs cache instead
     # helix = {
     #   url = "github:helix-editor/helix";

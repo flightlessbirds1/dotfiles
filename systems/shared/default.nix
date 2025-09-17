@@ -99,7 +99,7 @@ in {
     swww
     kitty
     stylish-haskell
-    rofi-wayland
+    rofi
     sops
     nekoray
     nh
