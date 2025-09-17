@@ -7,10 +7,8 @@
   helper = import ../lib/Helper-Functions/System-dependent-checker.nix;
 in {
   networking.wg-quick.interfaces = {
-    Proton-NL = helper.system-dependent-checker {
-      inherit username hostname;
-      concatenation_type = "attrbute";
-      portable_content = {
+    Proton-NL =
+      {
         address = [
           "10.2.0.2/32"
         ];
@@ -29,16 +27,13 @@ in {
             persistentKeepalive = 25;
           }
         ];
-      };
-      desktop_content = {
-        autostart = true;
-      };
-      laptop_content = {
-        autostart = false;
-      };
-      backup_content = {
-        autostart = false;
-      };
-    };
+      }
+      // (
+        if hostname == "laptop"
+        then {autostart = false;}
+        else {
+          autostart = true;
+        }
+      );
   };
 }

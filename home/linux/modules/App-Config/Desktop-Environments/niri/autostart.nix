@@ -24,11 +24,6 @@
         }
         {
           command = [
-            "vesktop"
-          ];
-        }
-        {
-          command = [
             "firefox"
           ];
         }
@@ -39,24 +34,15 @@
         }
       ]
       ++ (
-        if hostname == "desktop"
+        if hostname == "laptop"
         then [
-          # {
-          # command = [
-          # "nu"
-          # "-c"
-          # "eww open monitorBar1; eww open monitorBar2"
-          # ];
-          # }
         ]
         else [
-          # {
-          # command = [
-          # "eww"
-          # "open"
-          # "monitorBar"
-          # ];
-          # }
+          {
+            command = [
+              "vesktop"
+            ];
+          }
         ]
       );
     hotkey-overlay.skip-at-startup = true;
