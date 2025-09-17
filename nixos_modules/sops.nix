@@ -31,8 +31,6 @@
   sops.secrets.weather_location = {
     sopsFile = ../secrets/weather-location.yaml;
   };
-
-  # Add weather API key secret
   sops.secrets.weather_api_key = {
     sopsFile = ../secrets/weather-api-key.yaml;
   };

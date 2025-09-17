@@ -34,7 +34,7 @@
                 config
                 ;
               self = inputs.self;
-              helpers = import ./Helper-Functions {lib = pkgs.lib;};
+              helpers = import ./Helper-Functions/default.nix;
             };
 
             flake_lib = inputs.self.lib;

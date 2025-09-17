@@ -17,11 +17,6 @@ in {
     (users + /default_user.nix)
     (NM + /boot.nix)
     (NM + /networking.nix)
-    (NM + /wg-quick-AP.nix)
-    (NM + /wg-quick-DC.nix)
-    (NM + /wg-quick-EU.nix)
-    (NM + /wg-quick.nix)
-    (NM + /wg-quick-NL.nix)
     (NM + /kernel-parameters.nix)
     (NM + /gpu-reset-service.nix)
   ];

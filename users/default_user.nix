@@ -9,15 +9,11 @@
   username,
   flake,
   ...
-}: let
-  helper =
-    import
-    ../lib/Helper-Functions/System-Checker.nix;
-in {
+}: {
   imports = [
     ../home/linux/default.nix
   ];
-  users.users.${username} = helper.system-checker {
+  users.users.${username} = flake.helpers.checker.system-checker {
     inherit
       username
       hostname

@@ -12,39 +12,47 @@
   NM = ../../nixos_modules;
 in {
   imports =
-    [
-      #    NM + /boot.nix
-      (NM + /gnome.nix)
-      (NM + /printing.nix)
-      (NM + /sound.nix)
-      (NM + /steam.nix)
-      (NM + /electron_wayland.nix)
-      (NM + /doas.nix)
-      (NM + /fonts.nix)
-      (NM + /xdg-portals.nix)
-      # (NM + /hyprland.nix)
-      # (NM + /cosmic.nix)
-      (NM + /ramswap.nix)
-      # (NM + /plasma.nix)
-      (NM + /udev-rules.nix)
-      (NM + /hyprland.nix)
-      (NM + /networking.nix)
-      (NM + /niri.nix)
-      (NM + /i2c.nix)
-      (NM + /wallet.nix)
-      (NM + /documentation.nix)
-      (NM + /timeout.nix)
-      (NM + /cron.nix)
-      (NM + /nh)
-      (NM + /fans.nix)
-    ]
-    ++ (
-      if hostname == "laptop" || hostname == "desktop"
-      then [
-        ../../nixos_modules/sops.nix
-      ]
-      else []
-    );
+    helper.system-checker
+    {
+      inherit hostname username;
+      concatenation_type = "list";
+      portable_content = [
+        #    NM + /boot.nix
+        (NM + /gnome.nix)
+        (NM + /printing.nix)
+        (NM + /sound.nix)
+        (NM + /steam.nix)
+        (NM + /electron_wayland.nix)
+        (NM + /doas.nix)
+        (NM + /fonts.nix)
+        (NM + /xdg-portals.nix)
+        # (NM + /hyprland.nix)
+        # (NM + /cosmic.nix)
+        (NM + /ramswap.nix)
+        # (NM + /plasma.nix)
+        (NM + /udev-rules.nix)
+        (NM + /hyprland.nix)
+        (NM + /networking.nix)
+        (NM + /niri.nix)
+        (NM + /i2c.nix)
+        (NM + /wallet.nix)
+        (NM + /documentation.nix)
+        (NM + /timeout.nix)
+        (NM + /cron.nix)
+        (NM + /nh)
+        (NM + /fans.nix)
+      ];
+      unportable_content = [
+        (NM + /sops.nix)
+        (NM + /wg-quick-AP.nix)
+        (NM + /wg-quick-DC.nix)
+        (NM + /wg-quick-EU.nix)
+        (NM + /wg-quick.nix)
+        (NM + /wg-quick-NL.nix)
+      ];
+      backup_content = [
+      ];
+    };
 
   nix = {
     package = pkgs.nixVersions.stable;

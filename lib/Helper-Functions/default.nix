@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {lib, ...}: let
   importList = let
     first-content = builtins.readDir ./.;
@@ -18,4 +19,10 @@ in {
   importer = import ./importer;
   system-checker = import ./system-checker;
   system-dependent-checker = import ./system-dependent-checker;
+=======
+{
+  importer = import ./module-importer.nix;
+  checker = import ./System-Checker.nix;
+  dependent-checker = import ./System-dependent-checker.nix;
+>>>>>>> 7748cae (I actually added it on my laptop)
 }
