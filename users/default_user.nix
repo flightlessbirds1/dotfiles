@@ -7,6 +7,7 @@
   system,
   pkgs,
   username,
+  flake,
   ...
 }: let
   helper =
@@ -29,6 +30,9 @@ in {
       extraGroups = [
         "networkManager"
         "wheel"
+        "plugdev"
+        "lp"
+        "lpadmin"
       ];
       shell =
         pkgs.nushell;

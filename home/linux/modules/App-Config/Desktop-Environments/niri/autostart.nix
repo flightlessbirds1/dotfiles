@@ -41,22 +41,22 @@
       ++ (
         if hostname == "desktop"
         then [
-          {
-            command = [
-              "nu"
-              "-c"
-              "eww open monitorBar1; eww open monitorBar2"
-            ];
-          }
+          # {
+          # command = [
+          # "nu"
+          # "-c"
+          # "eww open monitorBar1; eww open monitorBar2"
+          # ];
+          # }
         ]
         else [
-          {
-            command = [
-              "eww"
-              "open"
-              "monitorBar"
-            ];
-          }
+          # {
+          # command = [
+          # "eww"
+          # "open"
+          # "monitorBar"
+          # ];
+          # }
         ]
       );
     hotkey-overlay.skip-at-startup = true;

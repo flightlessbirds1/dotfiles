@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  pkgs,
   ...
 }: {
   flake.lib = let
@@ -33,6 +34,7 @@
                 config
                 ;
               self = inputs.self;
+              helpers = import ./Helper-Functions {lib = pkgs.lib;};
             };
 
             flake_lib = inputs.self.lib;

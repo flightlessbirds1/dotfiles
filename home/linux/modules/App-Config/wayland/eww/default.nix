@@ -6,6 +6,7 @@
   pkgs,
   ...
 }: let
+  helper = import ../../../../../../lib/Helper-Functions/System-dependent-checker.nix;
   inherit
     (flake.self.packages.${pkgs.system})
     haskeww
@@ -68,10 +69,23 @@ in {
             "graphical-session.target"
           ];
         };
-        Service = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = "${pkgs.bash}/bin/bash -c '${lib.getExe pkgs.eww} ping || exec ${lib.getExe pkgs.eww} daemon'";
+        Service = helper.system-dependent-checker {
+          inherit username hostname;
+          concatenation_type = "attribute";
+          portable_content = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = "${pkgs.bash}/bin/bash -c '${lib.getExe pkgs.eww} ping || exec ${lib.getExe pkgs.eww} daemon'";
+          };
+
+          desktop_content = {
+            ExecStartPost = "${pkgs.bash}/bin/bash -c 'sleep 1; eww open monitorBar1; eww open monitorBar2'";
+          };
+          laptop_content = {
+            ExecStartPost = "${pkgs.bash}/bin/bash -c 'sleep 1; eww open monitorBar'";
+          };
+          backup_content = {
+          };
         };
         Install = {
           WantedBy = [
@@ -80,7 +94,6 @@ in {
         };
       };
 
-      eww-manage-cryptos = makeEWWService "manageCryptos" null;
       eww-manage-gpu = makeEWWService "manageGPU" null;
       eww-manage-network = makeEWWService "manageNetwork" null;
       eww-manage-time = makeEWWService "manageTime" null;

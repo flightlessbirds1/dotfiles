@@ -23,6 +23,7 @@ in {
     (NM + /wg-quick.nix)
     (NM + /wg-quick-NL.nix)
     (NM + /kernel-parameters.nix)
+    (NM + /gpu-reset-service.nix)
   ];
 
   services.logind.killUserProcesses = true;

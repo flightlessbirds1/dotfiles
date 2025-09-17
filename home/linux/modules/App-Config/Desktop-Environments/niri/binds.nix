@@ -103,7 +103,7 @@ in {
           "super+ctrl+shift+p".action = a.spawn [
             "${script}/plex.sh"
           ];
-          "super+shift+ctrl+r".action = a.spawn [
+          "super+shift+ctrl+t".action = a.spawn [
             "resources"
           ];
           # System and Screenshot Keybinds (SUPER + ALT)
@@ -167,14 +167,19 @@ in {
         };
         desktop_content = {
           "super+alt+delete".action = a.spawn [
-            "bash"
+            "nu"
             "-c"
-            "ddcutil setvcp 0xd6 5 --bus 7 --sleep-multiplier 4 && ddcutil setvcp 0xd6 5 --bus 8 --sleep-multiplier 4 && sleep 2 && systemctl poweroff"
+            "ddcutil --bus 7 --noverify --sleep-multiplier=.1 setvcp 0xD6 0x05; ddcutil --bus 8 --noverify --sleep-multiplier=.1 setvcp 0xD6 0x05; systemctl poweroff"
           ];
           "super+alt+p".action = a.spawn [
             "nu"
             "-c"
             "nddcutil setvcp 0xd6 5 --bus 7 --sleep-multiplier 4; ddcutil setvcp 0xd6 5 --bus 8 --sleep-multiplier 4; systemctl suspend"
+          ];
+          "super+alt+t".action = a.spawn [
+            "nu"
+            "-c"
+            "ddcutil --bus 7 --noverify --sleep-multiplier=.2 setvcp 0xD6 0x05; ddcutil --bus 8 --noverify --sleep-multiplier=.2 setvcp 0xD6 0x05"
           ];
         };
         backup_content = {
