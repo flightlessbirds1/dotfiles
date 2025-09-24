@@ -4,6 +4,6 @@ keys:
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|ovpn|txt|crt|nmconnection|8021x)$
     key_groups:
-    - age:
-      - *admin_insomniac
-      - *server_John
+      - age:
+          - *admin_insomniac
+          - *server_John

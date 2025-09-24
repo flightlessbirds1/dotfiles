@@ -1,0 +1,3 @@
+{
+  flake.deploy = ../deploy;
+}

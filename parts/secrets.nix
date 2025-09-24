@@ -1,0 +1,3 @@
+{
+  flake.secrets = ../secrets;
+}

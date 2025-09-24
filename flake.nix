@@ -30,7 +30,6 @@
     old-nixpkgs = {
       url = "github:NixOS/nixpkgs/d70bd19e0a38ad4790d3913bf08fcbfc9eeca507";
     };
-    # Commented out to use helix from nixpkgs cache instead
     # helix = {
     #   url = "github:helix-editor/helix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -69,58 +68,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    nixpkgs,
-    nixvim,
-    treefmt-nix,
-    ...
-  }: let
-    stateVersion = "25.11";
-  in
-    flake-parts.lib.mkFlake
-    {
-      inherit
-        inputs
-        ;
-    }
-    {
+
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
+
       imports = [
         inputs.pre-commit-hooks-nix.flakeModule
-        ./lib
-        ./nixos_modules/haskeww
+        ./parts
+        ./parts/modules/nixos_modules/apps/tui/terminal/files/treefmt/treefmt.nix
       ];
-      systems = [
-        "x86_64-linux"
-      ];
-
-      flake = {config, ...}: let
-        eachSystem = f:
-          nixpkgs.lib.genAttrs [
-            "x86_64-linux"
-          ] (system: f nixpkgs.legacyPackages.${system});
-        # Eval the treefmt modules from ./treefmt.nix
-        treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-      in {
-        # for `nix fmt`
-        formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-
-        nixosConfigurations = {
-          desktop = let
-            system = "x86_64-linux";
-          in
-            self.lib.systems.mkLinuxSystem "desktop" "insomniac" system stateVersion [] {};
-
-          laptop = let
-            system = "x86_64-linux";
-          in
-            self.lib.systems.mkLinuxSystem "laptop" "insomniac" system stateVersion [] {};
-          portable = let
-            system = "x86_64-linux";
-          in
-            self.lib.systems.mkLinuxSystem "portable" "insomniac" system stateVersion [] {};
-        };
-      };
     };
 }
