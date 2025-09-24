@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     users
     desktop
+    wireguard
   ];
 
   services.logind.settings.Login.killUserProcesses = true;

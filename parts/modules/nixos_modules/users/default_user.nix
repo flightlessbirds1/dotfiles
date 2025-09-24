@@ -39,8 +39,15 @@
     };
   };
   home-manager.users.${username} = {pkgs, ...}: {
-    imports = [
-      ../../home/linux/modules
+    imports = with flake.self.homeManagerModules; [
+      Communication
+      Desktop-Environments
+      Editors
+      Gaming
+      Media
+      Terminal
+      wayland
+      System-Config
       ../../home/linux/modules/App-Config/browser/firefox
       ../../home/linux/modules/App-Config/browser/brave
       ../../home/linux/modules/App-Config/browser/floorp
@@ -52,52 +59,6 @@
         ;
       homeDirectory = "/home/${username}";
       packages = with pkgs; [
-        discord
-        neovim
-        git
-        vesktop
-        bottles
-        fastfetch
-        lutris
-        bitwarden-desktop
-        telegram-desktop
-        localsend
-        pcsx2
-        qbittorrent
-        libreoffice
-        discord-canary
-        zotero
-        plex-desktop
-        rnote
-        proxychains-ng
-        scrcpy
-        jq
-        curl
-        grim
-        slurp
-        wl-clipboard
-        blueman
-        nodePackages_latest.prettier
-        calibre
-        foliate
-        kdePackages.kdenlive
-        brightnessctl
-        parsec-bin
-        # rustdesk
-        git-credential-manager
-        pdfarranger
-        tokei
-        imagemagick
-        gpick
-        spotdl
-        nomacs-qt6
-        qview
-        ffmpeg
-        mediainfo
-        xwayland-satellite
-        anki
-        btop
-        ff2mpv-rust
       ];
     };
   };

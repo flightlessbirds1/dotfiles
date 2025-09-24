@@ -19,7 +19,7 @@
     misc = "08-misc";
   };
 
-  script = "${config.home.homeDirectory}/Desktop/dotfiles/home/linux/modules/System-Config/start-scripts";
+  script = "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/System-Config/start-scripts";
 in {
   imports = [
     ./switch-binds.nix

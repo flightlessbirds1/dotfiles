@@ -26,7 +26,7 @@
       ];
       unportable_content = with flake.self.nixosModules; [
         sops
-        wireguard
+        DC
       ];
       backup_content = [
       ];

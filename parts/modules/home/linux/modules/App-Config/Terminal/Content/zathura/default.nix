@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs.zathura = {
     enable = true;
-    package = import ./package.nix {
+    package = import ./package {
       inherit
         pkgs
         ;
