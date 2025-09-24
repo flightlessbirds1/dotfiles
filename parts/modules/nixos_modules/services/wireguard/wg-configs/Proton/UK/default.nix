@@ -23,6 +23,6 @@
   };
   networking.wg-quick.interfaces.proton-uk = {
     # Your existing configuration
-    autostart = true;
+    autostart = false;
   };
 }
