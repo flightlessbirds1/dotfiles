@@ -4,6 +4,7 @@
   username,
   stateVersion,
   flake,
+  lib,
   ...
 }: {
   imports =
@@ -23,6 +24,7 @@
         sound
         udev
         wallet
+        dual
       ];
       unportable_content = with flake.self.nixosModules; [
         sops
@@ -31,6 +33,10 @@
       backup_content = [
       ];
     };
+
+  dual_modules.modules = {
+    fcitx5.enable = lib.mkDefault true;
+  };
 
   nix = {
     package = pkgs.nixVersions.stable;

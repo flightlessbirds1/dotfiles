@@ -1,5 +1,7 @@
 _: {
   services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", \
+      ATTRS{idVendor}=="feed", ATTRS{idProduct}=="1212", \
+      MODE="0660", TAG+="uaccess"
   '';
 }

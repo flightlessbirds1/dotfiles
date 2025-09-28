@@ -26,6 +26,7 @@
         "plugdev"
         "lp"
         "lpadmin"
+        "input"
       ];
       shell =
         pkgs.nushell;
@@ -68,4 +69,8 @@
         true;
     };
   };
+
+  dual_modules.users."${username}".use = [
+    "fcitx5"
+  ];
 }
