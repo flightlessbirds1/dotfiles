@@ -3,6 +3,7 @@
   inputs,
   osConfig,
   lib,
+  username,
   ...
 }: {
   imports = [
@@ -62,6 +63,13 @@
             {
               id = "WallpaperSelector";
             }
+            (
+              if osConfig.networking.hostName == "laptop"
+              then {
+                id = "Battery";
+              }
+              else {}
+            )
             {
               id = "ControlCenter";
               useDistroLogo = true;
@@ -107,7 +115,28 @@
         transitionDuration = 1500;
         transitionType = "random";
         transitionEdgeSmoothness = 0.05;
-        monitors = [];
+        monitors = [
+          (
+            if osConfig.networking.hostName == "laptop"
+            then {
+              "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
+              "name" = "eDP-1";
+              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
+            }
+            else
+              {
+                "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
+                "name" = "DP-1";
+
+                "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
+              }
+              {
+                "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
+                "name" = "DP-2";
+                "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
+              }
+          )
+        ];
       };
       appLauncher = {
         enableClipboardHistory = true;
@@ -159,14 +188,22 @@
         fontDefaultScale = 1;
         fontFixedScale = 1;
         monitorsScaling = [
-          {
-            "name" = "DP-1";
-            "scale" = 1.2;
-          }
-          {
-            "name" = "DP-2";
-            "scale" = 1.2;
-          }
+          (
+            if osConfig.networking.hostName == "desktop"
+            then
+              {
+                "name" = "DP-1";
+                "scale" = 1.2;
+              }
+              {
+                "name" = "DP-2";
+                "scale" = 1.2;
+              }
+            else {
+              "name" = "eDP-1";
+              "scale" = 1.2;
+            }
+          )
         ];
         idleInhibitorEnabled = false;
       };
