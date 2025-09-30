@@ -21,9 +21,6 @@
 
       substituters = [
         "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
-        "https://niri.cachix.org"
-        "https://helix.cachix.org"
       ];
 
       trusted-public-keys = [

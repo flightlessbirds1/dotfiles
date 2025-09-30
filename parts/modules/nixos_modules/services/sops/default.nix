@@ -41,6 +41,9 @@
   sops.secrets.proton-private = {
     sopsFile = ../../../../../secrets/proton-private-key.yaml;
   };
+  sops.secrets.location = {
+    sopsFile = ../../../../../secrets/location.yaml;
+  };
 
   # Export both weather secrets to environment
   systemd.services.export-weather-secrets = {

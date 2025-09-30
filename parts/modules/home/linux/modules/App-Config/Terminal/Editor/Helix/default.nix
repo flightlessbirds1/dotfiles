@@ -20,7 +20,6 @@
     rustfmt
 
     haskellPackages.haskell-language-server
-    haskellPackages.stylish-haskell
 
     sourcekit-lsp
     swift-format

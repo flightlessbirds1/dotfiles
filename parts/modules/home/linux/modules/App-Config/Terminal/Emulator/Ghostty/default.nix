@@ -29,7 +29,7 @@ _: {
       window-width = 130;
       window-new-tab-position = "current";
 
-      theme = "catppuccin-macchiato";
+      # theme = "catppuccin-macchiato";
       background = "24273a";
       foreground = "cad3f5";
       background-opacity = 0.85;
@@ -85,7 +85,7 @@ _: {
       gtk-titlebar = false;
       gtk-tabs-location = "hidden";
       gtk-wide-tabs = false;
-      gtk-adwaita = false;
+      # gtk-adwaita = false;
 
       working-directory = "home";
       grapheme-width-method = "unicode";

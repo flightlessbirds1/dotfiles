@@ -1,3 +1,0 @@
-[[language]]
-name = "haskell"
-workspace-lsp-roots = ["haskeww"]

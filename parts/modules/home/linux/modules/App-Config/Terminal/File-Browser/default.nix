@@ -16,7 +16,7 @@
         run = "quit --no-cwd-file";
       }
     ];
-    settings.mgr.show_hidden = true;
+    settings.mgr.show_hidden = false;
     plugins = {
       inherit (pkgs.yaziPlugins) chmod;
       inherit (pkgs.yaziPlugins) lazygit;

@@ -4,6 +4,7 @@
   flake,
   username,
   hostname,
+  pkgs,
   ...
 }: let
   a = config.lib.niri.actions;
@@ -18,7 +19,6 @@
     gaming = "07-gaming";
     misc = "08-misc";
   };
-
   script = "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/System-Config/start-scripts";
 in {
   imports = [
@@ -37,7 +37,11 @@ in {
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
           "super+space".action = a.spawn [
-            "${script}/fuzzel.sh"
+            "noctalia-shell"
+            "ipc"
+            "call"
+            "launcher"
+            "toggle"
           ];
           "super+comma".action = a.set-column-width "50%";
 
@@ -83,7 +87,7 @@ in {
           "super+shift+ctrl+g".action = a.spawn [
             "nu"
             "-c"
-            ''ghostty -e "cd ~/Desktop/dotfiles && zellij"''
+            "ghostty -e nu -c 'cd ~/Desktop/dotfiles; zellij'"
           ];
           "super+shift+ctrl+s".action = a.spawn "spotify";
           "super+shift+ctrl+i".action = a.spawn "nautilus";
@@ -91,7 +95,11 @@ in {
           "super+shift+ctrl+q".action = a.spawn "qbittorrent";
           "super+shift+ctrl+o".action = a.spawn "obsidian";
           "super+shift+v".action = a.spawn [
-            "${config.home.homeDirectory}/Desktop/dotfiles/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
+            "noctalia-shell"
+            "ipc"
+            "call"
+            "launcher"
+            "clipboard"
           ];
           "super+ctrl+shift+p".action = a.spawn [
             "${script}/plex.sh"

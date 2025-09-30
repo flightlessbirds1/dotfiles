@@ -15,7 +15,7 @@
       username
       ;
   };
-  package = inputs.old-nixpkgs.legacyPackages.${pkgs.system}.floorp;
+  package = pkgs.floorp-bin;
 in {
   imports = [];
 
