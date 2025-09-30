@@ -1,16 +1,16 @@
 {-# LANGUAGE NumericUnderscores #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings  #-}
 
-import Control.Concurrent (threadDelay)
-import Data.Text (Text, pack)
-import Data.Void (Void)
-import EWWLib (update)
-import System.Directory (getHomeDirectory)
-import System.FilePath ((</>))
-import System.Process (readProcess)
-import Text.Megaparsec (Parsec, parse, (<|>))
-import Text.Megaparsec.Char (string)
-import Text.Read (readMaybe)
+import           Control.Concurrent   (threadDelay)
+import           Data.Text            (Text, pack)
+import           Data.Void            (Void)
+import           EWWLib               (update)
+import           System.Directory     (getHomeDirectory)
+import           System.FilePath      ((</>))
+import           System.Process       (readProcess)
+import           Text.Megaparsec      (Parsec, parse, (<|>))
+import           Text.Megaparsec.Char (string)
+import           Text.Read            (readMaybe)
 
 main :: IO ()
 main = do
@@ -41,8 +41,10 @@ getBatteryClassAndText :: FilePath -> String -> String -> (String, String)
 getBatteryClassAndText home capacityText statusText = case ( parse statusParser "" $ pack statusText,
                                                              readMaybe capacityText :: Maybe Int
                                                            ) of
+  (Right Charging, Just capacity) | capacity > 90 ->
+    ("batteryGreen", batImagePath </> "discharging" </> "6.svg")
   (Right Charging, Just capacity) ->
-    ("BatteryYellow", batImagePath </> "charging" </> capacityToIcon capacity <> ".svg")
+    ("batteryYellow", batImagePath </> "charging" </> capacityToIcon capacity <> ".svg")
   (Right _, Just capacity) ->
     (capacityToClass capacity, batImagePath </> "discharging" </> capacityToIcon capacity <> ".svg")
   _ -> ("ERROR", "ERROR")

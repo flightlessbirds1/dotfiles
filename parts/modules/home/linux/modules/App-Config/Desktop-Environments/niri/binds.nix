@@ -4,6 +4,7 @@
   flake,
   username,
   hostname,
+  pkgs,
   ...
 }: let
   a = config.lib.niri.actions;
@@ -81,9 +82,9 @@ in {
           "super+shift+ctrl+slash".action = a.spawn "nu" "-c" ''firefox --no-remote -P "school"'';
           "super+shift+ctrl+v".action = a.spawn "vesktop";
           "super+shift+ctrl+g".action = a.spawn [
-            "nu"
-            "-c"
-            ''ghostty -e "cd ~/Desktop/dotfiles && zellij"''
+            "ghostty"
+            "-e"
+            "zellij"
           ];
           "super+shift+ctrl+s".action = a.spawn "spotify";
           "super+shift+ctrl+i".action = a.spawn "nautilus";
@@ -91,7 +92,7 @@ in {
           "super+shift+ctrl+q".action = a.spawn "qbittorrent";
           "super+shift+ctrl+o".action = a.spawn "obsidian";
           "super+shift+v".action = a.spawn [
-            "${config.home.homeDirectory}/Desktop/dotfiles/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
+            "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
           ];
           "super+ctrl+shift+p".action = a.spawn [
             "${script}/plex.sh"
@@ -123,6 +124,7 @@ in {
             "copy"
             "active"
           ];
+          "Ctrl+period".action = a.screenshot {};
 
           # Move Window to Monitor Keybinds
           "super+ctrl+left".action = a.move-window-to-monitor-left;

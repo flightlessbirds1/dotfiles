@@ -6,7 +6,6 @@
 (defvar batteryPopupVisible false)
 (defvar batteryEventboxClass "batteryEventboxClosed")
 (defvar batteryTimeRemaining0 "0")
-
 (defwidget battery []
   (eventbox
     :class batteryEventboxClass
@@ -36,7 +35,6 @@
     )
   )
 )
-
 (defwidget batteryBox
   [
     imageClass
@@ -48,7 +46,6 @@
     :path imagePath
   )
 )
-
 (defwidget batteryPopupContent []
   (box
     :class "batteryPopup"
@@ -58,7 +55,7 @@
     (label :text "${round(EWW_BATTERY.BATT.capacity, 0)}%")
     (label
       :text "${EWW_BATTERY.BATT.status == 'Charging'
-                ? '⚡'
+                ? ('⚡ ' + batteryTimeRemaining0 + 'h')
                 : (EWW_BATTERY.BATT.status == 'Discharging'
                     ? (batteryTimeRemaining0 + 'h')
                     : '✓')}")

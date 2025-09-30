@@ -1,4 +1,8 @@
-_: {
+{
+  osConfig,
+  username,
+  ...
+}: {
   programs.ghostty = {
     enable = true;
     settings = {
@@ -29,7 +33,7 @@ _: {
       window-width = 130;
       window-new-tab-position = "current";
 
-      theme = "catppuccin-macchiato";
+      # theme = "catppuccin-macchiato";
       background = "24273a";
       foreground = "cad3f5";
       background-opacity = 0.85;
@@ -85,9 +89,9 @@ _: {
       gtk-titlebar = false;
       gtk-tabs-location = "hidden";
       gtk-wide-tabs = false;
-      gtk-adwaita = false;
+      # gtk-adwaita = false;
 
-      working-directory = "home";
+      working-directory = "${osConfig.users.users.${username}.home}/Desktop/dotfiles";
       grapheme-width-method = "unicode";
       osc-color-report-format = "16-bit";
       vt-kam-allowed = false;

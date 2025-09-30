@@ -123,15 +123,9 @@
       darkreader
       bitwarden
       vimium
-      omnivore
-      zotero-connector
       translate-web-pages
       redirect
-      kagi-search
       mal-sync
-      violentmonkey
-      ff2mpv
-      chameleon-ext
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-default.nix {};
@@ -148,13 +142,8 @@
       darkreader
       bitwarden
       vimium
-      omnivore
-      zotero-connector
       translate-web-pages
       redirect
-      kagi-search
-      movie-web
-      ff2mpv
     ])
     {};
 
@@ -176,13 +165,9 @@
     (with inputs.firefox-addons.packages.${pkgs.system}; [
       darkreader
       bitwarden
-      vimium
-      omnivore
       zotero-connector
       translate-web-pages
-      kagi-search
       chameleon-ext
-      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-school.nix {};
@@ -199,11 +184,7 @@
       darkreader
       bitwarden
       vimium
-      omnivore
-      zotero-connector
       translate-web-pages
-      kagi-search
-      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-study.nix {};

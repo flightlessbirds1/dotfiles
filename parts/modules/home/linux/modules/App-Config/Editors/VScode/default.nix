@@ -18,7 +18,7 @@ in {
         golang.go
         extensions.vscode-marketplace.reditorsupport.r
         eamodio.gitlens
-        inputs.vscoq.packages.${pkgs.system}.vscoq-client.extension
+        # inputs.vscoq.packages.${pkgs.system}.vscoq-client.extension
         gitlab.gitlab-workflow
       ];
       userSettings = {
