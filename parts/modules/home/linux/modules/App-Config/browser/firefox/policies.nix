@@ -68,10 +68,6 @@ in {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/mal-sync/latest.xpi";
       installation_mode = "allowed";
     };
-    "${zotero_connector}" = {
-      install_url = "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.147.xpi";
-      installation_mode = "force_installed";
-    };
     "${omnivore}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/omnivore/latest.xpi";
       installation_mode = "allowed";
@@ -94,10 +90,6 @@ in {
     "${chameleon-ext}" = {
       installation_mode = "allowed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/chameleon-ext/latest.xpi";
-    };
-    "${ff2mpv}" = {
-      installation_mode = "force_installed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ff2mpv/latest.xpi";
     };
   };
 
@@ -206,5 +198,6 @@ in {
     "gfx.webrender.force-disabled" = false;
     "layers.acceleration.disabled" = false;
     "urlclassifier.trackingSkipURLs" = "claude.ai,statsig.anthropic.com,a-cdn.anthropic.com,r.stripe.com,js.stripe.com,m.stripe.network,intercom.io";
+    "urlclassifier.trackingAnnotationWhitelistHosts" = "claude.ai,anthropic.com";
   };
 }

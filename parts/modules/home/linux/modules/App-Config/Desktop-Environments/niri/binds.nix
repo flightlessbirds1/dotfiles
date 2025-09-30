@@ -5,6 +5,7 @@
   username,
   hostname,
   pkgs,
+  pkgs,
   ...
 }: let
   a = config.lib.niri.actions;
@@ -131,6 +132,7 @@ in {
             "copy"
             "active"
           ];
+          "Ctrl+period".action = a.screenshot {};
 
           # Move Window to Monitor Keybinds
           "super+ctrl+left".action = a.move-window-to-monitor-left;

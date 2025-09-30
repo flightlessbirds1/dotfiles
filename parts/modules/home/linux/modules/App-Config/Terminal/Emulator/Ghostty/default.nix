@@ -1,4 +1,8 @@
-_: {
+{
+  osConfig,
+  username,
+  ...
+}: {
   programs.ghostty = {
     enable = true;
     settings = {
@@ -87,7 +91,7 @@ _: {
       gtk-wide-tabs = false;
       # gtk-adwaita = false;
 
-      working-directory = "home";
+      working-directory = "${osConfig.users.users.${username}.home}/Desktop/dotfiles";
       grapheme-width-method = "unicode";
       osc-color-report-format = "16-bit";
       vt-kam-allowed = false;
