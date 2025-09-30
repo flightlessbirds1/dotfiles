@@ -4,8 +4,6 @@
   flake,
   username,
   hostname,
-  pkgs,
-  pkgs,
   ...
 }: let
   a = config.lib.niri.actions;

@@ -43,6 +43,8 @@
   };
   sops.secrets.location = {
     sopsFile = ../../../../../secrets/location.yaml;
+    mode = "0400";
+    owner = "insomniac";
   };
 
   # Export both weather secrets to environment
