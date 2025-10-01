@@ -26,6 +26,6 @@
   };
   networking.wg-quick.interfaces.AirVPN-DC = {
     # Your existing configuration
-    autostart = false;
+    autostart = true;
   };
 }

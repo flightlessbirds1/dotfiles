@@ -1,6 +1,6 @@
-_: {
+{username, ...}: {
   hardware.i2c.enable = true;
-  users.users.insomniac.extraGroups = [
+  users.users.${username}.extraGroups = [
     "i2c"
   ];
 }
