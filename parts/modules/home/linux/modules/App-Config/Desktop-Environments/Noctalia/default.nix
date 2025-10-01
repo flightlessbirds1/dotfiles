@@ -106,7 +106,7 @@
       };
       wallpaper = {
         enabled = true;
-        directory = "/home/insomniac/Desktop/dotfiles/deploy";
+        "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
         enableMultiMonitorDirectories = false;
         setWallpaperOnAllMonitors = true;
         fillMode = "crop";
@@ -115,28 +115,28 @@
         transitionDuration = 1500;
         transitionType = "random";
         transitionEdgeSmoothness = 0.05;
-        monitors = [
-          (
-            if osConfig.networking.hostName == "laptop"
-            then {
-              "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
+        monitors = (
+          if osConfig.networking.hostName == "laptop"
+          then [
+            {
+              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
               "name" = "eDP-1";
               "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
             }
-            else
-              {
-                "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
-                "name" = "DP-1";
-
-                "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
-              }
-              {
-                "directory" = "/home/insomniac/Desktop/dotfiles/deploy";
-                "name" = "DP-2";
-                "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
-              }
-          )
-        ];
+          ]
+          else [
+            {
+              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
+              "name" = "DP-1";
+              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
+            }
+            {
+              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
+              "name" = "DP-2";
+              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
+            }
+          ]
+        );
       };
       appLauncher = {
         enableClipboardHistory = true;
@@ -187,24 +187,25 @@
         fontFixed = "JetBrainsMono Nerd Font";
         fontDefaultScale = 1;
         fontFixedScale = 1;
-        monitorsScaling = [
-          (
-            if osConfig.networking.hostName == "desktop"
-            then
-              {
-                "name" = "DP-1";
-                "scale" = 1.2;
-              }
-              {
-                "name" = "DP-2";
-                "scale" = 1.2;
-              }
-            else {
+        monitorsScaling = (
+          if osConfig.networking.hostName == "desktop"
+          then [
+            {
+              "name" = "DP-1";
+              "scale" = 1.2;
+            }
+            {
+              "name" = "DP-2";
+              "scale" = 1.2;
+            }
+          ]
+          else [
+            {
               "name" = "eDP-1";
               "scale" = 1.2;
             }
-          )
-        ];
+          ]
+        );
         idleInhibitorEnabled = false;
       };
       brightness = {

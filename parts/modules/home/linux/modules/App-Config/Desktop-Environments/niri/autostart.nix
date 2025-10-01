@@ -12,6 +12,11 @@
       [
         {
           command = [
+            "noctalia-shell"
+          ];
+        }
+        {
+          command = [
             "swaync"
           ];
         }
