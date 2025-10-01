@@ -17,11 +17,6 @@
         }
         {
           command = [
-            "swaync"
-          ];
-        }
-        {
-          command = [
             "spotify"
           ];
         }

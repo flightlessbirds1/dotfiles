@@ -249,26 +249,43 @@
   home.activation.noctaliaSetLocation = lib.hm.dag.entryAfter ["writeBoundary"] ''
     set -eu
 
+    # Add some debug output
+    $DRY_RUN_CMD echo "Setting noctalia location..."
+
     files=(
       "$HOME/.config/noctalia/settings.json"
       "$HOME/.config/noctalia/gui-settings.json"
     )
+    if [ ! -f "${osConfig.sops.secrets.location.path}" ]; then
+      echo "Warning: Location secret file not found at ${osConfig.sops.secrets.location.path}"
+      exit 0
+    fi
 
-    loc="$(${pkgs.coreutils}/bin/tr -d '\n' < ${osConfig.sops.secrets.location.path})"
+    loc="$(${pkgs.coreutils}/bin/cat ${osConfig.sops.secrets.location.path} | ${pkgs.coreutils}/bin/tr -d '\n')"
+
+    if [ -z "$loc" ]; then
+      echo "Warning: Location value is empty"
+      exit 0
+    fi
+
+    $DRY_RUN_CMD echo "Location value: $loc"
 
     for f in "''${files[@]}"; do
       # Ensure file exists
       if [ ! -f "$f" ]; then
-        ${pkgs.coreutils}/bin/mkdir -p "$(${pkgs.coreutils}/bin/dirname "$f")"
-        printf '{}' > "$f"
+        $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "$(${pkgs.coreutils}/bin/dirname "$f")"
+        $DRY_RUN_CMD printf '{}' > "$f"
       fi
 
       tmp="$(${pkgs.coreutils}/bin/mktemp)"
-      ${pkgs.jq}/bin/jq --arg v "$loc" '
+      $DRY_RUN_CMD ${pkgs.jq}/bin/jq --arg v "$loc" '
         .location = (.location // {}) | .location.name = $v
       ' "$f" > "$tmp"
 
-      ${pkgs.coreutils}/bin/install -m 0600 "$tmp" "$f"
+      $DRY_RUN_CMD ${pkgs.coreutils}/bin/install -m 0600 "$tmp" "$f"
+      $DRY_RUN_CMD ${pkgs.coreutils}/bin/rm "$tmp"
     done
+
+    $DRY_RUN_CMD echo "Noctalia location updated successfully"
   '';
 }
