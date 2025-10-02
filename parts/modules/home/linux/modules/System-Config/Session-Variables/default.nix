@@ -1,7 +1,10 @@
-{lib, ...}: {
+{
+  lib,
+  username,
+  ...
+}: {
   home.sessionVariables = {
-    XDG_DATA_DIRS = lib.mkForce "/etc/profiles/per-user/insomniac/share:/run/current-system/sw/share:/usr/share";
-    DISPLAY = ":0";
+    XDG_DATA_DIRS = lib.mkForce "/etc/profiles/per-user/${username}/share:/run/current-system/sw/share:/usr/share";
     NIXPKGS_ALLOW_UNFREE = 1;
     GTK_ICON_THEME = "Papirus";
     QT_QPA_PLATFORMTHEME = "gtk3";

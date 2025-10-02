@@ -141,6 +141,10 @@ _: {
               url = "https://nix-community.github.io/home-manager/options.xhtml";
             }
             {
+              name = "Function Searcher";
+              url = "https://noogle.dev";
+            }
+            {
               name = "My Dotfiles";
               url = "https://gitlab.com/flightlessbird1/dotfiles";
             }

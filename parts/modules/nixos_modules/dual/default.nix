@@ -9,6 +9,7 @@
 in {
   imports = [
     ./modules/fcitx5
+    ./modules/gnome
   ];
 
   options = {

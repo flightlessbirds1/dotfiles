@@ -246,18 +246,18 @@
       };
     };
   };
-  home.activation.noctaliaSetLocation = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.noctaliaSetLocation = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
     set -eu
 
-    # Add some debug output
     $DRY_RUN_CMD echo "Setting noctalia location..."
 
     files=(
       "$HOME/.config/noctalia/settings.json"
       "$HOME/.config/noctalia/gui-settings.json"
     )
+
     if [ ! -f "${osConfig.sops.secrets.location.path}" ]; then
-      echo "Warning: Location secret file not found at ${osConfig.sops.secrets.location.path}"
+      echo "Warning: Location secret file not found"
       exit 0
     fi
 
@@ -268,24 +268,18 @@
       exit 0
     fi
 
-    $DRY_RUN_CMD echo "Location value: $loc"
-
     for f in "''${files[@]}"; do
-      # Ensure file exists
-      if [ ! -f "$f" ]; then
-        $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p "$(${pkgs.coreutils}/bin/dirname "$f")"
-        $DRY_RUN_CMD printf '{}' > "$f"
+      if [ -f "$f" ]; then
+        tmp="$(${pkgs.coreutils}/bin/mktemp)"
+        $DRY_RUN_CMD ${pkgs.jq}/bin/jq --arg v "$loc" '
+          .location.name = $v
+        ' "$f" > "$tmp"
+
+        $DRY_RUN_CMD ${pkgs.coreutils}/bin/mv "$tmp" "$f"
+        $DRY_RUN_CMD ${pkgs.coreutils}/bin/chmod 0600 "$f"
       fi
-
-      tmp="$(${pkgs.coreutils}/bin/mktemp)"
-      $DRY_RUN_CMD ${pkgs.jq}/bin/jq --arg v "$loc" '
-        .location = (.location // {}) | .location.name = $v
-      ' "$f" > "$tmp"
-
-      $DRY_RUN_CMD ${pkgs.coreutils}/bin/install -m 0600 "$tmp" "$f"
-      $DRY_RUN_CMD ${pkgs.coreutils}/bin/rm "$tmp"
     done
 
-    $DRY_RUN_CMD echo "Noctalia location updated successfully"
+    $DRY_RUN_CMD echo "Noctalia location set to: $loc"
   '';
 }

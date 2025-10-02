@@ -1,38 +1,34 @@
 {
+  inputs,
+  pkgs,
   lib,
   config,
+  flake,
   ...
 }: let
-  inherit (config.home) username;
+  username = config.home.username;
 in {
+  imports = with flake.self.homeManagerModules; [session];
+
   home = {
-    file.".local/share/backgrounds/.background-image".source =
-      ../../../../../../../../deploy/.background-image;
-    file.".local/share/backgrounds/.switcher-background-image".source =
-      ../../../../../../../../deploy/.switcher-background-image;
+    file.".local/share/backgrounds/.background-image".source = "${flake.self.deploy}/.background-image";
+    file.".local/share/backgrounds/.switcher-background-image".source = "${flake.self.deploy}/.switcher-background-image";
     file.".local/share/themes/custom/gnome-shell/gnome-shell.css" = {
-      source = ../../../../../../../../deploy/gnome-shell.css;
+      source = "${flake.self.deploy}/gnome-shell.css";
       onChange = ''
         sed -i "s/USERNAME/${username}/" "/home/${username}/.local/share/themes/custom/gnome-shell/gnome-shell.css"
       '';
     };
   };
   dconf = {
-    enable = true;
-
     settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
         scaling-factor = 0;
-        clock-show-weekday = true;
-        clock-format = "12h";
       };
 
       "org/gnome/mutter" = {
         dynamic-workspaces = true;
-        experimental-features = [
-          "scale-monitor-framebuffer"
-        ];
       };
 
       # This picture comes from deploy/.background-image
@@ -41,7 +37,7 @@ in {
         picture-options = "zoom";
         picture-uri = "/home/${username}/.local/share/backgrounds/.background-image";
         picture-uri-dark = "/home/${username}/.local/share/backgrounds/.background-image";
-        primary-color = "000000000000";
+        primary-color = "#000000000000";
         secondary-color = "#000000000000";
       };
 
@@ -63,23 +59,9 @@ in {
           "tiling-assistant@leleat-on-github"
           "user-theme@gnome-shell-extensions.gcampax.github.com"
           "appindicatorsupport@rgcjonas.gmail.com"
-          "clipboard-history@alexsaveau.dev"
         ];
-
-        last-selected-power-profile = "performance";
-
-        idle-delay = lib.gvariant.mkUint32 0; # makes the screen never idle
-
-        favorite-apps = [
-          "org.gnome.Nautilus.desktop"
-          "firefox.desktop"
-          "vesktop.desktop"
-          "spotify.desktop"
-          "steam.desktop"
-          "plex-desktop.desktop"
-          "com.mitchellh.ghostty.desktop"
-          "gnome-system-monitor.desktop"
-        ]; # change the apps in the favorite bar
+        last-selected-power-profile = "power-saver";
+        favorite-apps = ["org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "mullvad-vpn.desktop" "firefox.desktop" "obsidian.desktop" "zotero.desktop" "codium.desktop" "Alacritty.desktop" "com.mitchellh.ghostty.desktop" "signal-desktop.desktop" "gnome-system-monitor.desktop" "com.obsproject.Studio.desktop"];
       };
 
       # Compiz window effect
@@ -93,14 +75,9 @@ in {
         y-tiles = 10.0;
       };
 
-      # Clip-hist
-      "org/gnome/shell/extensions/clipboard-history" = {
-        history-size = 50;
-      };
-
       # Mouse scroll direction
       "org/gnome/desktop/peripherals/mouse" = {
-        natural-scroll = false; # changes scroll direction
+        natural-scroll = true;
       };
 
       "org/gnome/shell/extensions/Logo-menu" = {
@@ -121,14 +98,20 @@ in {
         legacy-tray-enabled = true;
         tray-pos = "right";
       };
-      "org/gnome/desktop/notifications" = {
-        show-banners = false; # turns DND on
+
+      "org/gnome/desktop/wm/keybindings" = {
+        begin-move = ["<Control>Right"];
+        switch-to-workspace-left = ["<Ctrl>s"];
+        switch-to-workspace-right = ["<Ctrl>g"];
       };
-      "org/gnome/settings-daemon/plugins/power" = {
-        sleep-inactive-ac-type = "nothing"; # makes the screen not sleep
+
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        search = ["<Control>space"];
+      };
+
+      "org/gnome/desktop/input-sources" = {
+        xkb-options = ["compose:sclk"];
       };
     };
   };
-
-  xsession.enable = true;
 }

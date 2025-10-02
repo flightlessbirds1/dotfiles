@@ -1,87 +1,108 @@
-{...}: {
+{osConfig, ...}: {
   programs.niri.settings = {
-    window-rules = [
-      {
-        geometry-corner-radius = {
-          top-left = 10.0;
-          top-right = 10.0;
-          bottom-left = 10.0;
-          bottom-right = 10.0;
-        };
-        clip-to-geometry = true;
-      }
-      {
-        matches = [
+    window-rules =
+      [
+        {
+          geometry-corner-radius = {
+            top-left = 10.0;
+            top-right = 10.0;
+            bottom-left = 10.0;
+            bottom-right = 10.0;
+          };
+          clip-to-geometry = true;
+        }
+      ]
+      ++ (
+        if osConfig.networking.hostName == "desktop"
+        then [
           {
-            app-id = "ghostty";
+            matches = [
+              {
+                app-id = "ghostty";
+              }
+              {
+                app-id = "org.gnome.Nautilus";
+              }
+              {
+                app-id = "code";
+              }
+              {
+                app-id = "codium";
+              }
+              {
+                app-id = "zed";
+              }
+            ];
+            open-on-workspace = "01-code";
+            open-maximized = true;
           }
           {
-            app-id = "org.gnome.Nautilus";
-          }
-        ];
-        open-on-workspace = "01-terminal";
-        open-maximized = true;
-      }
-      {
-        matches = [
-          {
-            app-id = "firefox";
-          }
-        ];
-        open-on-workspace = "02-web";
-        open-maximized = true;
-      }
-      {
-        matches = [
-          {
-            app-id = "code";
+            matches = [
+              {
+                app-id = "firefox";
+              }
+            ];
+            open-on-workspace = "02-web";
+            open-maximized = true;
           }
           {
-            app-id = "codium";
+            matches = [
+              {
+                app-id = "spotify";
+              }
+            ];
+            open-on-workspace = "03-music";
+            open-maximized = true;
           }
           {
-            app-id = "zed";
+            matches = [
+              {
+                app-id = "vesktop";
+              }
+              {
+                app-id = "discord";
+              }
+              {
+                app-id = "signal-desktop";
+              }
+            ];
+            open-on-workspace = "04-chat";
+            open-maximized = true;
+          }
+        ]
+        else [
+          {
+            matches = [
+              {
+                app-id = "ghostty";
+              }
+              {
+                app-id = "org.gnome.Nautilus";
+              }
+              {
+                app-id = "code";
+              }
+              {
+                app-id = "codium";
+              }
+              {
+                app-id = "zed";
+              }
+            ];
+            open-on-workspace = "01-code";
+            open-maximized = true;
           }
           {
-            app-id = "spotify";
+            matches = [
+              {
+                app-id = "firefox";
+              }
+            ];
+            open-on-workspace = "02-web";
+            open-maximized = true;
           }
-        ];
-        open-on-workspace = "03-code";
-        open-maximized = true;
-      }
-      {
-        matches = [
-          {
-            app-id = "vesktop";
-          }
-        ];
-        open-on-workspace = "04-music";
-        open-maximized = true;
-      }
-      {
-        matches = [
-          {
-            app-id = "discord";
-          }
-          {
-            app-id = "signal-desktop";
-          }
-        ];
-        open-on-workspace = "05-chat";
-        open-maximized = true;
-      }
-      {
-        matches = [
-          {
-            app-id = "steam";
-          }
-          {
-            app-id = "steam_app_.*";
-          }
-        ];
-        open-on-workspace = "07-gaming";
-      }
-    ];
+        ]
+      );
     prefer-no-csd = true;
     layout = {
       border = {

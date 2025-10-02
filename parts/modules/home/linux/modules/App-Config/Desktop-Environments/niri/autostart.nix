@@ -17,17 +17,7 @@
         }
         {
           command = [
-            "spotify"
-          ];
-        }
-        {
-          command = [
             "firefox"
-          ];
-        }
-        {
-          command = [
-            "xwayland-satellite"
           ];
         }
       ]
@@ -39,6 +29,16 @@
           {
             command = [
               "vesktop"
+            ];
+          }
+          {
+            command = [
+              "spotify"
+            ];
+          }
+          {
+            command = [
+              "xwayland-satellite"
             ];
           }
         ]
