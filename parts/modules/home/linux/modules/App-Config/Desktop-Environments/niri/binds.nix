@@ -120,17 +120,7 @@ in {
             "quit"
             "--skip-confirmation"
           ];
-          "super+s".action = a.spawn [
-            "grimshot"
-            "copy"
-            "anything"
-          ];
-          "super+alt+s".action = a.spawn [
-            "grimshot"
-            "copy"
-            "active"
-          ];
-          "Ctrl+period".action = a.screenshot {};
+          "super+s".action = a.screenshot {};
 
           # Move Window to Monitor Keybinds
           "super+ctrl+left".action = a.move-window-to-monitor-left;
