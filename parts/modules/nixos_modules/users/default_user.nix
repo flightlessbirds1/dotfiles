@@ -29,7 +29,7 @@
         "input"
       ];
       shell =
-        pkgs.nushell;
+        pkgs.fish;
     };
     unportable_content = {
       hashedPasswordFile =

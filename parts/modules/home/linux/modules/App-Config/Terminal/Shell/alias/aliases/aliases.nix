@@ -1,5 +1,5 @@
-{osConfig, ...}: {
-  programs.nushell.shellAliases = {
+shell: hostname: {
+  programs.${shell}.shellAliases = {
     # ─── AirVPN ────────────────────────────────────────────────────────────────
     start-AA = "sudo systemctl start wg-quick-AirVPN-America.service";
     stop-AA = "sudo systemctl stop wg-quick-AirVPN-America.service";
@@ -24,24 +24,26 @@
     stop-CA = "sudo systemctl stop wg-quick-Proton-CA.service";
 
     # ─── Nix Rebuild Shortcuts ────────────────────────────────────────────────
-    # rb   = "nix fmt .; glob ~/**/*.homemanagerbackup | each { rm $in }; nixos-rebuild switch --use-remote-sudo --flake .#${osConfig.networking.hostName}";
-    # rbn  = "zsh -c \"nix fmt . && find ~ -name '*.homemanagerbackup' -delete && nh os switch -H $(hostname) ~/Desktop/dotfiles\"";
 
-    rbns = ''zsh -c "nix fmt && find ~ -name '*.homemanagerbackup' -delete && nh os switch -H $(hostname) ~/Desktop/dotfiles -v"'';
-    rbnu = ''zsh -c "nix fmt && find ~ -name '*.homemanagerbackup' -delete && nh os switch -H $(hostname) ~/Desktop/dotfiles -u"'';
-
-    rbn = ''nu -c "nix fmt .; glob ~/**/*.homemanagerbackup | each { rm $in }; nh os switch -H ${osConfig.networking.hostName} ~/Desktop/dotfiles"'';
-    rbnl = ''nu -c "nix fmt .; glob ~/**/*.homemanagerbackup | each { rm $in }; nixos-rebuild switch --sudo --flake .#laptop --cores 6 --max-jobs 4"'';
+    rbn =
+      if shell == "fish"
+      then ''begin; nix fmt . & find ~ -name "*.homemanagerbackup" -delete 2>/dev/null & wait; end; and nh os switch -H ${hostname} ~/Desktop/dotfiles''
+      else ''nu -c "nix fmt .; ls ~/**/*.homemanagerbackup | each { rm $in }; nh os switch -H ${hostname} ~/Desktop/dotfiles"'';
+    rbnl = (
+      if shell == "fish"
+      then ''begin; nix fmt .; find ~ -name "*.homemanagerbackup" | xargs rm; end; nixos-rebuild switch --sudo --flake .#laptop --cores 6 --max-jobs 4''
+      else ''nu -c "nix fmt .; glob ~/**/*.homemanagerbackup | each { rm $in }; nixos-rebuild switch --sudo --flake .laptop --cores 6 --max-jobs 4"''
+    );
 
     # ─── Cleanup ──────────────────────────────────────────────────────────────
+
     clean-a = "bash -c 'PATH=~/scripts:$PATH nh clean all'";
     clean-u = "bash -c 'PATH=~/scripts:$PATH nh clean user'";
     clean-d = "sudo nixos-collect-garbage -d";
 
     # ─── Utilities ────────────────────────────────────────────────────────────
-    y = "yy";
+    y = "yazi";
     ze = "zellij";
     lg = "lazygit";
-    plex = ''zsh -c "export QT_STYLE_OVERRIDE=default && plex-desktop"'';
   };
 }

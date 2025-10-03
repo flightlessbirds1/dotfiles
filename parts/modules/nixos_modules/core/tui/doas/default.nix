@@ -1,17 +1,14 @@
 {pkgs, ...}: {
-  security.doas.enable = true;
-  security.sudo.enable = false;
-  security.doas.extraRules = [
-    {
-      groups = [
-        "wheel"
-      ];
-      keepEnv = true;
-      persist = true; # Optional, only require password verification a single time
-    }
-  ];
+  # security.doas.enable = true;
+  security.sudo = {
+    enable = true;
+    extraConfig = ''
+      Defaults timestamp_timeout=-1
+      Defaults timestamp_type=global
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
-    doas-sudo-shim
+    sudo
   ];
 }

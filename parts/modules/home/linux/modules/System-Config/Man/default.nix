@@ -1,5 +1,7 @@
 {
-  programs.man.generateCaches = false;
+  programs.man = {
+    generateCaches = false;
+    enable = false;
+  };
   manual.manpages.enable = false;
-  programs.man.enable = false;
 }

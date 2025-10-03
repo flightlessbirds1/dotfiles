@@ -155,27 +155,6 @@ in {
     powerModeSwitcher
   ];
 
-  security.doas = {
-    enable = true;
-    extraRules = [
-      {
-        users = ["${username}"];
-        noPass = true;
-        cmd = "${pkgs.tlp}/bin/tlp";
-      }
-      {
-        users = ["${username}"];
-        noPass = true;
-        cmd = "${pkgs.tlp}/bin/tlp-stat";
-      }
-      {
-        users = ["${username}"];
-        noPass = true;
-        cmd = "/run/current-system/sw/bin/tee";
-      }
-    ];
-  };
-
   services.power-profiles-daemon.enable = lib.mkForce false;
   services.thermald.enable = false;
 
