@@ -49,9 +49,7 @@
       Terminal
       wayland
       System-Config
-      ../../home/linux/modules/App-Config/browser/firefox
-      ../../home/linux/modules/App-Config/browser/brave
-      ../../home/linux/modules/App-Config/browser/floorp
+      ../../home/linux/modules/App-Config/browser/split-conf
     ];
     home = {
       inherit

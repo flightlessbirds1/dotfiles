@@ -9,9 +9,6 @@
         id = "cmpdlhmnmjhihmcfnigoememnffkimlk";
       } # Catppuccin Macchiato
       {
-        id = "dlnpfhfhmkiebpnlllpehlmklgdggbhn";
-      } # Don't Close Last Tab
-      {
         id = "iplffkdpngmdjhlpjmppncnlhomiipha";
       } # Unpaywall
       {
