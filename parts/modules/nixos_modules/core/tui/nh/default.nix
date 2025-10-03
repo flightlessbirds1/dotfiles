@@ -10,11 +10,6 @@
     flake = "${config.users.users.${username}.home}/Desktop/dotfiles";
   };
 
-  environment.variables = {
-    SUDO = "doas";
-    NIX_SSHOPTS = "";
-  };
-
   nix = {
     settings = {
       max-jobs = "auto";

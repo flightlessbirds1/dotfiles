@@ -3,9 +3,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./shekl.nix
-  ];
   home.packages = with pkgs; [
     nix-your-shell
   ];
