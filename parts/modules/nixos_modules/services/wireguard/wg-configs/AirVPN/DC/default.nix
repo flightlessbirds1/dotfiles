@@ -27,7 +27,7 @@
       // (
         if config.networking.hostName == "desktop"
         then {
-          autostart = true;
+          autostart = false;
         }
         else {
           autostart = false;

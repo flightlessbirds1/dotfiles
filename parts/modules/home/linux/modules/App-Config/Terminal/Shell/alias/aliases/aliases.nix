@@ -37,8 +37,8 @@ shell: hostname: {
 
     # ─── Cleanup ──────────────────────────────────────────────────────────────
 
-    clean-a = "bash -c 'PATH=~/scripts:$PATH nh clean all'";
-    clean-u = "bash -c 'PATH=~/scripts:$PATH nh clean user'";
+    clean-a = "nh clean all";
+    clean-u = "nh clean user";
     clean-d = "sudo nixos-collect-garbage -d";
 
     # ─── Utilities ────────────────────────────────────────────────────────────

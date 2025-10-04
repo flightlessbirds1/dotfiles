@@ -18,7 +18,7 @@
           allowedIPs = [
             "0.0.0.0/0,::/0"
           ];
-          endpoint = "198.44.133.78:1637";
+          endpoint = "198.44.133.86:1637";
           persistentKeepalive = 25;
         }
       ];
@@ -26,6 +26,6 @@
   };
   networking.wg-quick.interfaces.AirVPN-Phoenix = {
     # Your existing configuration
-    autostart = false;
+    autostart = true;
   };
 }
