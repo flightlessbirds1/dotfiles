@@ -1,0 +1,57 @@
+(defwindow monitorBar
+  :exclusive true
+  :geometry (geometry
+    :anchor "top center"
+    :height "70"
+    :width "100%"
+  )
+  :monitor 0
+  :namespace "monitorBar"
+  ; It seems like we need this top level box because class can't be applied to windows, they take on
+  ; instead the CSS that shares their name. So we'd end up with 2 indentical CSS classes for the
+  ; laptop and desktop bars.
+  (box
+    :class "monitorBar"
+    (box
+      :class "topLevelWidgetContainer"
+      (overlay
+        (leftModules)
+        (centerModules)
+        (endModules)
+      )
+    )
+  )
+)
+
+
+(defwidget leftModules []
+  (box
+    :halign "start"
+    :space-evenly false
+    :spacing 4
+    (powermenu)
+    (cpu)
+    (gpu)
+    (mem)
+    (net)
+  )
+)
+
+(defwidget centerModules []
+  (box
+    :halign "center"
+    (time)
+  )
+)
+
+(defwidget endModules []
+  (box
+    :halign "end"
+    :space-evenly false
+    :spacing "4"
+    (workspaces)
+    (weather)
+    (battery)
+  )
+)
+

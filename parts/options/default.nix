@@ -1,26 +1,18 @@
-{lib, ...}: let
-  aestheticsSubmodule = lib.types.submodule {
-    options = {
-      currentTheme = lib.mkOption {
-        type = lib.types.str;
-      };
-      font = lib.mkOption {
-        type = lib.types.str;
-      };
-      themes = lib.mkOption {
-        type = lib.types.attrsOf themesSubmodule;
-      };
-    };
-  };
-  themesSubmodule = lib.types.submodule {
-    options = {
-      colors = lib.mkOption {
-        type = lib.types.attrsOf lib.types.str;
-      };
-    };
-  };
+_: let
+  importList = let
+    first-content = builtins.readDir ./.;
+    get-names = content: builtins.attrNames content;
+    first-filter = builtins.filter (names: first-content.${names} == "directory") (get-names first-content);
+    second-filter =
+      builtins.filter (
+        name: let
+          dirContents = builtins.readDir ./${name};
+        in
+          !(builtins.hasAttr "nonmodule" dirContents)
+      )
+      first-filter;
+  in
+    map (name: ./. + "/${name}") second-filter;
 in {
-  options.aesthetics = lib.mkOption {type = aestheticsSubmodule;};
-
-  config.aesthetics = import ./colors.nix;
+  imports = importList;
 }

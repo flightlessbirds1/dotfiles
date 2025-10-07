@@ -10,5 +10,6 @@
     ./systems.nix
     ./secrets.nix
     ./deploy.nix
+    ./packages
   ];
 }

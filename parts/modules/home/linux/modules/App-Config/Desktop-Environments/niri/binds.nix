@@ -35,13 +35,17 @@ in {
           "super+k".action = a.close-window;
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
-          "super+space".action = a.spawn [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "toggle"
-          ];
+          "super+space".action = a.spawn (
+            if flake.config.environment == "noctalia"
+            then [
+              "noctalia-shell"
+              "ipc"
+              "call"
+              "launcher"
+              "toggle"
+            ]
+            else ["${script}/fuzzel.sh"]
+          );
           "super+comma".action = a.set-column-width "50%";
 
           # Focus Keybinds
@@ -93,13 +97,17 @@ in {
           "super+shift+ctrl+d".action = a.spawn "${script}/steam.sh";
           "super+shift+ctrl+q".action = a.spawn "qbittorrent";
           "super+shift+ctrl+o".action = a.spawn "obsidian";
-          "super+shift+v".action = a.spawn [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "clipboard"
-          ];
+          "super+shift+v".action = a.spawn (
+            if flake.config.environment == "noctalia"
+            then [
+              "noctalia-shell"
+              "ipc"
+              "call"
+              "launcher"
+              "clipboard"
+            ]
+            else ["${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"]
+          );
           "super+ctrl+shift+p".action = a.spawn [
             "${script}/plex.sh"
           ];

@@ -1,10 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  flake,
+  ...
+}:
+lib.mkIf (flake.config.environment == "mine") {
   home.file."scripts/wallpaper-switcher" = {
     source = ../../../System-Config/start-scripts/wallpaper-switcher;
     executable = true;
   };
 
-  systemd.user.services.swww-daemon = {
+  systemd.user.services.swww-daemon = lib.mkIf (flake.config.environment == "mine") {
     Unit = {
       Description = "swww wallpaper daemon";
       PartOf = [
@@ -36,30 +42,32 @@
     ];
   };
 
-  systemd.user.services.wallpaper-switcher = {
-    Unit = {
-      Description = "Time-based wallpaper switcher";
-      After = [
-        "swww-daemon.service"
-      ];
-      Wants = [
-        "swww-daemon.service"
-      ];
+  systemd.user.services.wallpaper-switcher =
+    lib.mkIf (flake.config.environment == "mine")
+    {
+      Unit = {
+        Description = "Time-based wallpaper switcher";
+        After = [
+          "swww-daemon.service"
+        ];
+        Wants = [
+          "swww-daemon.service"
+        ];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash %h/scripts/wallpaper-switcher";
+        Environment = [
+          "PATH=${pkgs.swww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
+        ];
+        PassEnvironment = [
+          "WAYLAND_DISPLAY"
+          "XDG_RUNTIME_DIR"
+        ];
+      };
     };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash %h/scripts/wallpaper-switcher";
-      Environment = [
-        "PATH=${pkgs.swww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
-      ];
-      PassEnvironment = [
-        "WAYLAND_DISPLAY"
-        "XDG_RUNTIME_DIR"
-      ];
-    };
-  };
 
-  systemd.user.timers.wallpaper-switcher = {
+  systemd.user.timers.wallpaper-switcher = lib.mkIf (flake.config.environment == "mine") {
     Unit.Description = "Run wallpaper switcher at the start of every hour";
     Timer = {
       OnCalendar = "hourly";
@@ -71,7 +79,7 @@
     ];
   };
 
-  systemd.user.services.wallpaper-startup = {
+  systemd.user.services.wallpaper-startup = lib.mkIf (flake.config.environment == "mine") {
     Unit = {
       Description = "Set initial wallpaper on login";
       After = [

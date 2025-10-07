@@ -1,6 +1,7 @@
 {
   pkgs,
   hostname,
+  flake,
   ...
 }: {
   home.packages = [
@@ -10,11 +11,6 @@
   programs.niri.settings = {
     spawn-at-startup =
       [
-        {
-          command = [
-            "noctalia-shell"
-          ];
-        }
         {
           command = [
             "firefox"
@@ -39,6 +35,23 @@
           {
             command = [
               "xwayland-satellite"
+            ];
+          }
+        ]
+      )
+      ++ (
+        if flake.config.environment == "noctalia"
+        then [
+          {
+            command = [
+              "noctalia-shell"
+            ];
+          }
+        ]
+        else [
+          {
+            command = [
+              "swaync"
             ];
           }
         ]

@@ -154,7 +154,7 @@ _: {
             }
             {
               name = "AY Dotfiles";
-              url = "https://gitlab.com/askyourself/dotfiles/";
+              url = "https://code.askyourself.ca/ask-yourself/ask-yourself/";
             }
             {
               name = "Nick Dotfiles";

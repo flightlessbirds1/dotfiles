@@ -19,7 +19,7 @@ _: {
         "firefox.desktop"
       ];
       "application/pdf" = [
-        "evince.desktop"
+        "org.pwmt.zathura.desktop"
       ];
       "image/png" = [
         "firefox.desktop"

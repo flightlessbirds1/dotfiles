@@ -1,0 +1,21 @@
+(defvar activeInterface "wlp1s0")
+(defvar netDown 0)
+(defvar netUp 0)
+
+(defwidget net []
+  (box
+    :class "graphBox"
+    :orientation "vertical"
+    :tooltip "${round(netDown, 0)}↓ ${round(netUp, 0)}↑ B/s (${activeInterface})"
+    :width 60
+    (graph
+      :class "netGraph"
+      :value {netDown}
+      :time-range "30s"
+    )
+    (label
+      :class "netText"
+      :text "net"
+    )
+  )
+)

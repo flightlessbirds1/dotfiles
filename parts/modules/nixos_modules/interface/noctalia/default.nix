@@ -1,14 +1,18 @@
 {
   pkgs,
   inputs,
+  flake,
+  lib,
   ...
 }: {
   imports = [
     inputs.noctalia.nixosModules.default
   ];
-  # services.noctalia-shell.enable = true;
-  environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${system}.default
-    kdePackages.qt6ct
-  ];
+
+  environment.systemPackages =
+    lib.mkIf (flake.config.environment == "noctalia")
+    (with pkgs; [
+      inputs.noctalia.packages.${system}.default
+      kdePackages.qt6ct
+    ]);
 }

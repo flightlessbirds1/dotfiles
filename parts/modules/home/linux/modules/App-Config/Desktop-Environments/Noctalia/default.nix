@@ -1,8 +1,9 @@
 {
   pkgs,
   inputs,
-  osConfig,
+  flake,
   lib,
+  osConfig,
   username,
   ...
 }: {
@@ -10,7 +11,7 @@
     inputs.noctalia.homeModules.default
   ];
 
-  programs.noctalia-shell = {
+  programs.noctalia-shell = lib.mkIf (flake.config.environment == "noctalia") {
     enable = true;
     settings = {
       settingsVersion = 12;

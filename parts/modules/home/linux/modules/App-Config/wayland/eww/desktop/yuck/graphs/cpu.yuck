@@ -1,0 +1,17 @@
+(defwidget cpu []
+  (box
+    :class "graphBox"
+    :orientation "vertical"
+    :tooltip "${round(EWW_CPU.avg, 1)}%"
+    :width 60
+    (graph    
+      :class "cpuGraph"
+      :value {EWW_CPU.avg}
+      :time-range "30s"
+    )
+    (label
+      :class "cpuText"
+      :text "cpu"
+    )
+  )
+)
