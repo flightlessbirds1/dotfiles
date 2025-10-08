@@ -3,7 +3,7 @@
     enable = true;
     interactiveShellInit = ''
       set -U fish_greeting
-            nix-your-shell fish | source
+      nix-your-shell fish | source
     '';
   };
 }

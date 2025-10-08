@@ -2,17 +2,9 @@
   description = "NixOS configuration flake";
 
   inputs = {
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions/?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zsh-titles = {
-      url = "github:amyreese/zsh-titles";
-      flake = false;
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     pre-commit-hooks-nix = {
