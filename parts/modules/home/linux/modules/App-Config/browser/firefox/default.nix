@@ -15,7 +15,8 @@ in {
   programs.${browser} = {
     enable = true;
     package = pkgs.${package};
-    nativeMessagingHosts = [pkgs.gnome-browser-connector];
+    nativeMessagingHosts = [pkgs.ff2mpv-rust];
+
     policies = import ./policies.nix {inherit pkgs lib config inputs;};
     inherit profiles;
   };

@@ -126,6 +126,7 @@
       translate-web-pages
       redirect
       mal-sync
+      ff2mpv
     ])
     {
       bookmarks = import ./bookmarks/bookmarks-default.nix {};

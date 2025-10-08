@@ -26,6 +26,6 @@
   };
   networking.wg-quick.interfaces.AirVPN-Phoenix = {
     # Your existing configuration
-    autostart = true;
+    autostart = false;
   };
 }

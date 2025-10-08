@@ -2,27 +2,34 @@ profile_name: ''
   @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
   /* TABS: bottom - Firefox 65 and later - updated for 89+ */
-  /* https://searchfox.org/mozilla-release/source/browser/themes/shared/tabs.inc.css */
-  /* https://raw.githubusercontent.com/Aris-t2/CustomCSSforFx/master/classic/css/tabs/tabs_below_navigation_toolbar_fx89.css */
-  /* https://developer.mozilla.org/en-US/docs/Tools/Browser_Toolbox */
 
   /* ROOT - VARS */
-  /* you can adjust the CSS variables until it looks correct */
-  /* you can use the Browser Toolbox to get the toolbar heights */
-
   .tabbrowser-tab[selected="true"] {
     font-weight: bold;
   }
 
-  #nav-bar-customization-target {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
+  /* Profile name - positioned at start of customization target */
   #nav-bar-customization-target::before {
     content: "${profile_name}";
-    margin: auto;
+    display: flex;
+    align-items: center;
     color: grey;
+    font-size: 14px;
+    margin-right: 0px;
+    flex-shrink: 0;
+  }
+
+  #nav-bar {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  #nav-bar-customization-target {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 
   *|*:root {
@@ -31,8 +38,8 @@ profile_name: ''
     --tab-min-height: 40px !important;
     --tab-min-width:  60px !important;
 
-    --tab-adjust:  0px; /* adjust tab bar - only for 68-73 */
-    --tab-caption: 5px; /* caption buttons on tab bar */
+    --tab-adjust:  0px;
+    --tab-caption: 5px;
   }
 
   /* TAB BAR - below nav-bar */
@@ -43,7 +50,7 @@ profile_name: ''
     display: block !important;
     position: absolute !important;
     bottom: 0 !important;
-    width:  50vw !important;
+    width: 100vw !important;
   }
 
   #tabbrowser-tabs {
@@ -52,15 +59,15 @@ profile_name: ''
 
   /* navigator-toolbox - PADDING */
   *|*:root:not([chromehidden*="toolbar"]) #navigator-toolbox {
-    position: relative !important; /*89+*/
-    padding-bottom: var(--tab-min-height) !important; /*ADJUST*/
+    position: relative !important;
+    padding-bottom: var(--tab-min-height) !important;
     background-color: var(--toolbar-bgcolor) !important;
   }
 
   /* TabsToolbar with menubar and titlebar hidden - rules for Firefox 65-73 */
   *|*:root[tabsintitlebar]:not([inFullscreen="true"]):not([sizemode="maximized"]) #toolbar-menubar[autohide="true"] ~
    #TabsToolbar{
-    bottom: var(--tab-adjust); /*ADJUST*/
+    bottom: var(--tab-adjust);
   }
 
   /* TABS: height */
@@ -76,26 +83,10 @@ profile_name: ''
     height: var(--tab-max-height) !important;
     background-color: var(--toolbar-bgcolor) !important;
     color:            var(--toolbar-color) !important;
-  /*  z-index: 1 !important; */
   }
 
-  /* indicators *//*
-  *|*:root[privatebrowsingmode=temporary] .private-browsing-indicator {
-    position: absolute !important;
-    display: block !important;
-    right: 0px !important;
-    bottom: 0px !important;
-    width: 14px !important;
-    pointer-events: none !important;
-  }
-  */
   .private-browsing-indicator {display: none !important;}
   .accessibility-indicator    {display: none !important;}
-
-  /* Indicators - HIDE *//*
-  *|*:root:not([accessibilitymode])             .accessibility-indicator    {display: none !important}
-  *|*:root:not([privatebrowsingmode=temporary]) .private-browsing-indicator {display: none !important}
-  */
 
   /* Drag Space */
   .titlebar-spacer[type="pre-tabs"],

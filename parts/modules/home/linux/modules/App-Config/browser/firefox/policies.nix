@@ -29,7 +29,7 @@ in {
   DisableFirefoxAccounts = true; # sets identity.fxaccounts.enabled to false;
   DisableFirefoxScreenshots = false; # sets extensions.screenshots.disabled to false;
   DontCheckDefaultBrowser = true;
-  DisplayBookmarksToolbar = "always"; # alternatives: "always" or "newtab"
+  DisplayBookmarksToolbar = "always"; # alternatives: "never" or "newtab"
   SearchBar = "unified"; # alternative: "separate"
 
   ExtensionSettings = with extensions; {
@@ -68,10 +68,6 @@ in {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/mal-sync/latest.xpi";
       installation_mode = "allowed";
     };
-    "${omnivore}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/omnivore/latest.xpi";
-      installation_mode = "allowed";
-    };
     "${translate-web-pages}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
       installation_mode = "force_installed";
@@ -90,6 +86,10 @@ in {
     "${chameleon-ext}" = {
       installation_mode = "allowed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/chameleon-ext/latest.xpi";
+    };
+    "${ff2mpv}" = {
+      installation_mode = "allowed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4394631/ff2mpv-6.0.0.xpi";
     };
   };
 
