@@ -7,19 +7,19 @@
       dns = [
         "10.2.0.1"
       ];
-      privateKeyFile = config.sops.secrets.proton-private.path;
+      privateKeyFile = config.sops.secrets.proton-NL.path;
 
       peers = [
         {
-          publicKey = "afmlPt2O8Y+u4ykaOpMoO6q1JkbArZsaoFcpNXudXCg=";
+          publicKey = "UVfbp8djPv9nFWw54zPaMFe6fBoy2GzveLRsPngiPlc=";
           allowedIPs = [
             "0.0.0.0/0,::/0"
           ];
-          endpoint = "46.29.25.3:51820";
+          endpoint = "89.222.103.5:51820";
           persistentKeepalive = 25;
         }
       ];
-      autostart = false;
+      autostart = true;
     };
   };
 }
