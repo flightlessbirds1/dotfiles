@@ -1,0 +1,2 @@
+cabal:
+    cabal clean ; cabal run

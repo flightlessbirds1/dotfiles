@@ -39,7 +39,7 @@ in {
     else [];
 
   qt.enable = lib.mkIf cfg.enable true;
-  qt.platformTheme = "gnome";
+  # qt.platformTheme = "gnome";
   qt.style = "adwaita-highcontrastinverse";
   xdg.portal = {
     enable = true;

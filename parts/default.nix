@@ -11,5 +11,6 @@
     ./secrets.nix
     ./deploy.nix
     ./packages
+    ./templates.nix
   ];
 }

@@ -13,6 +13,6 @@
     lib.mkIf (flake.config.environment == "noctalia")
     (with pkgs; [
       inputs.noctalia.packages.${system}.default
-      kdePackages.qt6ct
+      # kdePackages.qt6ct
     ]);
 }

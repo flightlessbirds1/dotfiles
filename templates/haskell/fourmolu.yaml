@@ -1,0 +1,12 @@
+indentation: 2
+comma-style: trailing
+import-export-style: diff-friendly
+respectful: false
+column-limit: 80
+function-arrows: trailing
+haddock-style: single-line
+let-style: inline
+in-style: right-align
+unicode: never
+pragma-style: leading
+newlines-between-decls: 1

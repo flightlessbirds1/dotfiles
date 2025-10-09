@@ -17,7 +17,8 @@
   personal_newtab = builtins.toJSON newtabs.personal_newtab;
   school_newtab = builtins.toJSON newtabs.school_newtab;
   study_newtab = builtins.toJSON newtabs.study_newtab;
-
+  bookmarks = import ./bookmarks;
+  search = import ./search;
   containers = import ./containers.nix {};
 
   additional_preferences = import ./preferences.nix {
@@ -67,38 +68,6 @@
             then userChrome_preferences
             else {}
           );
-
-        search = {
-          force = true;
-          default = "Kagi";
-          order = [
-            "Kagi"
-            "duckduckgo"
-            "google"
-          ];
-          engines = {
-            "Kagi" = {
-              urls = [
-                {
-                  template = "https://kagi.com/search";
-                  params = [
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
-              icon = "${pkgs.fetchurl {
-                url = "https://kagi.com/favicon.ico";
-                sha256 = "sha256-6I9Kn+JtovACV3fgJgHy0MAeqNT+qlHHAQb2meWWiXA=";
-              }}";
-              definedAliases = [
-                "@kagi"
-              ];
-            };
-          };
-        };
       }
       // (
         if enable_top_searchbar_userChrome
@@ -128,9 +97,8 @@
       mal-sync
       ff2mpv
     ])
-    {
-      bookmarks = import ./bookmarks/bookmarks-default.nix {};
-    };
+    (bookmarks
+      // search);
 
   personal_profile =
     mkProfile "personal" 1 containers.personal

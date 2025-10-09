@@ -21,9 +21,6 @@
 
     haskellPackages.haskell-language-server
 
-    sourcekit-lsp
-    swift-format
-
     tinymist
     typstfmt
 
@@ -105,23 +102,6 @@
           auto-format = true;
           formatter = {
             command = "stylish-haskell";
-          };
-        }
-        {
-          name = "swift";
-          language-servers = [
-            "sourcekit-lsp"
-          ];
-          auto-format = true;
-          formatter = {
-            command = "swift-format";
-            args = [
-              "--stdin"
-              "--assume-filename"
-              "dummy.swift"
-              "--indent"
-              "2"
-            ];
           };
         }
         {
@@ -212,9 +192,6 @@
         };
         nil = {
           command = "nil";
-        };
-        "sourcekit-lsp" = {
-          command = "sourcekit-lsp";
         };
         tinymist = {
           command = "tinymist";

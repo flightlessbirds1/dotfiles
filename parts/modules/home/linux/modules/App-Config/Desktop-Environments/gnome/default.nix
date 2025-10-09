@@ -11,10 +11,19 @@ in {
   imports = with flake.self.homeManagerModules; [session];
 
   home = {
-    file.".local/share/backgrounds/.background-image".source = "${flake.self.deploy}/.background-image";
-    file.".local/share/backgrounds/.switcher-background-image".source = "${flake.self.deploy}/.switcher-background-image";
+    file.".local/share/backgrounds/.background-image" = {
+      source = "${flake.self.deploy}/.background-image";
+      force = true;
+    };
+
+    file.".local/share/backgrounds/.switcher-background-image" = {
+      source = "${flake.self.deploy}/.switcher-background-image";
+      force = true;
+    };
+
     file.".local/share/themes/custom/gnome-shell/gnome-shell.css" = {
       source = "${flake.self.deploy}/gnome-shell.css";
+      force = true;
       onChange = ''
         sed -i "s/USERNAME/${username}/" "/home/${username}/.local/share/themes/custom/gnome-shell/gnome-shell.css"
       '';
