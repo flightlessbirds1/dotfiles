@@ -13,7 +13,6 @@
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.generateKey = true;
 
-  # Your existing secrets
   sops.secrets.password = {
     format = "binary";
     sopsFile = ../../../../../secrets/password.txt;
@@ -45,6 +44,10 @@
     sopsFile = ../../../../../secrets/location.yaml;
     mode = "0400";
     owner = "insomniac";
+  };
+  sops.secrets.proton-NL = {
+    sopsFile = ../../../../../secrets/proton-NL.txt;
+    format = "binary";
   };
 
   # Export both weather secrets to environment
