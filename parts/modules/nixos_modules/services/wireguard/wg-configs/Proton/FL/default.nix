@@ -1,21 +1,21 @@
 {config, ...}: {
   networking.wg-quick.interfaces = {
-    Proton-NL = {
+    Proton-FL = {
       address = [
         "10.2.0.2/32"
       ];
       dns = [
         "9.9.9.9"
       ];
-      privateKeyFile = config.sops.secrets.proton-NL.path;
+      privateKeyFile = config.sops.secrets.proton-FL.path;
 
       peers = [
         {
-          publicKey = "UVfbp8djPv9nFWw54zPaMFe6fBoy2GzveLRsPngiPlc=";
+          publicKey = "2nZkJr74LHqiPIAjDmdo1EJrN7DJLVq7N92RNYv7cSk=";
           allowedIPs = [
             "0.0.0.0/0, ::/0"
           ];
-          endpoint = "89.222.103.5:51820";
+          endpoint = "37.221.112.194:51820";
           persistentKeepalive = 25;
         }
       ];

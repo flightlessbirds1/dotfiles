@@ -49,6 +49,10 @@
     sopsFile = ../../../../../secrets/proton-NL.txt;
     format = "binary";
   };
+  sops.secrets.proton-FL = {
+    sopsFile = ../../../../../secrets/proton-FL.txt;
+    format = "binary";
+  };
 
   # Export both weather secrets to environment
   systemd.services.export-weather-secrets = {

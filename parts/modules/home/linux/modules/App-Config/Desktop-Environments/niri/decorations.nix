@@ -65,6 +65,9 @@
               {
                 app-id = "signal-desktop";
               }
+              {
+                app-id = "equibop";
+              }
             ];
             open-on-workspace = "04-chat";
             open-maximized = true;

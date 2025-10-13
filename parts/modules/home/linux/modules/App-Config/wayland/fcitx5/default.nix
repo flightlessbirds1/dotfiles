@@ -14,7 +14,7 @@
       FallbackSpellLanguage=en
 
       [TriggerKey]
-      0=Control+Shift+Multi_key
+      0=Super+;
     '';
   };
 }

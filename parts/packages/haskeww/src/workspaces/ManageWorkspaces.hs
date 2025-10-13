@@ -1,36 +1,24 @@
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes     #-}
 {-# LANGUAGE RecordWildCards #-}
 
-import Data.List (intercalate)
-import EWWLib (update)
-import GetAppIcon (IconCache)
-import GetWorkspaceGroups
-  ( Window (Window, windowIcon, windowIsFocused),
-    Workspace (Workspace, workspaceIsFocused, workspaceMaybeWindows, workspaceOutput),
-    getWorkspaceGroups,
-  )
-import Network.Socket
-  ( Family (AF_UNIX),
-    SockAddr (SockAddrUnix),
-    SocketType (Stream),
-    defaultProtocol,
-    socket,
-    socketToHandle,
-  )
-import Network.Socket.Address (connect)
-import System.Directory (getHomeDirectory)
-import System.Environment (getEnv)
-import System.FilePath ((</>))
-import System.IO
-  ( BufferMode (LineBuffering),
-    Handle,
-    IOMode (ReadWriteMode),
-    hFlush,
-    hGetLine,
-    hPutStrLn,
-    hSetBuffering,
-  )
-import Text.RawString.QQ (r)
+import           Data.List              (intercalate)
+import           EWWLib                 (update)
+import           GetAppIcon             (IconCache)
+import           GetWorkspaceGroups     (Window (Window, windowIcon, windowIsFocused),
+                                         Workspace (Workspace, workspaceIsFocused, workspaceMaybeWindows, workspaceOutput),
+                                         getWorkspaceGroups)
+import           Network.Socket         (Family (AF_UNIX),
+                                         SockAddr (SockAddrUnix),
+                                         SocketType (Stream), defaultProtocol,
+                                         socket, socketToHandle)
+import           Network.Socket.Address (connect)
+import           System.Directory       (getHomeDirectory)
+import           System.Environment     (getEnv)
+import           System.FilePath        ((</>))
+import           System.IO              (BufferMode (LineBuffering), Handle,
+                                         IOMode (ReadWriteMode), hFlush,
+                                         hGetLine, hPutStrLn, hSetBuffering)
+import           Text.RawString.QQ      (r)
 
 main :: IO ()
 main = do
@@ -95,7 +83,7 @@ makeWorkspaceGroupEWWString home workspaceGroup =
     (label :text "|]
     <> ( case workspaceGroup of
            (Workspace {..} : _) -> workspaceOutput
-           _ -> "ERROW"
+           _                    -> "ERROW"
        )
     <> [r|")
 |]
@@ -121,8 +109,8 @@ makeImageBoxEWWString home Nothing workspaceIsFocused =
         :class "image|]
     <> classStringSegment
     <> [r|ocused"
-        :image-height 29
-        :image-width 29
+        :image-height 31
+          :image-width 31
         :path "|]
     <> (home </> ".config/eww/images/empty_set_" <> emptySetStringSegment <> ".svg")
     <> [r|"
@@ -141,8 +129,8 @@ makeImageBoxEWWString _ (Just windows) _ =
                  else "Unf"
              )
           <> [r|ocused"
-        :image-height 29
-        :image-width 29
+        :image-height 31
+        :image-width 31
         :path "|]
           <> windowIcon
           <> [r|"
@@ -152,8 +140,8 @@ makeImageBoxEWWString _ (Just windows) _ =
 
 data LoopInput = LoopInput
   { loopInputCurrentEWWString :: String,
-    loopInputHandle :: Handle,
-    loopInputHome :: FilePath,
-    loopInputIconCache :: IconCache,
-    loopInputSelectedLiteral :: Int
+    loopInputHandle           :: Handle,
+    loopInputHome             :: FilePath,
+    loopInputIconCache        :: IconCache,
+    loopInputSelectedLiteral  :: Int
   }
