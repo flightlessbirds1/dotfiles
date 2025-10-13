@@ -38,6 +38,10 @@
           name = "megathread - Piracy";
           url = "https://www.reddit.com/r/Piracy/wiki/megathread/";
         }
+        {
+          name = "Classroom";
+          url = "https://classroom.google.com";
+        }
       ];
     }
     {
