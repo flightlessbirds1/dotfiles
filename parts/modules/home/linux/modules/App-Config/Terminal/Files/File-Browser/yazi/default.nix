@@ -8,6 +8,9 @@
     enable = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
+    initLua = ''
+      require("full-border"):setup()
+    '';
     settings = {
       plugin.prepend_previewers = [
         {
@@ -56,9 +59,19 @@
         }
       ];
       mgr.show_hidden = false;
+      opener.open = [
+        {
+          run = ''mimeo "$1"'';
+          desc = "Open";
+        }
+      ];
+      preview = {
+        max_width = 1000;
+        max_height = 1000;
+      };
     };
     plugins = {
-      inherit (pkgs.yaziPlugins) mediainfo chmod starship lazygit ouch bypass restore;
+      inherit (pkgs.yaziPlugins) mediainfo chmod starship lazygit ouch bypass restore full-border;
     };
   };
 }

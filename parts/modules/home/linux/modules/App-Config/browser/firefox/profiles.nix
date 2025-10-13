@@ -69,6 +69,8 @@
             else {}
           );
       }
+      // search
+      // bookmarks
       // (
         if enable_top_searchbar_userChrome
         then top_searchbar_userChrome_attrs name
@@ -138,9 +140,7 @@
       translate-web-pages
       chameleon-ext
     ])
-    {
-      bookmarks = import ./bookmarks/bookmarks-school.nix {};
-    };
+    {};
 
   study_profile =
     mkProfile "study" 5 containers.study
