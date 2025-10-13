@@ -1,28 +1,23 @@
-{pkgs, ...}: {
-  services = {
-    ollama = {
-      enable = true;
-    };
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.ollama;
   };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    ctranslate2 = pkgs.ctranslate2.overrideAttrs (oldAttrs: {
-      cmakeFlags =
-        (oldAttrs.cmakeFlags or [])
-        ++ [
-          "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-        ];
-
-      preConfigure =
-        (oldAttrs.preConfigure or "")
-        + ''
-          # Fix cmake version in third_party/cpu_features if it exists
-          if [ -f third_party/cpu_features/CMakeLists.txt ]; then
-            sed -i 's/cmake_minimum_required(VERSION [0-9.]*)/cmake_minimum_required(VERSION 3.5)/' third_party/cpu_features/CMakeLists.txt
-          fi
-        '';
-    });
+  systemd.services.ollama.environment = {
+    HSA_OVERRIDE_GFX_VERSION = "10.3.0";
   };
-
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.rocmPackages; [
+      clr.icd
+      clr
+      rocm-runtime
+    ];
+  };
   services.open-webui.enable = true;
 }

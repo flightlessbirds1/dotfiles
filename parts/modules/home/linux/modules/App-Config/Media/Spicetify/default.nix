@@ -27,7 +27,7 @@
       ncsVisualizer
     ];
 
-    theme = spicePkgs.themes.hazy;
+    # theme = spicePkgs.themes.hazy;
     colorScheme = "custom";
     customColorScheme = {
       # Text
@@ -48,10 +48,7 @@
       button = "74b2ff";
       button-active = "74b2ff";
       button-disabled = "555555";
-
       tab-active = "74b2ff";
-
-      # Notifications
       notification = "74b2ff";
       notification-error = "e2637f";
     };

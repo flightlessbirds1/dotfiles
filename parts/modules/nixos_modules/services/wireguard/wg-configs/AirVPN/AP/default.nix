@@ -6,8 +6,7 @@
         "fd7d:76ee:e68f:a993:47f:d5ee:cb27:8280/128"
       ];
       dns = [
-        "10.128.0.1"
-        "fd7d:76ee:e68f:a993::1"
+        "9.9.9.9"
       ];
       privateKeyFile = config.sops.secrets.private.path;
 
@@ -25,7 +24,6 @@
     };
   };
   networking.wg-quick.interfaces.AirVPN-Phoenix = {
-    # Your existing configuration
-    autostart = false;
+    autostart = true;
   };
 }
