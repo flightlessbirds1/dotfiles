@@ -1,23 +1,19 @@
 @import "./catppuccin_mocha.scss";
 
-* {
-  all: unset;
-}
-
 window {
   background-color: transparent;
 }
 
 .monitorBar {
   background-color: transparent;
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .topLevelWidgetContainer {
-  padding: 6px;
+  padding: 4px 6px;
   background-color: $surface0;
   border-radius: 16px;
-  margin: 4px;
+  margin: 4px 4px 0px 4px;
   color: $text;
   font-weight: bolder;
 }

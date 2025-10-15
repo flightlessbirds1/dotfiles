@@ -313,12 +313,11 @@
       text = ''
         #!/bin/sh
 
-        # Read secrets from environment (set by systemd service, I can't forget this again, this was a nightmare to relearn. Also, obviously the following script isn't done by me)
+        # Read secrets from environment (set by systemd service, I can't forget this again, this was a nightmare to relearn.)
         if [ -f /etc/environment.d/50-weather-secrets.conf ]; then
           . /etc/environment.d/50-weather-secrets.conf
         fi
 
-        # Validate that we have the required secrets
         if [ -z "$WEATHER_API_KEY" ] || [ "$WEATHER_API_KEY" = "YOUR_API_KEY_HERE" ]; then
           echo "{\"text\": \"🔑 API Key Missing\", \"tooltip\": \"Weather API key not configured in sops\"}"
           exit 1
@@ -329,22 +328,18 @@
           exit 1
         fi
 
-        # Debug output to a log file
         LOG_FILE="/tmp/waybar-weather.log"
         echo "$(date): Weather script started with location: $WEATHER_LOCATION" > "$LOG_FILE"
 
-        # Check if jq is available
         if ! command -v jq >/dev/null 2>&1; then
           echo "{\"text\": \"🌡️ Error: jq not found\", \"tooltip\": \"Please install jq\"}"
           echo "$(date): jq not found" >> "$LOG_FILE"
           exit 1
         fi
 
-        # Fetch weather data with verbose error logging
         get_weather_data() {
           echo "$(date): Attempting to fetch weather data..." >> "$LOG_FILE"
 
-          # Parse location - use lat,lon format
           lat=$(echo "$WEATHER_LOCATION" | cut -d',' -f1)
           lon=$(echo "$WEATHER_LOCATION" | cut -d',' -f2)
 
@@ -365,7 +360,6 @@
                 printf "%s\n" "$weather"
                 return 0
               else
-                # Handle specific API error codes
                 error_msg=$(echo "$weather" | jq -r '.message // "Unknown error"' 2>/dev/null || echo "Unknown error")
                 echo "$(date): API error (code $api_code): $error_msg" >> "$LOG_FILE"
 
@@ -417,10 +411,7 @@
           wind_deg=$(echo "$weather" | jq -r '.wind.deg // 0')
           weather_id=$(echo "$weather" | jq -r '.weather[0].id')
           city_name=$(echo "$weather" | jq -r '.name')
-
           echo "$(date): Weather data for $city_name: $condition, ''${temp_f}°F" >> "$LOG_FILE"
-
-          # Convert wind direction from degrees to compass direction
           get_wind_direction() {
             deg=$1
             if [ "$deg" -ge 0 ] && [ "$deg" -lt 23 ]; then echo "N"
@@ -437,7 +428,7 @@
 
           wind_dir=$(get_wind_direction "$wind_deg")
 
-          # Determine appropriate icon based on OpenWeatherMap weather codes
+          # Determine icon based on OpenWeatherMap weather codes
           if [ "$weather_id" -ge 200 ] && [ "$weather_id" -lt 300 ]; then
             icon="⛈️"  # Thunderstorm
           elif [ "$weather_id" -ge 300 ] && [ "$weather_id" -lt 400 ]; then
@@ -449,7 +440,6 @@
           elif [ "$weather_id" -ge 700 ] && [ "$weather_id" -lt 800 ]; then
             icon="🌫️"  # Atmosphere (fog, haze, etc.)
           elif [ "$weather_id" -eq 800 ]; then
-            # Check if it's day or night for clear sky
             current_time=$(date +%s)
             sunrise=$(echo "$weather" | jq -r '.sys.sunrise')
             sunset=$(echo "$weather" | jq -r '.sys.sunset')
@@ -466,10 +456,7 @@
 
           # Capitalize first letter of condition
           condition=$(echo "$condition" | sed 's/\b\w/\U&/g')
-
-          # Create tooltip with additional weather info including city name
           tooltip="$city_name: $condition - ''${temp_f}°F (feels like ''${feels_like_f}°F)\nHumidity: ''${humidity}%\nWind: ''${wind_speed} mph $wind_dir"
-
           # Output the weather information in JSON format
           result="{\"text\": \"$icon ''${temp_f}°F (''${feels_like_f}°F)\", \"tooltip\": \"$tooltip\"}"
           printf "%s\n" "$result"

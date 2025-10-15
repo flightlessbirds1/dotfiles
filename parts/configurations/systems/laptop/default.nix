@@ -8,6 +8,9 @@
     laptop
     users
   ];
-
+  programs.nekoray = {
+    enable = true;
+    tunMode.enable = true;
+  };
   environment.systemPackages = with pkgs; [];
 }
