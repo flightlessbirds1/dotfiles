@@ -256,7 +256,7 @@ getIconPathFromIconName _ shareDirs errorIcon iconName = do
     pixmapDirs = (</> "pixmaps") <$> shareDirs
 
     sizes = map (\n -> show n <> "x" <> show n)
-            ([64, 96, 128, 48, 72, 192, 256, 512, 32, 36, 40, 24, 22, 20, 16, 1024] :: [Int])
+            ([32, 36, 40, 48, 64, 72, 96, 128, 192, 256, 512, 24, 22, 20, 16, 1024] :: [Int])
             ++ ["scalable"]
 
     svgCandidates = [dir </> size </> "apps" </> (iconName <> ".svg") | dir <- allIconDirs, size <- sizes]

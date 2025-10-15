@@ -3,6 +3,7 @@
     inherit
       (pkgs)
       stylish-haskell
+      stack
       ;
     inherit
       (pkgs.haskellPackages)
