@@ -9,7 +9,6 @@
     users
     desktop
     wireguard
-    proxy
     specializations
   ];
 
