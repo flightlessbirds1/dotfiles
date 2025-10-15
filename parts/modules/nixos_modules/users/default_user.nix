@@ -42,14 +42,16 @@
   home-manager.users.${username} = {pkgs, ...}: {
     imports = with flake.self.homeManagerModules; [
       Communication
-      Desktop-Environments
+      Desktop
       Editors
       Gaming
       Media
+      Security
       Terminal
+      Utilities
       wayland
       System-Config
-      ../../home/linux/modules/App-Config/browser/split-conf
+      ../../home/linux/modules/App-Config/Browser/split-conf
     ];
     home = {
       inherit

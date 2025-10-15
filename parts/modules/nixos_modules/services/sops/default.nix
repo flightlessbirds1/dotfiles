@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  flake,
   ...
 }: {
   imports = [
@@ -12,48 +13,68 @@
   ];
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.generateKey = true;
-
-  sops.secrets.password = {
-    format = "binary";
-    sopsFile = ../../../../../secrets/password.txt;
-    neededForUsers = true;
+  sops = {
+    secrets = {
+      password = {
+        format = "binary";
+        sopsFile = flake.self.secrets + /password.txt;
+        neededForUsers = true;
+      };
+      proton-private-key-CA = {
+        format = "binary";
+        sopsFile = flake.self.secrets + /proton-private-key-CA.txt;
+        neededForUsers = true;
+      };
+      preshared = {
+        format = "binary";
+        sopsFile = flake.self.secrets + /preshared-key.txt;
+      };
+      private = {
+        format = "binary";
+        sopsFile = flake.self.secrets + /private-key.txt;
+      };
+      weather_location = {
+        sopsFile = flake.self.secrets + /weather-location.yaml;
+      };
+      weather_api_key = {
+        sopsFile = flake.self.secrets + /weather-api-key.yaml;
+      };
+      proton-private = {
+        sopsFile = flake.self.secrets + /proton-private-key.yaml;
+      };
+      location = {
+        sopsFile = flake.self.secrets + /location.yaml;
+        mode = "0400";
+        owner = "insomniac";
+      };
+      proton-NL = {
+        sopsFile = flake.self.secrets + /proton-NL.txt;
+        format = "binary";
+      };
+      proton-FL = {
+        sopsFile = flake.self.secrets + /proton-FL.txt;
+        format = "binary";
+      };
+      "proxy/domain" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+      "proxy/email" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+      "proxy/vlessUUID" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+      "proxy/realityPrivateKey" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+      "proxy/naivePassword" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+      "proxy/hysteriaPassword" = {
+        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
+      };
+    };
   };
-  sops.secrets.proton-private-key-CA = {
-    format = "binary";
-    sopsFile = ../../../../../secrets/proton-private-key-CA.txt;
-    neededForUsers = true;
-  };
-  sops.secrets.preshared = {
-    format = "binary";
-    sopsFile = ../../../../../secrets/preshared-key.txt;
-  };
-  sops.secrets.private = {
-    format = "binary";
-    sopsFile = ../../../../../secrets/private-key.txt;
-  };
-  sops.secrets.weather_location = {
-    sopsFile = ../../../../../secrets/weather-location.yaml;
-  };
-  sops.secrets.weather_api_key = {
-    sopsFile = ../../../../../secrets/weather-api-key.yaml;
-  };
-  sops.secrets.proton-private = {
-    sopsFile = ../../../../../secrets/proton-private-key.yaml;
-  };
-  sops.secrets.location = {
-    sopsFile = ../../../../../secrets/location.yaml;
-    mode = "0400";
-    owner = "insomniac";
-  };
-  sops.secrets.proton-NL = {
-    sopsFile = ../../../../../secrets/proton-NL.txt;
-    format = "binary";
-  };
-  sops.secrets.proton-FL = {
-    sopsFile = ../../../../../secrets/proton-FL.txt;
-    format = "binary";
-  };
-
   # Export both weather secrets to environment
   systemd.services.export-weather-secrets = {
     description = "Export weather secrets to environment file";
