@@ -41,7 +41,6 @@
 
   environment.systemPackages = with pkgs; [
     nh
-    nix-output-monitor
     nvd # for nix-diff style comparisons
   ];
 }

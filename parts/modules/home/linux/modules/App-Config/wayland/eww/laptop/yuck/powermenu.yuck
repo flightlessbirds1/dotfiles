@@ -11,8 +11,8 @@
       :onclick "updatePowermenuState ${power}"
       (image
         :class "nix"
-        :image-width 25
-        :image-height 25
+        :image-width 31
+        :image-height 31
         :path "/home/insomniac/.config/eww/images/nix.png"
       )
     )
