@@ -3,7 +3,7 @@
 .workspaceGroup {
   background-color: $crust;
   border-radius: 14px;
-  padding: 4px 6px 4px 6px;
+  padding: 0px 6px 0px 8px;
 }
 
 .workspaceFocused {
@@ -16,16 +16,17 @@
 .workspaceUnfocused {
   background-color: $surface0;
   border-radius: 6px;
-  padding: 3px;
+  padding: 4px;
   margin: 0px 3px 0px 3px;
 }
 
 .imageFocused {
   background: $blue;
   border-radius: 8px;
+  margin: 0px 1px 0px 1px;
 }
 
 .imageUnfocused {
   border-radius: 2px;
-  margin: 0px 2px 0px 2px;
+  margin: 0px 1px 0px 1px;
 }
