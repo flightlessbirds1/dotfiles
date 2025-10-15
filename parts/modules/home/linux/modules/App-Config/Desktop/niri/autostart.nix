@@ -13,6 +13,13 @@
       [
         {
           command = [
+            "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon"
+            "--start"
+            "--components=secrets,ssh,pkcs11"
+          ];
+        }
+        {
+          command = [
             "firefox"
           ];
         }

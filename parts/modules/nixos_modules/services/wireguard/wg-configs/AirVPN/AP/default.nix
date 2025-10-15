@@ -24,6 +24,6 @@
     };
   };
   networking.wg-quick.interfaces.AirVPN-Phoenix = {
-    autostart = true;
+    autostart = false;
   };
 }

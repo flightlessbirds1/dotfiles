@@ -9,7 +9,13 @@
     users
     desktop
     wireguard
+    proxy
+    specializations
   ];
+
+  specializations.plasma.enable = false;
+  specializations.gaming.enable = false;
+  specializations.compiling.enable = true;
 
   services.logind.settings.Login.killUserProcesses = true;
   environment.systemPackages = with pkgs; [

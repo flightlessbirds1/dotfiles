@@ -40,7 +40,7 @@ in {
 
   qt.enable = lib.mkIf cfg.enable true;
   # qt.platformTheme = "gnome";
-  qt.style = "adwaita-highcontrastinverse";
+  qt.style = lib.mkIf cfg.enable "adwaita-highcontrastinverse";
   xdg.portal = {
     enable = true;
 
