@@ -2,6 +2,7 @@
   home.sessionVariables.EDITOR = "hx";
 
   home.packages = with pkgs; [
+    clang-tools
     nil
     python3Packages.python-lsp-server
     python3Packages.ruff

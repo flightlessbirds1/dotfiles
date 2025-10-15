@@ -86,7 +86,7 @@ in {
           # App Launchers (SUPER + SHIFT + CTRL)
           "super+shift+ctrl+f".action = a.spawn "firefox";
           "super+shift+ctrl+slash".action = a.spawn "nu" "-c" ''firefox --no-remote -P "school"'';
-          "super+shift+ctrl+v".action = a.spawn "vesktop";
+          "super+shift+ctrl+v".action = a.spawn "equibop";
           "super+shift+ctrl+g".action = a.spawn [
             "nu"
             "-c"
