@@ -34,6 +34,7 @@ in {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
         scaling-factor = 0;
+        font-name = "Adwaita Sans 11";
       };
 
       "org/gnome/mutter" = {
