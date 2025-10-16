@@ -30,5 +30,5 @@ in {
     mantle = "181825";
     crust = "11111b";
   };
-  font = "JetBrainsMono Nerd Font";
+  # font = "JetBrainsMono Nerd Font";
 }

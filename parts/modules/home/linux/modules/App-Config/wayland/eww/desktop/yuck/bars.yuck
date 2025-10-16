@@ -2,7 +2,7 @@
   :exclusive true
   :geometry (geometry
     :anchor "top center"
-    :height "7%"
+    :height "5%"
     :width "100%"
   )
   :monitor "DP-1"
@@ -27,7 +27,7 @@
   :exclusive true
   :geometry (geometry
     :anchor "top center"
-    :height "7%"
+    :height "5%"
     :width "100%"
   )
   :monitor "DP-2"

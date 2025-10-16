@@ -23,10 +23,12 @@
 .imageFocused {
   background: $blue;
   border-radius: 8px;
-  margin: 0px 1px 0px 1px;
+  margin: 0px 2px 0px 2px;
+  padding: 2px;
 }
 
 .imageUnfocused {
   border-radius: 2px;
-  margin: 0px 1px 0px 1px;
+  /* margin: 0px 2px 0px 2px; */
+  padding: 2px;
 }

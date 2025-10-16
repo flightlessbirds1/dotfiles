@@ -8,5 +8,9 @@
       path = ../templates/typst;
       description = "typst template";
     };
+    lean = {
+      path = ../templates/lean;
+      description = "Lean template";
+    };
   };
 }
