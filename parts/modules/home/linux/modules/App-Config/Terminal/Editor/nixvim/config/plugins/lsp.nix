@@ -15,7 +15,6 @@
         installRustc = false;
       };
       tinymist.enable = true;
-      leanls.enable = true;
       vale_ls = {
         enable = true;
         filetypes = [

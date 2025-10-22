@@ -27,6 +27,14 @@ _: {
       "image/jpeg" = [
         "firefox.desktop"
       ];
+      "video/mp4" = ["umpv.desktop"];
+      "video/x-matroska" = ["umpv.desktop"]; # .mkv
+      "video/webm" = ["umpv.desktop"];
+      "video/x-msvideo" = ["umpv.desktop"]; # .avi
+      "video/quicktime" = ["umpv.desktop"]; # .mov
+      "video/x-flv" = ["umpv.desktop"];
+      "video/mpeg" = ["umpv.desktop"];
+      "video/ogg" = ["umpv.desktop"];
     };
   };
 }

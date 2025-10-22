@@ -1,6 +1,6 @@
 {config, ...}: {
   networking.wg-quick.interfaces = {
-    AirVPN-EU = {
+    AirVPN-NC = {
       address = [
         "10.158.41.80/32"
         "fd7d:76ee:e68f:a993:47f:d5ee:cb27:8280/128"
@@ -18,14 +18,11 @@
           allowedIPs = [
             "0.0.0.0/0,::/0"
           ];
-          endpoint = "europe3.vpn.airdns.org:1637";
+          endpoint = "198.54.130.30:1637";
           persistentKeepalive = 25;
         }
       ];
+      autostart = true;
     };
-  };
-  networking.wg-quick.interfaces.AirVPN-EU = {
-    # Your existing configuration
-    autostart = false;
   };
 }
