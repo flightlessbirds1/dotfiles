@@ -40,7 +40,7 @@ in {
 
   qt.enable = lib.mkIf cfg.enable true;
   # qt.platformTheme = "gnome";
-  qt.style = lib.mkIf cfg.enable "adwaita-highcontrastinverse";
+  qt.style = lib.mkIf cfg.enable "adwaita-dark";
   xdg.portal = {
     enable = true;
 
@@ -48,6 +48,7 @@ in {
       pkgs.xdg-desktop-portal-gnome
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
+      pkgs.kdePackages.xdg-desktop-portal-kde
     ];
 
     config.gnome = {
@@ -57,9 +58,9 @@ in {
     };
 
     config.niri = {
-      default = ["wlr" "gtk"];
-      "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-      "org.freedesktop.impl.portal.Screenshot" = "wlr";
+      default = ["gnome" "gtk"];
+      "org.freedesktop.impl.portal.FileChooser" = "kde";
+      "org.freedesktop.impl.portal.OpenURI" = "gtk";
     };
     config.common.default = ["gnome"];
   };

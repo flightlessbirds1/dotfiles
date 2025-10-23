@@ -128,7 +128,7 @@ in {
             "quit"
             "--skip-confirmation"
           ];
-          "super+s".action = a.screenshot {};
+          "super+s".action = a.spawn "sh" "-c" ''grim -g "$(slurp)" - | wl-copy'';
 
           # Move Window to Monitor Keybinds
           "super+ctrl+left".action = a.move-window-to-monitor-left;
