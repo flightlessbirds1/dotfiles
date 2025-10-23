@@ -38,6 +38,7 @@
       sub-blur = 0.2;
       sub-auto = "fuzzy";
       sub-file-paths = "sub:subtitles:subs";
+      slang = "en,eng"; # Prefer English subtitles
       volume = 80;
       volume-max = 200;
       audio-pitch-correction = true;
@@ -129,6 +130,7 @@
       "]" = "multiply speed 1.1";
       "BS" = "set speed 1.0";
       "b" = "cycle deband";
+      "B" = "script-binding autosub/download_subs";
       "i" = "cycle interpolation";
       "I" = "script-binding stats/display-stats-toggle";
       "P" = "script-binding mpv_playlistmanager/showplaylist";
@@ -152,5 +154,9 @@
     volumebar_color=FF5722
     timetotal=yes
     compactmode=no
+  '';
+
+  home.file.".config/mpv/script-opts/autosub.conf".text = ''
+    languages=eng,en
   '';
 }
