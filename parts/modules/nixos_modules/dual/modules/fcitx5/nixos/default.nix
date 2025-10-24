@@ -205,6 +205,8 @@
         "p+" = "p⁺";
         "n0" = "n⁰";
         "dotdot" = "⁑"; # Lone pair symbol (unofficial)
+        "emdash" = "—";
+        "endash" = "–";
       };
     };
   };

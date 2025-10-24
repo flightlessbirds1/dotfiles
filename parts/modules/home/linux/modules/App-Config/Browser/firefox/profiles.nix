@@ -98,6 +98,7 @@
       redirect
       mal-sync
       ff2mpv
+      violentmonkey
     ])
     (bookmarks
       // search);

@@ -139,7 +139,7 @@
       "]" = "multiply speed 1.1";
       "BS" = "set speed 1.0";
       "b" = "cycle deband";
-      "h" = "cycle deband";
+      "B" = "script-binding autosub/download_subs";
       "i" = "cycle interpolation";
       "I" = "script-binding stats/display-stats-toggle";
       "P" = "script-binding mpv_playlistmanager/showplaylist";
@@ -166,5 +166,7 @@
     compactmode=no
   '';
 
-  home.file.".config/mpv/scripts/.keep".text = "";
+  home.file.".config/mpv/script-opts/autosub.conf".text = ''
+    languages=eng,en
+  '';
 }
