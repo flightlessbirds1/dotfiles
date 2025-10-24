@@ -11,6 +11,7 @@
     ./config/colorschemes.nix
     ./config/keymap.nix
     ./config/options.nix
+    ./config/dep-ignore.nix
     inputs.nixvim.homeModules.nixvim
   ];
   programs.nixvim.enable = true;

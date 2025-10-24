@@ -2,21 +2,31 @@
   programs.mpv = {
     enable = true;
     config = {
-      profile = "gpu-hq";
+      vo = "gpu-next";
+      gpu-api = "vulkan";
+      hwdec = "no";
       scale = "ewa_lanczossharp";
       cscale = "ewa_lanczossharp";
-      dscale = "mitchell";
+      dscale = "hermite";
+      scale-antiring = 0.8;
+      dscale-antiring = 0.8;
+      cscale-antiring = 0.8;
       video-sync = "display-resample";
       interpolation = true;
       tscale = "oversample";
-      hwdec = "auto-safe";
-      vo = "gpu-next";
-      gpu-api = "auto";
+      interpolation-preserve = "no";
+      deband = false;
+      deband-iterations = 4;
+      deband-threshold = 48;
+      deband-range = 24;
+      deband-grain = 16;
+      dither = "fruit";
+      video-crop = "0x0+0+0";
+      fullscreen = true;
       border = false;
       title = "\${filename}";
       keepaspect-window = false;
-      snap-window = true;
-      window-maximized = true;
+      cursor-autohide = 100;
       osc = false;
       osd-bar = false;
       osd-font = "SF Pro Display";
@@ -28,58 +38,58 @@
       osd-duration = 1500;
       osd-margin-x = 20;
       osd-margin-y = 20;
-      sub-font = "SF Pro Display";
-      sub-font-size = 44;
+      sub-font = "Carlito";
+      sub-font-size = 52;
+      sub-blur = 0.1;
       sub-color = "#FFFFFF";
-      sub-border-color = "#00000000";
-      sub-shadow-offset = 2;
-      sub-shadow-color = "#CC000000";
+      sub-border-size = 3.2;
+      sub-border-color = "#FF000000";
+      sub-shadow-color = "#A0000000";
+      sub-shadow-offset = 0.5;
+      sub-bold = "yes";
+      sub-margin-x = 100;
       sub-margin-y = 50;
-      sub-blur = 0.2;
       sub-auto = "fuzzy";
       sub-file-paths = "sub:subtitles:subs";
-      volume = 80;
-      volume-max = 200;
-      audio-pitch-correction = true;
-      audio-channels = "auto-safe";
+      demuxer-mkv-subtitle-preroll = "yes";
+      sub-ass-use-video-data = "aspect-ratio";
+      subs-with-matching-audio = "no";
+      blend-subtitles = "yes";
+      sub-fix-timing = "yes";
+      sub-ass-override = "scale";
+      sub-scale = 1.1;
+      sub-gauss = 1.0;
+      sub-gray = "yes";
+      volume = 100;
+      volume-max = 100;
+      audio-file-auto = "fuzzy";
+      audio-channels = "stereo,5.1,7.1";
       hr-seek = "yes";
-      save-position-on-quit = true;
-      watch-later-directory = "~/.cache/mpv/watch_later";
+      keep-open = "yes";
+      save-position-on-quit = "no";
+      force-seekable = "yes";
+      autocreate-playlist = "same";
       screenshot-format = "png";
-      screenshot-high-bit-depth = true;
-      screenshot-png-compression = 9;
+      screenshot-high-bit-depth = "yes";
+      screenshot-png-compression = 1;
       screenshot-directory = "~/Pictures/Screenshots";
-      screenshot-template = "%F_%P";
+      screenshot-template = "%f-%wH.%wM.%wS.%wT-#%#00n";
       cache = true;
-      cache-secs = 300;
       demuxer-max-bytes = "500MiB";
       demuxer-max-back-bytes = "200MiB";
       demuxer-readahead-secs = 30;
       stream-buffer-size = "10MiB";
-      force-seekable = true;
-      player-operation-mode = "pseudo-gui";
-      keep-open = true;
-      keep-open-pause = false;
-      force-window = true;
-      idle = true;
-      x11-bypass-compositor = "yes";
-      cursor-autohide = 800;
-      deband = true;
-      deband-iterations = 2;
-      deband-threshold = 35;
-      deband-range = 16;
-      deband-grain = 48;
-      hr-seek-framedrop = false;
-      video-latency-hacks = true;
-      target-colorspace-hint = true;
-      dither-depth = "auto";
-      temporal-dither = true;
-      dither = "fruit";
-      screenshot-sw = false;
-      correct-downscaling = true;
-      linear-downscaling = true;
-      sigmoid-upscaling = true;
-      blend-subtitles = "yes";
+      alang = "ja,jp,jpn,en,eng,de,deu,ger";
+      slang = "en,eng,de,deu,ger";
+    };
+
+    profiles = {
+      youtube = {
+        profile-cond = "path:find('youtu') ~= nil";
+        save-position-on-quit = false;
+        force-seekable = "yes";
+        demuxer-max-back-bytes = "500MiB";
+      };
     };
 
     scripts = with pkgs.mpvScripts; [
@@ -129,9 +139,11 @@
       "]" = "multiply speed 1.1";
       "BS" = "set speed 1.0";
       "b" = "cycle deband";
+      "h" = "cycle deband";
       "i" = "cycle interpolation";
       "I" = "script-binding stats/display-stats-toggle";
       "P" = "script-binding mpv_playlistmanager/showplaylist";
+      "D" = "cycle deinterlace";
     };
   };
 
@@ -153,4 +165,6 @@
     timetotal=yes
     compactmode=no
   '';
+
+  home.file.".config/mpv/scripts/.keep".text = "";
 }
