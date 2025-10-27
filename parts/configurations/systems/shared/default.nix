@@ -62,9 +62,12 @@
     hashedPassword = "*";
   };
 
-  environment.systemPackages = with pkgs; [
-    libinput
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      libinput
+      ;
+  };
   time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";

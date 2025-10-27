@@ -18,20 +18,25 @@ in {
 
   services.gnome.gnome-browser-connector.enable = lib.mkIf cfg.enable true;
 
-  environment.systemPackages = with pkgs;
-    lib.mkIf cfg.enable [
-      gnomeExtensions.appindicator
-      gnomeExtensions.compiz-windows-effect
-      gnomeExtensions.tiling-assistant
-      gnomeExtensions.logo-menu
-      gnomeExtensions.user-themes
+  environment.systemPackages = lib.mkIf cfg.enable (builtins.attrValues {
+    inherit
+      (pkgs)
       gnome-tweaks
       gnome-session
       gnome-shell
       gnome-settings-daemon
       xdg-desktop-portal-gnome
-      gnome-session.sessions
-    ];
+      ;
+    inherit
+      (pkgs.gnomeExtensions)
+      appindicator
+      compiz-windows-effect
+      tiling-assistant
+      logo-menu
+      user-themes
+      ;
+    gnome-session-sessions = pkgs.gnome-session.sessions;
+  });
 
   services.displayManager.sessionPackages =
     if cfg.enable

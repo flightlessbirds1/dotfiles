@@ -1,3 +1,9 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [fuzzel papirus-icon-theme];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      fuzzel
+      papirus-icon-theme
+      ;
+  };
 }

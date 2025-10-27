@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [wireguard-tools];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      wireguard-tools
+      ;
+  };
 }

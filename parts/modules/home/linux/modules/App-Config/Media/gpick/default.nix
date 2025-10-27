@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    gpick
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      gpick
+      ;
+  };
 }

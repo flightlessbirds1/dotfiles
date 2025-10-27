@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [pavucontrol];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      pavucontrol
+      ;
+  };
 }

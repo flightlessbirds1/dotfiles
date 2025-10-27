@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    foliate
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      foliate
+      ;
+  };
 }

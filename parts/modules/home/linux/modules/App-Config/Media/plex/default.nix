@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    plex-desktop
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      plex-desktop
+      ;
+  };
 }

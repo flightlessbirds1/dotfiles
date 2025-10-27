@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    localsend
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      localsend
+      ;
+  };
 }

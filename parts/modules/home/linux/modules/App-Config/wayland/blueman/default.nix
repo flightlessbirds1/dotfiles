@@ -6,7 +6,10 @@
 }:
 lib.mkIf (flake.config.environment == "mine")
 {
-  home.packages = with pkgs; [
-    blueman
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      blueman
+      ;
+  };
 }

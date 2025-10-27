@@ -59,15 +59,33 @@
         }
       ];
       mgr.show_hidden = false;
-      opener.open = [
-        {
-          run = ''mimeo "$1"'';
-          desc = "Open";
-        }
-      ];
       preview = {
         max_width = 1000;
         max_height = 1000;
+      };
+      opener = {
+        nvim = [
+          {
+            run = ''nvim "$@"'';
+            block = true;
+            orphan = false;
+          }
+        ];
+      };
+      open = {
+        prepend_rules = [
+          {
+            name = "*.lean";
+            use = "nvim";
+          }
+        ];
+        append_rules = [
+          {
+            name = "*";
+            use = ''mimeo "$1"'';
+            desc = "Open";
+          }
+        ];
       };
     };
     plugins = {

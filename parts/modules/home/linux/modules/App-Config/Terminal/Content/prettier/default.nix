@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    nodePackages_latest.prettier
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs.nodePackages_latest)
+      prettier
+      ;
+  };
 }

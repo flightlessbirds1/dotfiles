@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [obsidian];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      obsidian
+      ;
+  };
 }

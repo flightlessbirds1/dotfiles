@@ -59,8 +59,11 @@
         stateVersion
         ;
       homeDirectory = "/home/${username}";
-      packages = with pkgs; [
-      ];
+      packages = builtins.attrValues {
+        inherit
+          (pkgs)
+          ;
+      };
     };
   };
   services = {

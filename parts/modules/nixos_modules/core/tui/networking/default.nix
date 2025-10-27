@@ -9,7 +9,13 @@
   };
   systemd.network.enable = true;
   systemd.network.wait-online.enable = false;
-  environment.systemPackages = with pkgs; [iw iwgtk];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      iw
+      iwgtk
+      ;
+  };
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [

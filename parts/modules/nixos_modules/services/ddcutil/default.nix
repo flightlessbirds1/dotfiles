@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [ddcutil];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      ddcutil
+      ;
+  };
 }

@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    gleam
-    exercism
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      gleam
+      exercism
+      ;
+  };
 }

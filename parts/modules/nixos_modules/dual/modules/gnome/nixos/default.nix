@@ -21,13 +21,12 @@ in {
   environment.gnome.excludePackages =
     if cfg.enable
     then
-      (
-        (with pkgs; [
+      (builtins.attrValues {
+        inherit
+          (pkgs)
           gnome-photos
           gnome-tour
           gedit
-        ])
-        ++ (with pkgs; [
           cheese # webcam tool
           gnome-terminal
           geary
@@ -41,7 +40,7 @@ in {
           iagno # go game
           hitori # sudoku game
           atomix # puzzle game
-        ])
-      )
+          ;
+      })
     else [];
 }

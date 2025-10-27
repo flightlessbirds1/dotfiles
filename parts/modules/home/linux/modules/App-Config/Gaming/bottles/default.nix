@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    bottles
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      bottles
+      ;
+  };
 }

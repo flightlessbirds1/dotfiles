@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    fastfetch
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      fastfetch
+      ;
+  };
 }

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    tokei
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      tokei
+      ;
+  };
 }

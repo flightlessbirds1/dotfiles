@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    lazygit
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      lazygit
+      ;
+  };
 }

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    parsec-bin
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      parsec-bin
+      ;
+  };
 }

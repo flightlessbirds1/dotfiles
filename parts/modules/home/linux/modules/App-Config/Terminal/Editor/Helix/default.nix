@@ -1,32 +1,38 @@
 {pkgs, ...}: {
   home.sessionVariables.EDITOR = "hx";
 
-  home.packages = with pkgs; [
-    clang-tools
-    nil
-    python3Packages.python-lsp-server
-    python3Packages.ruff
-    python3Packages.black
-
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    svelte-language-server
-    nodePackages.prettier
-    nodePackages.yaml-language-server
-    nodePackages.vscode-langservers-extracted
-
-    shfmt
-
-    rust-analyzer
-    rustfmt
-
-    haskellPackages.haskell-language-server
-
-    tinymist
-    typstfmt
-
-    yamlfmt
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      clang-tools
+      nil
+      shfmt
+      rust-analyzer
+      rustfmt
+      tinymist
+      typstfmt
+      yamlfmt
+      svelte-language-server
+      ;
+    inherit
+      (pkgs.python3Packages)
+      python-lsp-server
+      ruff
+      black
+      ;
+    inherit
+      (pkgs.nodePackages)
+      typescript
+      typescript-language-server
+      prettier
+      yaml-language-server
+      vscode-langservers-extracted
+      ;
+    inherit
+      (pkgs.haskellPackages)
+      haskell-language-server
+      ;
+  };
 
   programs.helix = {
     enable = true;

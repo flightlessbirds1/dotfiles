@@ -1,4 +1,9 @@
 {pkgs, ...}: {
   programs.corectrl.enable = true;
-  environment.systemPackages = with pkgs; [lm_sensors];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      lm_sensors
+      ;
+  };
 }

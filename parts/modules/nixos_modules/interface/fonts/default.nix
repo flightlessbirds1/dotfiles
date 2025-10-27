@@ -1,9 +1,15 @@
 {pkgs, ...}: {
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
-      noto-fonts-cjk-sans
-    ];
+    packages = builtins.attrValues {
+      inherit
+        (pkgs)
+        noto-fonts-cjk-sans
+        ;
+      inherit
+        (pkgs.nerd-fonts)
+        jetbrains-mono
+        ;
+    };
   };
 }

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    mediainfo
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      mediainfo
+      ;
+  };
 }

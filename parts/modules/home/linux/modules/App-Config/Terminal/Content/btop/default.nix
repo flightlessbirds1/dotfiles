@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    btop
-    proxychains-ng
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      btop
+      proxychains-ng
+      ;
+  };
 }

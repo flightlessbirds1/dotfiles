@@ -12,7 +12,10 @@
   ];
 
   services.logind.settings.Login.killUserProcesses = true;
-  environment.systemPackages = with pkgs; [
-    # rustdesk
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      # rustdesk
+      ;
+  };
 }

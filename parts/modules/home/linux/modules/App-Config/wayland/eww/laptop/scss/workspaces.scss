@@ -9,26 +9,26 @@
 .workspaceFocused {
   background-color: $surface2;
   border-radius: 6px;
-  padding: 4px;
-  margin: 0px 3px 0px 3px;
+  padding: 3px;
+  margin: 0px 4px;
 }
 
 .workspaceUnfocused {
   background-color: $surface0;
   border-radius: 6px;
-  padding: 4px;
-  margin: 0px 3px 0px 3px;
+  padding: 3px;
+  margin: 0px 4px;
 }
 
 .imageFocused {
   background: $blue;
   border-radius: 8px;
-  margin: 0px 2px 0px 2px;
+  margin: 2px;
   padding: 2px;
 }
 
 .imageUnfocused {
-  border-radius: 2px;
-  /* margin: 0px 2px 0px 2px; */
+  /* border-radius: 2px; */
+  margin: 2px;
   padding: 2px;
 }

@@ -8,7 +8,10 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [
-    sudo
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      sudo
+      ;
+  };
 }

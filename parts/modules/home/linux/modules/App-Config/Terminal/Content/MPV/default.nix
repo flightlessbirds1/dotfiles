@@ -144,6 +144,17 @@
       "I" = "script-binding stats/display-stats-toggle";
       "P" = "script-binding mpv_playlistmanager/showplaylist";
       "D" = "cycle deinterlace";
+      "Ctrl+o" = "script-binding open-browser";
+      "Tab" = "script-binding browse-files";
+    };
+  };
+
+  home.file.".config/mpv/scripts/file-browser" = {
+    source = pkgs.fetchFromGitHub {
+      owner = "CogentRedTester";
+      repo = "mpv-file-browser";
+      rev = "master";
+      sha256 = "sha256-fty26U84KVHa2/OD+i+8fkCnGYacHdlYhKADBDngs5k=";
     };
   };
 

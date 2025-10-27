@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    scrcpy
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      scrcpy
+      ;
+  };
 }

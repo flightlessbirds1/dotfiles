@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    git
-    git-credential-manager
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      git
+      git-credential-manager
+      ;
+  };
 }

@@ -12,5 +12,9 @@
     enable = true;
     tunMode.enable = true;
   };
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      ;
+  };
 }

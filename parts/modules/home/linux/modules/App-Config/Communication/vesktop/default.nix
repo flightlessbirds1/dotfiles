@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    vesktop
-    equibop
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      vesktop
+      equibop
+      ;
+  };
 }

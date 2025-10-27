@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    ente-auth
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      ente-auth
+      ;
+  };
 }

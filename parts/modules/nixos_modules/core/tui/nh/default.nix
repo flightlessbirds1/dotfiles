@@ -39,8 +39,11 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    nh
-    nvd # for nix-diff style comparisons
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      nh
+      nvd # for nix-diff style comparisons
+      ;
+  };
 }

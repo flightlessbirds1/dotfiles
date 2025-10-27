@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    rar
-    unrar
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      rar
+      unrar
+      ;
+  };
 }

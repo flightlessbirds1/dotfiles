@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [kitty];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      kitty
+      ;
+  };
 }

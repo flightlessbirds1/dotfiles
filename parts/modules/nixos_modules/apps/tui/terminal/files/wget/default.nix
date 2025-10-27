@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [wget];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      wget
+      ;
+  };
 }

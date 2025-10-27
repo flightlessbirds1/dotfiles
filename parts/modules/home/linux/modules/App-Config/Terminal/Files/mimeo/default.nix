@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    mimeo
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      mimeo
+      ;
+  };
 }

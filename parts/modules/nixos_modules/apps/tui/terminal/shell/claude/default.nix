@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [claude-code];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      claude-code
+      ;
+  };
 }

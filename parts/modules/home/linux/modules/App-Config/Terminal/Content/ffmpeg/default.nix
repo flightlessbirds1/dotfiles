@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    ffmpeg
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      ffmpeg
+      ;
+  };
 }

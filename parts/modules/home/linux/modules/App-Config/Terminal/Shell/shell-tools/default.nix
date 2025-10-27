@@ -1,6 +1,9 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    jq
-    curl
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      jq
+      curl
+      ;
+  };
 }

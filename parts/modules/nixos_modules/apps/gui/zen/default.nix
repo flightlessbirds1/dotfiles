@@ -1,7 +1,10 @@
 {
   pkgs,
   inputs,
+  system,
   ...
 }: {
-  environment.systemPackages = with pkgs; [inputs.zen-browser.packages."${system}".default];
+  environment.systemPackages = builtins.attrValues {
+    zen-browser = inputs.zen-browser.packages."${system}".default;
+  };
 }

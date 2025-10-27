@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    discord-canary
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      discord-canary
+      ;
+  };
 }

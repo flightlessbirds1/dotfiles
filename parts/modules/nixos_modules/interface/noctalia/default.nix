@@ -3,6 +3,7 @@
   inputs,
   flake,
   lib,
+  system,
   ...
 }: {
   imports = [
@@ -11,8 +12,13 @@
 
   environment.systemPackages =
     lib.mkIf (flake.config.environment == "noctalia")
-    (with pkgs; [
-      inputs.noctalia.packages.${system}.default
-      # kdePackages.qt6ct
-    ]);
+    (builtins.attrValues {
+      inherit
+        (pkgs)
+        ;
+      noctalia = inputs.noctalia.packages.${system}.default;
+      # inherit (pkgs.kdePackages)
+      #   qt6ct
+      #   ;
+    });
 }

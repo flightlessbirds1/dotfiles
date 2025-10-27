@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    zsh
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      zsh
+      ;
+  };
 }

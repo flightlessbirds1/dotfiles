@@ -8,10 +8,13 @@
     type = "fcitx5";
     enable = true;
     fcitx5 = {
-      addons = with pkgs; [
-        fcitx5-rime
-        fcitx5-gtk
-      ];
+      addons = builtins.attrValues {
+        inherit
+          (pkgs)
+          fcitx5-rime
+          fcitx5-gtk
+          ;
+      };
       settings = import ./settings.nix {};
       quickPhrase = {
         # Greek lowercase

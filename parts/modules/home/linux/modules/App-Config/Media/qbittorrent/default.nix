@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    qbittorrent
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      qbittorrent
+      ;
+  };
 }

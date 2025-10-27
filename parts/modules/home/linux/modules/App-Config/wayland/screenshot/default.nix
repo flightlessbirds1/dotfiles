@@ -1,8 +1,11 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard-rs
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      grim
+      slurp
+      wl-clipboard-rs
+      ;
+  };
   services.cliphist.enable = true;
 }

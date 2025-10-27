@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [neovim];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      neovim
+      ;
+  };
 }

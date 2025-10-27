@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    imagemagick
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      imagemagick
+      ;
+  };
 }

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    signal-desktop-bin
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      signal-desktop-bin
+      ;
+  };
 }

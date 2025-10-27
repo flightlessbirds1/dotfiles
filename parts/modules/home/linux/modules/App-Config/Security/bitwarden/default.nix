@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    bitwarden-desktop
-  ];
+  home.packages = builtins.attrValues {
+    inherit
+      (pkgs)
+      bitwarden-desktop
+      ;
+  };
 }

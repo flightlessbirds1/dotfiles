@@ -1,3 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [waybar];
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      waybar
+      ;
+  };
 }
