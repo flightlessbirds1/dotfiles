@@ -36,11 +36,13 @@
 
   yuckFiles = fileFilter ".yuck";
 
-  # scssFiles = ./${configSource}/scss;
+  scssFile = fileFilter "eww.scss";
+  scssFiles = fileFilter "s.scss";
+  scssDirs = lib.unique (map dirOf scssFiles) ++ scssFile;
 
   imageFiles = (fileFilter ".svg") ++ (fileFilter ".png");
 
-  allFiles = yuckFiles ++ imageFiles;
+  allFiles = yuckFiles ++ scssDirs ++ imageFiles;
 
   xdgConfig = listToAttrs (map (
       name:
@@ -96,11 +98,7 @@ in
     };
 
     xdg.configFile =
-      xdgConfig
-      // {
-        "eww/scss".source = ./${configSource}/scss;
-        "eww/eww.scss".source = ./${configSource}/eww.scss;
-      };
+      xdgConfig;
 
     home.packages = [
       haskeww
