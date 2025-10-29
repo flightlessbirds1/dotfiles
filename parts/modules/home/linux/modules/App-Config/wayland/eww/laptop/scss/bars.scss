@@ -5,15 +5,12 @@ window {
 }
 
 .monitorBar {
-  background-color: transparent;
-  /* margin-top: 10px; */
+  color: $text;
+  font-weight: bolder;
 }
 
 .topLevelWidgetContainer {
-  padding: 4px 6px;
+  padding: 6px;
   background-color: $surface0;
   border-radius: 0px 0px 16px 16px;
-  /* border-radius: 16px; */
-  color: $text;
-  font-weight: bolder;
 }
