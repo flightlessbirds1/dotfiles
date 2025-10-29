@@ -22,7 +22,7 @@ import           System.IO           (hPutStrLn, stderr)
 import           System.Process      (readProcess)
 
 debugMode :: Bool
-debugMode = False
+debugMode = True
 
 debugLog :: String -> IO ()
 debugLog msg = when debugMode $ hPutStrLn stderr $ "[GetAppIcon] " ++ msg
@@ -44,34 +44,39 @@ getAppIcon home iconCache maybeAppID = case maybeAppID of
     errorIcon = home </> ".config/eww/images/error.png"
 
 computeIconForAppID :: FilePath -> FilePath -> String -> IO FilePath
-computeIconForAppID home errorIcon appID = do
-  case splitOn "_" appID of
-    ["steam", "app", steamID] | all isDigit steamID -> do
-      debugLog $ "Detected Steam app: " ++ steamID
-      let iconDir = home </> ".steam/steam/appcache/librarycache" </> steamID
-      exists <- doesDirectoryExist iconDir
-      if not exists
-        then pure errorIcon
-        else do
-          files <- listDirectory iconDir
-          let preferredFiles = ["library_600x900.jpg", "header.jpg", "icon.jpg"]
-              candidates = filter (\f -> takeFileName f `elem` preferredFiles) files
-                        ++ filter (\f -> takeExtension f == ".jpg" && length f > 30) files
-          case listToMaybe candidates of
-            Just iconFile -> pure $ iconDir </> iconFile
-            Nothing       -> pure errorIcon
-    _ -> do
+computeIconForAppID home errorIcon appID
+  -- Equibop has corrupted icons in nixpkgs, use vesktop as fallback
+  | appID == "equibop" = do
+      debugLog "Equibop detected, using vesktop icon as fallback"
       shareDirs <- getShareDirs home
-      maybeDesktopPath <- findBestDesktopFile shareDirs appID
+      getIconPathFromIconName home shareDirs errorIcon "vesktop"
+  | otherwise = case splitOn "_" appID of
+      ["steam", "app", steamID] | all isDigit steamID -> do
+        debugLog $ "Detected Steam app: " ++ steamID
+        let iconDir = home </> ".steam/steam/appcache/librarycache" </> steamID
+        exists <- doesDirectoryExist iconDir
+        if not exists
+          then pure errorIcon
+          else do
+            files <- listDirectory iconDir
+            let preferredFiles = ["library_600x900.jpg", "header.jpg", "icon.jpg"]
+                candidates = filter (\f -> takeFileName f `elem` preferredFiles) files
+                          ++ filter (\f -> takeExtension f == ".jpg" && length f > 30) files
+            case listToMaybe candidates of
+              Just iconFile -> pure $ iconDir </> iconFile
+              Nothing       -> pure errorIcon
+      _ -> do
+        shareDirs <- getShareDirs home
+        maybeDesktopPath <- findBestDesktopFile shareDirs appID
 
-      case maybeDesktopPath of
-        Just path -> do
-          debugLog $ "Found desktop file: " ++ path
-          maybeIconName <- getIconNameFromDesktopFilePath path
-          case maybeIconName of
-            Just iconName -> getIconPathFromIconName home shareDirs errorIcon iconName
-            Nothing -> searchByAppID home shareDirs errorIcon appID
-        Nothing -> searchByAppID home shareDirs errorIcon appID
+        case maybeDesktopPath of
+          Just path -> do
+            debugLog $ "Found desktop file: " ++ path
+            maybeIconName <- getIconNameFromDesktopFilePath path
+            case maybeIconName of
+              Just iconName -> getIconPathFromIconName home shareDirs errorIcon iconName
+              Nothing -> searchByAppID home shareDirs errorIcon appID
+          Nothing -> searchByAppID home shareDirs errorIcon appID
 
 searchByAppID :: FilePath -> [FilePath] -> FilePath -> String -> IO FilePath
 searchByAppID home shareDirs errorIcon appID = do
@@ -255,15 +260,20 @@ getIconPathFromIconName _ shareDirs errorIcon iconName = do
     allIconDirs = hicolorDirs ++ themeDirs
     pixmapDirs = (</> "pixmaps") <$> shareDirs
 
-    sizes = map (\n -> show n <> "x" <> show n)
-            ([32, 36, 40, 48, 64, 72, 96, 128, 192, 256, 512, 24, 22, 20, 16, 1024] :: [Int])
-            ++ ["scalable"]
-
-    svgCandidates = [dir </> size </> "apps" </> (iconName <> ".svg") | dir <- allIconDirs, size <- sizes]
-    pngCandidates = [dir </> size </> "apps" </> (iconName <> ".png") | dir <- allIconDirs, size <- sizes]
+    scalableSvgs = [dir </> "scalable" </> "apps" </> (iconName <> ".svg") | dir <- allIconDirs]
+    nearSizeSvgs = [dir </> size </> "apps" </> (iconName <> ".svg")
+                   | dir <- allIconDirs, size <- ["28x28", "32x32", "24x24", "36x36", "22x22", "20x20"]]
+    nearSizePngs = [dir </> size </> "apps" </> (iconName <> ".png")
+                   | dir <- allIconDirs, size <- ["28x28", "32x32", "24x24", "36x36", "22x22", "20x20"]]
+    otherSvgs = [dir </> size </> "apps" </> (iconName <> ".svg")
+                | dir <- allIconDirs, size <- map (\n -> show n <> "x" <> show n)
+                ([48, 40, 64, 16, 72, 96, 128, 192, 256, 512, 1024] :: [Int])]
+    otherPngs = [dir </> size </> "apps" </> (iconName <> ".png")
+                | dir <- allIconDirs, size <- map (\n -> show n <> "x" <> show n)
+                ([48, 40, 64, 16, 72, 96, 128, 192, 256, 512, 1024] :: [Int])]
     pixmapCandidates = [dir </> (iconName <> ext) | dir <- pixmapDirs, ext <- [".svg", ".png", ".xpm"]]
 
-    allCandidates = svgCandidates ++ pngCandidates ++ pixmapCandidates
+    allCandidates = scalableSvgs ++ nearSizeSvgs ++ nearSizePngs ++ otherSvgs ++ otherPngs ++ pixmapCandidates
 
 safeReadFile :: FilePath -> IO (Maybe String)
 safeReadFile path = (Just <$> readFile path) `catch` \(_ :: SomeException) -> pure Nothing

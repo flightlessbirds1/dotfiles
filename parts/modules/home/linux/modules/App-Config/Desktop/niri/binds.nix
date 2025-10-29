@@ -128,7 +128,7 @@ in {
             "quit"
             "--skip-confirmation"
           ];
-          "super+s".action = a.spawn "sh" "-c" ''grim -g "$(slurp)" - | wl-copy'';
+          "super+s".action = a.spawn "sh" "-c" ''wayfreeze & PID=$!; sleep 0.1; grim -g "$(slurp)" - | wl-copy; kill $PID'';
 
           # Move Window to Monitor Keybinds
           "super+ctrl+left".action = a.move-window-to-monitor-left;

@@ -13,7 +13,7 @@
         :class "nix"
         :image-width 25
         :image-height 25
-        :path "/home/insomniac/.config/eww/images/nix.png"
+        :path "pathto/images/nix.png"
       )
     )
     (revealer
@@ -59,7 +59,7 @@
     (image
       :image-height 15
       :image-width 15
-      :path "/home/insomniac/.config/eww/images/powermenu/${class}.svg"
+      :path "pathto/images/powermenu/${class}.svg"
     )
   )
 )

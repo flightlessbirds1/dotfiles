@@ -5,6 +5,7 @@
       grim
       slurp
       wl-clipboard-rs
+      wayfreeze
       ;
   };
   services.cliphist.enable = true;

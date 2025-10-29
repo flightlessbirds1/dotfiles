@@ -4,12 +4,58 @@
   flake,
   lib,
   pkgs,
+  users,
+  osConfig,
   ...
 }: let
   inherit
     (flake.self.packages.${pkgs.system})
     haskeww
     ;
+  inherit
+    (builtins)
+    filter
+    listToAttrs
+    map
+    ;
+  configSource =
+    if hostname == "desktop"
+    then "desktop"
+    else "laptop";
+  configPath = "${osConfig.users.users.${username}.home}/.config/eww";
+
+  processYuckFile = file:
+    builtins.replaceStrings
+    ["pathto"]
+    [configPath]
+    (builtins.readFile file);
+
+  scan = lib.filesystem.listFilesRecursive ./${configSource};
+
+  fileFilter = suffix: (filter (file: lib.hasSuffix "${suffix}" (toString file)) scan);
+
+  yuckFiles = fileFilter ".yuck";
+
+  # scssFiles = ./${configSource}/scss;
+
+  imageFiles = (fileFilter ".svg") ++ (fileFilter ".png");
+
+  allFiles = yuckFiles ++ imageFiles;
+
+  xdgConfig = listToAttrs (map (
+      name:
+        if lib.hasSuffix ".yuck" (toString name)
+        then {
+          name = builtins.replaceStrings [("eww/" + configSource)] ["eww"] (builtins.toString (builtins.tail (lib.splitString "wayland/" (toString name))));
+          value.text = processYuckFile name;
+        }
+        else {
+          name = builtins.replaceStrings [("eww/" + configSource)] ["eww"] (builtins.toString (builtins.tail (lib.splitString "wayland/" (toString name))));
+          value.source = name;
+        }
+    )
+    allFiles);
+
   makeEWWService = bin: envFile: {
     Unit = {
       Description = "Eww feeder: ${bin}";
@@ -45,12 +91,16 @@
 in
   lib.mkIf (flake.config.environment == "mine") {
     programs.eww = {
-      configDir =
-        if hostname == "desktop"
-        then ./desktop
-        else ./laptop;
       enable = true;
+      package = pkgs.eww;
     };
+
+    xdg.configFile =
+      xdgConfig
+      // {
+        "eww/scss".source = ./${configSource}/scss;
+        "eww/eww.scss".source = ./${configSource}/eww.scss;
+      };
 
     home.packages = [
       haskeww

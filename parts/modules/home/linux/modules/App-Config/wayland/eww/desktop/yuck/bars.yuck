@@ -2,10 +2,10 @@
   :exclusive true
   :geometry (geometry
     :anchor "top center"
-    :height "5%"
+    :height "4.5%"
     :width "100%"
   )
-  :monitor "DP-1"
+  :monitor 0
   :namespace "monitorBar"
   ; It seems like we need this top level box because class can't be applied to windows, they take on
   ; instead the CSS that shares their name. So we'd end up with 2 indentical CSS classes for the
@@ -27,10 +27,10 @@
   :exclusive true
   :geometry (geometry
     :anchor "top center"
-    :height "5%"
+    :height "4.5%"
     :width "100%"
   )
-  :monitor "DP-2"
+  :monitor 1
   :namespace "monitorBar"
   ; It seems like we need this top level box because class can't be applied to windows, they take on
   ; instead the CSS that shares their name. So we'd end up with 2 indentical CSS classes for the
