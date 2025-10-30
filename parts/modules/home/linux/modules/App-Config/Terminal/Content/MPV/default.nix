@@ -61,12 +61,12 @@
       sub-gauss = 1.0;
       sub-gray = "yes";
       volume = 100;
-      volume-max = 100;
+      volume-max = 200;
       audio-file-auto = "fuzzy";
       audio-channels = "stereo,5.1,7.1";
       hr-seek = "yes";
       keep-open = "yes";
-      save-position-on-quit = "no";
+      save-position-on-quit = "yes";
       force-seekable = "yes";
       autocreate-playlist = "same";
       screenshot-format = "png";
