@@ -1,11 +1,12 @@
 (defvar batteryClass0 "batTextGreen")
 (defvar batteryClass1 "batTextGreen")
-(defvar batteryImagePath0 "/home/insomniac/.config/eww/images/battery/full.svg")
-(defvar batteryImagePath1 "/home/insomniac/.config/eww/images/battery/full.svg")
+(defvar batteryImagePath0 "pathto/images/battery/discharging/6.svg")
+(defvar batteryImagePath1 "pathto/images/battery/discharging/6.svg")
 (defvar batterySelected 0)
 (defvar batteryPopupVisible false)
 (defvar batteryEventboxClass "batteryEventboxClosed")
-(defvar batteryTimeRemaining0 "0")
+(defvar batteryTimeRemaining0 "0:00")
+(defvar batteryTimeRemaining1 "0:00")
 
 (defwidget battery []
   (eventbox
@@ -21,17 +22,21 @@
         (batteryBox
           :imageClass batteryClass0
           :imagePath batteryImagePath0
+          :timeRemaining batteryTimeRemaining0
         )
         (batteryBox
           :imageClass batteryClass1
           :imagePath batteryImagePath1
+          :timeRemaining batteryTimeRemaining1
         )
       )
       (revealer
         :duration "250ms"
         :reveal batteryPopupVisible
         :transition "slideright"
-        (batteryPopupContent)
+        (batteryPopupContent
+          :timeRemaining {batterySelected == 0 ? batteryTimeRemaining0 : batteryTimeRemaining1}
+        )
       )
     )
   )
@@ -41,6 +46,7 @@
   [
     imageClass
     imagePath
+    timeRemaining
   ]
   (image
     :image-height 25
@@ -49,7 +55,7 @@
   )
 )
 
-(defwidget batteryPopupContent []
+(defwidget batteryPopupContent [timeRemaining]
   (box
     :class "batteryPopup"
     :orientation "horizontal"
@@ -58,9 +64,9 @@
     (label :text "${round(EWW_BATTERY.BATT.capacity, 0)}%")
     (label
       :text "${EWW_BATTERY.BATT.status == 'Charging'
-                ? '⚡'
+                ? '⚡ ' + timeRemaining
                 : (EWW_BATTERY.BATT.status == 'Discharging'
-                    ? (batteryTimeRemaining0 + 'h')
+                    ? timeRemaining
                     : '✓')}")
   )
 )

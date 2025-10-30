@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings   #-}
 
 module GetWorkspaceGroups
   ( Window (Window, windowIcon, windowIsFocused),
@@ -8,16 +8,18 @@ module GetWorkspaceGroups
   )
 where
 
-import Control.Monad (foldM)
-import Data.Aeson (FromJSON, Value, eitherDecode, parseJSON, withObject, (.:), (.:?))
-import Data.Aeson.KeyMap (elems)
-import Data.Aeson.Types (Parser, parseEither)
-import Data.ByteString.Lazy.UTF8 (ByteString, fromString)
-import Data.Function (on)
-import Data.List (elemIndex, groupBy, sortOn)
-import Data.Maybe (fromMaybe, mapMaybe)
-import GetAppIcon (IconCache, getAppIcon)
-import System.Process (readProcess)
+import           Control.Monad             (foldM)
+import           Data.Aeson                (FromJSON, Value, eitherDecode,
+                                            parseJSON, withObject, (.:), (.:?))
+import           Data.Aeson.KeyMap         (elems)
+import           Data.Aeson.Types          (Parser, parseEither)
+import           Data.ByteString.Lazy.UTF8 (ByteString, fromString)
+import           Data.Function             (on)
+import           Data.List                 (elemIndex, groupBy, sortOn)
+import           Data.Maybe                (fromMaybe, mapMaybe)
+import           GetAppIcon                (IconCache, defaultIconConfig,
+                                            getAppIcon)
+import           System.Process            (readProcess)
 
 getWorkspaceGroups :: FilePath -> IconCache -> IO ([[Workspace]], IconCache)
 getWorkspaceGroups home currentIconCache = do
@@ -51,7 +53,7 @@ getWorkspaceGroups home currentIconCache = do
               (enrichedWindows, finalIconCache) <-
                 foldM
                   ( \(windows, currentIconCache') wb -> do
-                      (icon, newCache) <- getAppIcon home currentIconCache' (windowBaseAppID wb)
+                      (icon, newCache) <- getAppIcon home currentIconCache' defaultIconConfig (windowBaseAppID wb)
                       let window :: Window
                           window =
                             Window
@@ -60,6 +62,7 @@ getWorkspaceGroups home currentIconCache = do
                               (windowBaseIsFocused wb)
                               (fromMaybe 0 $ windowBaseWorkspaceId wb)
                               icon
+                              (windowBasePosInScrollingLayout wb)
                       pure (windows ++ [window], newCache)
                   )
                   ([], currentIconCache)
@@ -95,41 +98,43 @@ parseWorkspace windows = withObject "Workspace" $ \v -> do
   let allWindows :: [Window]
       allWindows = filter ((== workspaceId) . windowWorkspaceId) windows
       sortedWindows :: [Window]
-      sortedWindows = sortOn windowId allWindows
+      sortedWindows = sortOn windowPosInScrollingLayout allWindows
       maybeWindows :: Maybe [Window]
       maybeWindows = if null sortedWindows then Nothing else Just sortedWindows
   pure $ Workspace maybeWindows idx isActive isFocused name output
 
 data Output = Output
   { outputName :: String,
-    outputX :: Int
+    outputX    :: Int
   }
   deriving (Show, Eq)
 
 data Window = Window
-  { windowAppID :: Maybe String,
-    windowId :: Int,
-    windowIsFocused :: Bool,
-    windowWorkspaceId :: Int,
-    windowIcon :: FilePath
+  { windowAppID                :: Maybe String,
+    windowId                   :: Int,
+    windowIsFocused            :: Bool,
+    windowWorkspaceId          :: Int,
+    windowIcon                 :: FilePath,
+    windowPosInScrollingLayout :: (Int, Int)
   }
   deriving (Show, Eq)
 
 data WindowBase = WindowBase
-  { windowBaseAppID :: Maybe String,
-    windowBaseId :: Int,
-    windowBaseIsFocused :: Bool,
-    windowBaseWorkspaceId :: Maybe Int
+  { windowBaseAppID                :: Maybe String,
+    windowBaseId                   :: Int,
+    windowBaseIsFocused            :: Bool,
+    windowBaseWorkspaceId          :: Maybe Int,
+    windowBasePosInScrollingLayout :: (Int, Int)
   }
   deriving (Show)
 
 data Workspace = Workspace
   { workspaceMaybeWindows :: Maybe [Window],
-    workspaceIdx :: Int,
-    workspaceIsActive :: Bool,
-    workspaceIsFocused :: Bool,
-    workspaceName :: Maybe String,
-    workspaceOutput :: String
+    workspaceIdx          :: Int,
+    workspaceIsActive     :: Bool,
+    workspaceIsFocused    :: Bool,
+    workspaceName         :: Maybe String,
+    workspaceOutput       :: String
   }
   deriving (Show, Eq)
 
@@ -141,12 +146,11 @@ instance FromJSON Output where
     pure $ Output name x
 
 instance FromJSON WindowBase where
-  parseJSON = withObject "WindowBase" $ \v ->
-    WindowBase
-      <$> v .: "app_id"
-      <*> v .: "id"
-      <*> v .: "is_focused"
-      <*> v .:? "workspace_id"
-
--- The Window, WindowBase, and Workspace data types can probably be cut down, do so after
--- implementing correct icon order within a workspace one Niri makes it possible.
+  parseJSON = withObject "WindowBase" $ \v -> do
+    appID <- v .: "app_id"
+    windowID <- v .: "id"
+    isFocused <- v .: "is_focused"
+    workspaceID <- v .:? "workspace_id"
+    layout <- v .: "layout"
+    posInScrollingLayout <- layout .: "pos_in_scrolling_layout"
+    pure $ WindowBase appID windowID isFocused workspaceID posInScrollingLayout

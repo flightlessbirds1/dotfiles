@@ -143,7 +143,6 @@ in
         };
 
         eww-manage-gpu = makeEWWService "manageGPU" null;
-        eww-manage-network = makeEWWService "manageNetwork" null;
         eww-manage-time = makeEWWService "manageTime" null;
         eww-manage-weather = makeEWWService "manageWeather" "/etc/environment.d/50-weather-secrets.conf";
         eww-manage-workspaces = makeEWWService "manageWorkspaces" null;

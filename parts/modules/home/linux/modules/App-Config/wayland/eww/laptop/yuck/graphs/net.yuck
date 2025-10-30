@@ -1,12 +1,17 @@
+(defpoll active_interface 
+  :interval "5s"
+  :initial "enp4s0f4u2i1"
+  "ip route | grep default | awk '{print $5}' || echo 'enp4s0f4u2i1'")
+
 (defwidget net []
   (box
     :class "graphBox"
     :orientation "vertical"
-    :tooltip "${round(EWW_NET.wlp1s0.NET_DOWN, 0)}B/s"
+    :tooltip "${round(EWW_NET[active_interface].NET_DOWN, 0)}B/s"
     :width 60
     (graph
       :class "netGraph"
-      :value {EWW_NET.wlp1s0.NET_DOWN}
+      :value {EWW_NET[active_interface].NET_DOWN}
       :time-range "30s"
     )
     (label
