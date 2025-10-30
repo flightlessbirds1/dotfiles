@@ -17,7 +17,7 @@
           mode = {
             width = 2880;
             height = 1800;
-            refresh = 90.0;
+            refresh = 60.001;
           };
           position = {
             x = 0;
