@@ -96,6 +96,7 @@ executable manageWorkspaces
   main-is:          ManageWorkspaces.hs
   build-depends:
     , aeson
+    , async
     , base
     , directory
     , filepath

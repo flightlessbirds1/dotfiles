@@ -1,293 +1,295 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+module GetAppIcon
+  ( getAppIcon
+  , IconCache
+  , IconConfig(..)
+  , defaultIconConfig
+  ) where
 
-module GetAppIcon (getAppIcon, IconCache) where
+import           Control.Concurrent.Async (mapConcurrently)
+import           Control.Exception        (SomeException, catch)
+import           Control.Monad            (filterM, when)
+import           Data.Char                (isAlphaNum, isDigit, isSpace,
+                                           toLower)
+import           Data.HashMap.Strict      (HashMap)
+import qualified Data.HashMap.Strict      as HM
+import           Data.List                (dropWhileEnd, elemIndex, intercalate,
+                                           isInfixOf, isPrefixOf, isSuffixOf,
+                                           sortBy)
+import           Data.List.Split          (splitOn)
+import           Data.Maybe               (catMaybes, fromMaybe, listToMaybe)
+import           Data.Ord                 (Down (..), comparing)
+import           Data.Traversable         (for)
+import           System.Directory         (doesDirectoryExist, doesFileExist,
+                                           listDirectory)
+import           System.Environment       (lookupEnv)
+import           System.FilePath          (dropExtension, takeExtension,
+                                           takeFileName, (</>))
+import           System.IO                (hPutStrLn, stderr)
+import           System.Process           (readProcess)
 
-import           Control.Exception   (SomeException, catch)
-import           Control.Monad       (filterM, when)
-import           Data.Char           (isAlphaNum, isDigit, isSpace, toLower)
-import           Data.HashMap.Strict (HashMap, insert, lookup)
-import           Data.List           (dropWhileEnd, elemIndex, intercalate,
-                                      isInfixOf, isPrefixOf, isSuffixOf, sortBy)
-import           Data.List.Split     (splitOn)
-import           Data.Maybe          (catMaybes, fromMaybe, listToMaybe)
-import           Data.Ord            (Down (..), comparing)
-import           Data.Traversable    (for)
-import           Prelude             hiding (lookup)
-import           System.Directory    (doesDirectoryExist, doesFileExist,
-                                      listDirectory)
-import           System.Environment  (lookupEnv)
-import           System.FilePath     (dropExtension, takeExtension,
-                                      takeFileName, (</>))
-import           System.IO           (hPutStrLn, stderr)
-import           System.Process      (readProcess)
+data IconConfig = IconConfig
+  { preferredSize   :: Int
+  , preferSVG       :: Bool
+  , enableDebugLog  :: Bool
+  , cacheNegative   :: Bool
+  , preferredThemes :: [String]
+  , customIconDirs  :: [FilePath]
+  }
 
-debugMode :: Bool
-debugMode = True
+defaultIconConfig :: IconConfig
+defaultIconConfig = IconConfig
+  { preferredSize   = 28
+  , preferSVG       = True
+  , enableDebugLog  = True
+  , cacheNegative   = True
+  , preferredThemes = ["Adwaita", "breeze", "Papirus", "gnome", "hicolor"]
+  , customIconDirs  = []
+  }
 
-debugLog :: String -> IO ()
-debugLog msg = when debugMode $ hPutStrLn stderr $ "[GetAppIcon] " ++ msg
+debugLog :: IconConfig -> String -> IO ()
+debugLog cfg msg = when (enableDebugLog cfg) $
+  hPutStrLn stderr $ "[GetAppIcon] " ++ msg
 
-getAppIcon :: FilePath -> IconCache -> Maybe String -> IO (FilePath, IconCache)
-getAppIcon home iconCache maybeAppID = case maybeAppID of
-  Nothing -> pure (errorIcon, iconCache)
-  Just appID -> case lookup appID iconCache of
-    Just cachedPath -> do
-      debugLog $ "Using cached icon for " ++ appID ++ ": " ++ cachedPath
-      pure (cachedPath, iconCache)
+type IconCache = HashMap String FilePath
+
+getAppIcon
+  :: FilePath
+  -> IconCache
+  -> IconConfig
+  -> Maybe String
+  -> IO (FilePath, IconCache)
+getAppIcon home cache cfg maybeAppID = case maybeAppID of
+  Nothing -> pure (errorIcon, cache)
+  Just appID -> case HM.lookup appID cache of
+    Just path -> do
+      debugLog cfg $ "Cache hit for " ++ appID ++ ": " ++ path
+      pure (path, cache)
     Nothing -> do
-      debugLog $ "=== Searching icon for app: " ++ appID ++ " ==="
-      result <- computeIconForAppID home errorIcon appID
-      debugLog $ "Final result: " ++ result
-      pure (result, insert appID result iconCache)
+      debugLog cfg $ "=== Searching icon for " ++ appID ++ " ==="
+      path <- computeIconForAppID home cfg errorIcon appID
+      debugLog cfg $ "Result: " ++ path
+      pure (path, HM.insert appID path cache)
   where
-    errorIcon :: FilePath
     errorIcon = home </> ".config/eww/images/error.png"
 
-computeIconForAppID :: FilePath -> FilePath -> String -> IO FilePath
-computeIconForAppID home errorIcon appID
-  -- Equibop has corrupted icons in nixpkgs, use vesktop as fallback
+computeIconForAppID :: FilePath -> IconConfig -> FilePath -> String -> IO FilePath
+computeIconForAppID home cfg err appID
   | appID == "equibop" = do
-      debugLog "Equibop detected, using vesktop icon as fallback"
-      shareDirs <- getShareDirs home
-      getIconPathFromIconName home shareDirs errorIcon "vesktop"
+      dirs <- getShareDirs home cfg
+      getIconPathFromIconName home cfg dirs err "vesktop"
   | otherwise = case splitOn "_" appID of
-      ["steam", "app", steamID] | all isDigit steamID -> do
-        debugLog $ "Detected Steam app: " ++ steamID
-        let iconDir = home </> ".steam/steam/appcache/librarycache" </> steamID
-        exists <- doesDirectoryExist iconDir
-        if not exists
-          then pure errorIcon
-          else do
-            files <- listDirectory iconDir
-            let preferredFiles = ["library_600x900.jpg", "header.jpg", "icon.jpg"]
-                candidates = filter (\f -> takeFileName f `elem` preferredFiles) files
-                          ++ filter (\f -> takeExtension f == ".jpg" && length f > 30) files
-            case listToMaybe candidates of
-              Just iconFile -> pure $ iconDir </> iconFile
-              Nothing       -> pure errorIcon
+      ["steam", "app", sid] | all isDigit sid -> do
+        findSteamIcon home cfg err sid
       _ -> do
-        shareDirs <- getShareDirs home
-        maybeDesktopPath <- findBestDesktopFile shareDirs appID
+        dirs <- getShareDirs home cfg
+        mDesk <- findBestDesktopFile cfg dirs appID
+        case mDesk of
+          Just desk -> do
+            mName <- getIconNameFromDesktopFilePath desk
+            case mName of
+              Just name -> getIconPathFromIconName home cfg dirs err name
+              Nothing   -> searchByAppID home cfg dirs err appID
+          Nothing -> searchByAppID home cfg dirs err appID
 
-        case maybeDesktopPath of
-          Just path -> do
-            debugLog $ "Found desktop file: " ++ path
-            maybeIconName <- getIconNameFromDesktopFilePath path
-            case maybeIconName of
-              Just iconName -> getIconPathFromIconName home shareDirs errorIcon iconName
-              Nothing -> searchByAppID home shareDirs errorIcon appID
-          Nothing -> searchByAppID home shareDirs errorIcon appID
+findSteamIcon :: FilePath -> IconConfig -> FilePath -> String -> IO FilePath
+findSteamIcon home cfg err steamID = do
+  let dir = home </> ".steam/steam/appcache/librarycache" </> steamID
+  exists <- doesDirectoryExist dir
+  if not exists
+    then do
+      dirs <- getShareDirs home cfg
+      getIconPathFromIconName home cfg dirs err "steam"
+    else do
+      files <- listDirectory dir
+      let prefs = ["library_600x900.jpg","library_hero.jpg","header.jpg","icon.jpg"]
+          cand  = filter (`elem` prefs) (map takeFileName files)
+               ++ filter (\f -> takeExtension f `elem` [".jpg",".png"] && length f > 30) files
+      case listToMaybe cand of
+        Just f  -> pure (dir </> f)
+        Nothing -> do
+          dirs <- getShareDirs home cfg
+          getIconPathFromIconName home cfg dirs err "steam"
 
-searchByAppID :: FilePath -> [FilePath] -> FilePath -> String -> IO FilePath
-searchByAppID home shareDirs errorIcon appID = do
-  debugLog "No desktop file found, searching by app ID variants..."
-  let variants = generateAppIDVariants appID
-  debugLog $ "Generated variants: " ++ show variants
-  searchIconByVariants home shareDirs errorIcon variants
+searchByAppID :: FilePath -> IconConfig -> [FilePath] -> FilePath -> String -> IO FilePath
+searchByAppID home cfg dirs err appID = do
+  let vars = generateAppIDVariants appID
+  searchIconByVariants home cfg dirs err vars
 
-findBestDesktopFile :: [FilePath] -> String -> IO (Maybe FilePath)
-findBestDesktopFile shareDirs appID = do
+findBestDesktopFile :: IconConfig -> [FilePath] -> String -> IO (Maybe FilePath)
+findBestDesktopFile cfg shareDirs appID = do
   let appDirs = (</> "applications") <$> shareDirs
-  existingAppDirs <- filterM doesDirectoryExist appDirs
-
-  allDesktopFiles <- fmap concat . for existingAppDirs $ \dir -> do
-    files <- safeListDirectory dir
-    pure $ map (dir </>) $ filter (isSuffixOf ".desktop") files
-
-  nixDesktopFiles <- findNixStoreDesktopFiles appID
-
-  let allFiles = allDesktopFiles ++ nixDesktopFiles
-
-  if null allFiles
+  existing <- filterM doesDirectoryExist appDirs
+  allFiles <- concat <$> mapConcurrently listDesktopFiles existing
+  nixFiles <- findNixStoreDesktopFiles appID
+  let files = allFiles ++ nixFiles
+  if null files
     then pure Nothing
     else do
-      scoredFiles <- mapM (scoreDesktopFile appID) allFiles
-      let sortedFiles = sortBy (comparing (Down . fst)) scoredFiles
+      scored <- mapM (scoreDesktopFile cfg appID) files
+      let sorted = sortBy (comparing (Down . fst)) scored
+      pure $ case sorted of
+               ((s,p):_) | s > 0 -> Just p
+               _                 -> Nothing
+  where
+    listDesktopFiles dir = do
+      fs <- safeListDirectory dir
+      pure [dir </> f | f <- fs, isSuffixOf ".desktop" f]
 
-      debugLog $ "Top 5 desktop file matches:"
-      mapM_ (\(score, path) -> debugLog $ "  " ++ show score ++ ": " ++ path) (take 5 sortedFiles)
-
-      case sortedFiles of
-        ((score, path):_) | score > 0 -> pure (Just path)
-        _                             -> pure Nothing
-
-scoreDesktopFile :: String -> FilePath -> IO (Int, FilePath)
-scoreDesktopFile appID desktopPath = do
-  let baseName = dropExtension $ takeFileName desktopPath
-      lowerAppID = map toLower appID
-      lowerBaseName = map toLower baseName
-
-  let filenameScore
-        | baseName == appID = 1000
-        | lowerBaseName == lowerAppID = 900
-        | lowerAppID `isInfixOf` lowerBaseName = 500
-        | lowerBaseName `isInfixOf` lowerAppID = 400
-        | any (\variant -> variant == lowerBaseName) (map (map toLower) (generateAppIDVariants appID)) = 300
-        | otherwise = 0
-
-  maybeContent <- safeReadFile desktopPath
-  let contentScore = case maybeContent of
+scoreDesktopFile :: IconConfig -> String -> FilePath -> IO (Int, FilePath)
+scoreDesktopFile _cfg appID path = do
+  let base = dropExtension $ takeFileName path
+      lowApp = map toLower appID
+      lowBase = map toLower base
+      filenameScore
+        | base == appID                                   = 1000
+        | lowBase == lowApp                               = 900
+        | lowApp `isInfixOf` lowBase                      = 500
+        | lowBase `isInfixOf` lowApp                      = 400
+        | any ((== lowBase) . map toLower) (generateAppIDVariants appID) = 300
+        | otherwise                                       = 0
+  mContent <- safeReadFile path
+  let contentScore = case mContent of
         Nothing -> 0
-        Just content ->
-          let lowerContent = map toLower content
-              execMatch = ("exec=" ++ lowerAppID) `isInfixOf` lowerContent
-              wmClassMatch = ("startupwmclass=" ++ lowerAppID) `isInfixOf` lowerContent
-              iconMatch = ("icon=" ++ lowerAppID) `isInfixOf` lowerContent
-          in (if execMatch then 200 else 0)
-           + (if wmClassMatch then 150 else 0)
-           + (if iconMatch then 100 else 0)
-
-  pure (filenameScore + contentScore, desktopPath)
+        Just c  ->
+          let lc = map toLower c
+              exec = ("exec=" ++ lowApp) `isInfixOf` lc
+              wm   = ("startupwmclass=" ++ lowApp) `isInfixOf` lc
+              icn  = ("icon=" ++ lowApp) `isInfixOf` lc
+          in (if exec then 200 else 0)
+           + (if wm   then 150 else 0)
+           + (if icn  then 100 else 0)
+  pure (filenameScore + contentScore, path)
 
 findNixStoreDesktopFiles :: String -> IO [FilePath]
 findNixStoreDesktopFiles appID = do
-  let variants = generateAppIDVariants appID
-  nixPaths <- mapM findNixStorePackage variants
-  let validPaths = catMaybes nixPaths
-
-  fmap concat . for validPaths $ \nixPath -> do
-    let appDir = nixPath </> "share/applications"
-    exists <- doesDirectoryExist appDir
-    if not exists
-      then pure []
-      else do
-        files <- safeListDirectory appDir
-        pure $ map (appDir </>) $ filter (isSuffixOf ".desktop") files
+  let vars = generateAppIDVariants appID
+  mPaths <- mapM findNixStorePackage vars
+  let paths = catMaybes mPaths
+  concat <$> for paths (\p -> do
+    let appDir = p </> "share/applications"
+    ex <- doesDirectoryExist appDir
+    if not ex then pure [] else do
+      fs <- safeListDirectory appDir
+      pure [appDir </> f | f <- fs, isSuffixOf ".desktop" f])
 
 generateAppIDVariants :: String -> [String]
 generateAppIDVariants appID =
   [ appID
   , map toLower appID
   ] ++ reverseDomainVariants appID
-    ++ dashUnderscore appID
-    ++ withoutSpecialChars appID
+     ++ dashUnderscore appID
+     ++ withoutSpecialChars appID
   where
     reverseDomainVariants id' =
-      let parts = splitOn "." id'
-      in if length parts > 1
-         then [ last parts
-              , map toLower (last parts)
-              , intercalate "-" parts
-              , intercalate "-" (map (map toLower) parts)
-              , intercalate "_" parts
-              ] ++ parts
+      let ps = splitOn "." id'
+      in if length ps > 1
+         then [ last ps
+              , map toLower (last ps)
+              , intercalate "-" ps
+              , intercalate "-" (map (map toLower) ps)
+              , intercalate "_" ps
+              ] ++ ps
          else []
-
     dashUnderscore id' =
       [ map (\c -> if c == '_' then '-' else c) id'
       , map (\c -> if c == '-' then '_' else c) id'
       ]
-
     withoutSpecialChars id' =
-      let alphaNum = filter isAlphaNum id'
-      in [alphaNum | not (null alphaNum) && alphaNum /= id']
+      let alnum = filter isAlphaNum id'
+      in [alnum | not (null alnum) && alnum /= id']
 
-searchIconByVariants :: FilePath -> [FilePath] -> FilePath -> [String] -> IO FilePath
-searchIconByVariants home shareDirs errorIcon variants = go variants
+searchIconByVariants :: FilePath -> IconConfig -> [FilePath] -> FilePath -> [String] -> IO FilePath
+searchIconByVariants home cfg dirs err = go
   where
-    go [] = pure errorIcon
-    go (variant:rest) = do
-      result <- getIconPathFromIconName home shareDirs errorIcon variant
-      if result == errorIcon
-        then go rest
-        else pure result
+    go [] = pure err
+    go (v:vs) = do
+      p <- getIconPathFromIconName home cfg dirs err v
+      if p == err then go vs else pure p
 
 findNixStorePackage :: String -> IO (Maybe FilePath)
-findNixStorePackage appName = do
-  maybePath <- safeReadProcess "which" [appName]
-  case maybePath of
+findNixStorePackage name = do
+  mBin <- safeReadProcess "which" [name]
+  case mBin of
     Nothing -> pure Nothing
-    Just binPath -> do
-      maybeRealPath <- safeReadProcess "readlink" ["-f", binPath]
-      case maybeRealPath of
+    Just bin -> do
+      mReal <- safeReadProcess "readlink" ["-f", bin]
+      case mReal of
         Nothing -> pure Nothing
-        Just realPath ->
-          let parts = splitOn "/" realPath
-              nixStoreIdx = elemIndex "nix" parts >>= \i ->
-                if i + 1 < length parts && parts !! (i + 1) == "store"
-                then Just (i + 2) else Nothing
-          in case nixStoreIdx of
+        Just real ->
+          let parts = splitOn "/" real
+              nixIdx = elemIndex "nix" parts >>= \i ->
+                         if i + 1 < length parts && parts !! (i+1) == "store"
+                         then Just (i+2) else Nothing
+          in case nixIdx of
                Just idx | idx < length parts ->
-                 let storePath = "/" </> intercalate "/" (take (idx + 1) parts)
-                 in do
-                   exists <- doesDirectoryExist storePath
-                   if exists then pure (Just storePath) else pure Nothing
+                 let store = "/" </> intercalate "/" (take (idx+1) parts)
+                 in doesDirectoryExist store >>= \e -> pure $ if e then Just store else Nothing
                _ -> pure Nothing
 
-getShareDirs :: FilePath -> IO [FilePath]
-getShareDirs home = do
-  xdgDataHome <- lookupEnv "XDG_DATA_HOME"
-  xdgDataDirs <- lookupEnv "XDG_DATA_DIRS"
-
-  let homeDataDir = fromMaybe (home </> ".local/share") xdgDataHome
-      systemDataDirs = maybe [] (splitOn ":") xdgDataDirs
-      homeDirs = [homeDataDir, home </> ".nix-profile/share"]
-      nixSystemDirs = ["/run/current-system/sw/share", "/etc/profiles/per-user/insomniac/share"]
-      flatpakDirs = ["/var/lib/flatpak/exports/share", home </> ".local/share/flatpak/exports/share"]
-
-  pure $ nixSystemDirs ++ homeDirs ++ flatpakDirs ++ systemDataDirs
+getShareDirs :: FilePath -> IconConfig -> IO [FilePath]
+getShareDirs home cfg = do
+  mXdgHome <- lookupEnv "XDG_DATA_HOME"
+  mXdgDirs <- lookupEnv "XDG_DATA_DIRS"
+  let homeData = fromMaybe (home </> ".local/share") mXdgHome
+      sysData  = maybe [] (splitOn ":") mXdgDirs
+      homeDirs = [homeData, home </> ".nix-profile/share"]
+      nixSys   = ["/run/current-system/sw/share", "/etc/profiles/per-user/insomniac/share"]
+      flatpak  = ["/var/lib/flatpak/exports/share", home </> ".local/share/flatpak/exports/share"]
+      custom   = customIconDirs cfg
+  pure $ custom ++ nixSys ++ homeDirs ++ flatpak ++ sysData
 
 getIconNameFromDesktopFilePath :: FilePath -> IO (Maybe String)
 getIconNameFromDesktopFilePath path = do
-  maybeContent <- safeReadFile path
-  case maybeContent of
+  mContent <- safeReadFile path
+  case mContent of
     Nothing -> pure Nothing
-    Just content -> do
-      let iconLines = [line | line <- lines content, "Icon" `isPrefixOf` line, "=" `isInfixOf` line]
-          iconValue line = dropWhile (== ' ') $ drop 1 $ dropWhile (/= '=') line
-          nonLocalizedIcons = [iconValue line | line <- iconLines, "Icon=" `isPrefixOf` line]
-          localizedIcons = [iconValue line | line <- iconLines, "Icon[" `isPrefixOf` line]
-      pure $ listToMaybe (nonLocalizedIcons ++ localizedIcons)
+    Just c  -> do
+      let iconLines = filter (\l -> "Icon" `isPrefixOf` l && "=" `isInfixOf` l) (lines c)
+          value l = dropWhile (==' ') $ drop 1 $ dropWhile (/='=') l
+          nonLoc = [value l | l <- iconLines, "Icon=" `isPrefixOf` l]
+          loc    = [value l | l <- iconLines, "Icon[" `isPrefixOf` l]
+      pure $ listToMaybe (nonLoc ++ loc)
 
-getIconPathFromIconName :: FilePath -> [FilePath] -> FilePath -> String -> IO FilePath
-getIconPathFromIconName _ shareDirs errorIcon iconName = do
-  debugLog $ "Searching for icon: " ++ iconName
-  if "/" `isPrefixOf` iconName
-    then do
-      exists <- doesFileExist iconName
-      if exists then pure iconName else searchForIcon
-    else searchForIcon
+getIconPathFromIconName :: FilePath -> IconConfig -> [FilePath] -> FilePath -> String -> IO FilePath
+getIconPathFromIconName _ cfg shareDirs err name = do
+  if "/" `isPrefixOf` name
+    then doesFileExist name >>= \e -> if e then pure name else search
+    else search
   where
-    searchForIcon = do
-      existingIconPaths <- filterM doesFileExist allCandidates
-      when (null existingIconPaths && debugMode) $ do
-        debugLog "No icon found! Checked these paths:"
-        mapM_ (debugLog . ("  - " ++)) (take 20 allCandidates)
-      pure $ fromMaybe errorIcon (listToMaybe existingIconPaths)
+    search = do
+      existing <- filterM doesFileExist allCands
+      pure $ fromMaybe err (listToMaybe existing)
 
-    hicolorDirs = (</> "icons/hicolor") <$> shareDirs
-    themeDirs = [dir </> "icons" </> theme | dir <- shareDirs, theme <- ["Adwaita", "breeze", "Papirus", "gnome"]]
-    allIconDirs = hicolorDirs ++ themeDirs
-    pixmapDirs = (</> "pixmaps") <$> shareDirs
+    themeDirs = [d </> "icons" </> t | d <- shareDirs, t <- preferredThemes cfg]
+    pixDirs   = (</> "pixmaps") <$> shareDirs
+    sz        = preferredSize cfg
+    near      = [sz, sz+4, sz-4, sz+8, sz-8]
+    far       = [48,40,64,16,72,96,128,192,256,512,1024] \\ near
+    exts      = if preferSVG cfg then [".svg",".png"] else [".png",".svg"]
 
-    scalableSvgs = [dir </> "scalable" </> "apps" </> (iconName <> ".svg") | dir <- allIconDirs]
-    nearSizeSvgs = [dir </> size </> "apps" </> (iconName <> ".svg")
-                   | dir <- allIconDirs, size <- ["28x28", "32x32", "24x24", "36x36", "22x22", "20x20"]]
-    nearSizePngs = [dir </> size </> "apps" </> (iconName <> ".png")
-                   | dir <- allIconDirs, size <- ["28x28", "32x32", "24x24", "36x36", "22x22", "20x20"]]
-    otherSvgs = [dir </> size </> "apps" </> (iconName <> ".svg")
-                | dir <- allIconDirs, size <- map (\n -> show n <> "x" <> show n)
-                ([48, 40, 64, 16, 72, 96, 128, 192, 256, 512, 1024] :: [Int])]
-    otherPngs = [dir </> size </> "apps" </> (iconName <> ".png")
-                | dir <- allIconDirs, size <- map (\n -> show n <> "x" <> show n)
-                ([48, 40, 64, 16, 72, 96, 128, 192, 256, 512, 1024] :: [Int])]
-    pixmapCandidates = [dir </> (iconName <> ext) | dir <- pixmapDirs, ext <- [".svg", ".png", ".xpm"]]
+    scalable  = [d </> "scalable/apps" </> (name ++ ".svg") | d <- themeDirs]
+    nearSz    = [d </> show s ++ "x" ++ show s </> "apps" </> (name ++ e)
+                | d <- themeDirs, s <- near, e <- exts]
+    farSz     = [d </> show s ++ "x" ++ show s </> "apps" </> (name ++ e)
+                | d <- themeDirs, s <- far, e <- exts]
+    pixCands  = [d </> (name ++ e) | d <- pixDirs, e <- [".svg",".png",".xpm"]]
+    allCands  = scalable ++ nearSz ++ farSz ++ pixCands
 
-    allCandidates = scalableSvgs ++ nearSizeSvgs ++ nearSizePngs ++ otherSvgs ++ otherPngs ++ pixmapCandidates
+(\\) :: Eq a => [a] -> [a] -> [a]
+xs \\ ys = filter (`notElem` ys) xs
 
 safeReadFile :: FilePath -> IO (Maybe String)
-safeReadFile path = (Just <$> readFile path) `catch` \(_ :: SomeException) -> pure Nothing
+safeReadFile p = (Just <$> readFile p) `catch` \(_ :: SomeException) -> pure Nothing
 
 safeListDirectory :: FilePath -> IO [FilePath]
-safeListDirectory path = listDirectory path `catch` \(_ :: SomeException) -> pure []
+safeListDirectory p = listDirectory p `catch` \(_ :: SomeException) -> pure []
 
 safeReadProcess :: FilePath -> [String] -> IO (Maybe String)
 safeReadProcess cmd args = do
-  result <- (Just . trim <$> readProcess cmd args "") `catch` \(_ :: SomeException) -> pure Nothing
-  pure $ case result of
-    Just s | null s -> Nothing
-    other           -> other
+  res <- (Just . trim <$> readProcess cmd args "") `catch` \(_ :: SomeException) -> pure Nothing
+  pure $ case res of
+           Just s | null s -> Nothing
+           other           -> other
   where
     trim = dropWhileEnd isSpace . dropWhile isSpace
-
-type IconCache = HashMap String FilePath

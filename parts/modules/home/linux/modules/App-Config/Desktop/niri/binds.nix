@@ -55,6 +55,7 @@ in {
           "super+up".action = a.focus-window-or-workspace-up;
           "super+f".action = a.maximize-column;
           "super+shift+f".action = a.fullscreen-window;
+          "super+alt+shift+f".action = a.toggle-window-floating;
 
           # Move Window Keybinds
           "super+shift+left".action = a.move-column-left;
