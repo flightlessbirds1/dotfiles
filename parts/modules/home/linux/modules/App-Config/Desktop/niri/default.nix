@@ -7,5 +7,6 @@
     ./workspaces.nix
     ./monitors.nix
     ./decorations.nix
+    ./animations.nix
   ];
 }
