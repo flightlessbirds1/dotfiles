@@ -7,7 +7,7 @@ _: {
           easing = {
             duration-ms = 700;
             curve = "cubic-bezier";
-            curve-args = [0.05 0.9 0.1 1.05];
+            curve-args = [0.05 0.9 0.1 1.0];
           };
         };
         custom-shader = ''

@@ -15,14 +15,15 @@
       outputs = {
         "eDP-1" = {
           mode = {
-            width = 2880;
-            height = 1800;
-            refresh = 60.001;
+            width = 1920;
+            height = 1200;
+            refresh = 90.001;
           };
           position = {
             x = 0;
             y = 0;
           };
+          scale = 1.17;
         };
       };
     };
