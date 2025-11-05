@@ -3,6 +3,7 @@
     inherit
       (pkgs)
       git
+      git-lfs
       git-credential-manager
       ;
   };

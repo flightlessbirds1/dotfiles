@@ -28,6 +28,11 @@
               hostname
               username
               ;
+
+            pkgs-stable = import inputs.nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
             flake = {
               inherit
                 config

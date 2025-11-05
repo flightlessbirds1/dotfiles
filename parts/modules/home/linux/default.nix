@@ -5,6 +5,7 @@
   hostname,
   username,
   flake,
+  pkgs-stable,
   ...
 }: {
   imports = [
@@ -25,6 +26,7 @@
       hostname
       username
       flake
+      pkgs-stable
       ;
   };
 }
