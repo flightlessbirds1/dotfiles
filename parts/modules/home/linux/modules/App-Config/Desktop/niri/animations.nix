@@ -4,32 +4,13 @@ _: {
       # Hyprland based animations
       window-open = {
         kind = {
-          easing = {
-            duration-ms = 700;
-            curve = "cubic-bezier";
-            curve-args = [0.05 0.9 0.1 1.05];
+          spring = {
+            damping-ratio = 0.75;
+            stiffness = 400;
+            epsilon = 0.0001;
           };
         };
-        custom-shader = ''
-          // Hyprland-style slide animation with scale (popin effect)
-          vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-            vec4 color = vec4(0.0);
-            if (0.0 <= coords_geo.x && coords_geo.x <= 1.0 && 0.0 <= coords_geo.y && coords_geo.y <= 1.0) {
-              // Start from 80% size (like Hyprland's popin 80%)
-              float scale = 0.8 + 0.2 * niri_clamped_progress;
-              vec2 centered = coords_geo.xy - vec2(0.5);
-              vec2 scaled_coords = centered / scale + vec2(0.5);
-
-              if (0.0 <= scaled_coords.x && scaled_coords.x <= 1.0 &&
-                  0.0 <= scaled_coords.y && scaled_coords.y <= 1.0) {
-                color = texture2D(niri_tex, scaled_coords) * niri_clamped_progress;
-              }
-            }
-            return color;
-          }
-        '';
       };
-
       window-close = {
         kind = {
           easing = {

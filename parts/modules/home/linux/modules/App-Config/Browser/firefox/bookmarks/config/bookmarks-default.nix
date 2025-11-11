@@ -14,10 +14,6 @@
           url = "https://www.youtube.com/";
         }
         {
-          name = "ComicK";
-          url = "https://comick.io/";
-        }
-        {
           name = "Plex";
           url = "https://plex.tony.cf/";
         }
@@ -32,7 +28,7 @@
       bookmarks = [
         {
           name = "FMHY";
-          url = "https://fmhy.lol/";
+          url = "https://fmhy.net/";
         }
         {
           name = "megathread - Piracy";
@@ -48,10 +44,6 @@
       name = "useful";
       bookmarks = [
         {
-          name = "Advanced";
-          url = "https://smailpro.com/advanced";
-        }
-        {
           name = "Find My Device";
           url = "https://www.google.com/android/find?u=0";
         }
@@ -64,20 +56,12 @@
           url = "https://www.base64decode.org/";
         }
         {
-          name = "Yandex";
-          url = "https://yandex.com/images/?lr=110453";
-        }
-        {
           name = "Claude";
           url = "https://claude.ai/chats";
         }
         {
           name = "ChatGPT";
           url = "https://chat.openai.com/";
-        }
-        {
-          name = "Message";
-          url = "https://messages.google.com/web/conversations/1";
         }
         {
           name = "Google Drive";
@@ -88,10 +72,6 @@
           url = "https://cloudconvert.com/";
         }
         {
-          name = "SimpleLogin";
-          url = "https://app.simplelogin.io/dashboard/";
-        }
-        {
           name = "Profiles";
           url = "about:profiles";
         }
@@ -100,14 +80,6 @@
     {
       name = "Games";
       bookmarks = [
-        {
-          name = "Chess.com";
-          url = "https://www.chess.com/home/";
-        }
-        {
-          name = "lichess";
-          url = "https://lichess.org/";
-        }
         {
           name = "SteamDB";
           url = "https://steamdb.info/";
@@ -126,7 +98,7 @@
       name = "Nix";
       bookmarks = [
         {
-          name = "nixpkgs";
+          name = "Nixpkgs";
           url = "https://search.nixos.org/packages";
         }
         {

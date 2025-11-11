@@ -31,7 +31,7 @@ shell: hostname: {
     clean-u = "nh clean user";
     clean-d = "sudo nixos-collect-garbage -d";
     # ─── Utilities ────────────────────────────────────────────────────────────
-    y = "yazi";
+    y = "yy";
     ze = "zellij";
     lg = "lazygit";
   };

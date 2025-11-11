@@ -1,7 +1,7 @@
 {inputs, ...}: {
   imports = [
-    ./config/plugins/avante.nix
     ./config/plugins/bufferline.nix
+    ./config/plugins/conform.nix
     ./config/plugins/lazygit.nix
     ./config/plugins/lsp.nix
     ./config/plugins/neo_tree.nix
