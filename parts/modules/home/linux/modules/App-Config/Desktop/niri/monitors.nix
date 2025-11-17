@@ -39,6 +39,7 @@
             x = 0;
             y = 0;
           };
+          scale = 1.25;
         };
         "DP-2" = {
           mode = {
@@ -47,11 +48,11 @@
             refresh = 180.002;
           };
           position = {
-            x = 2560;
+            x = 2048;
             y = 0;
           };
+          scale = 1.25;
         };
-        # DP-1.transform.rotation = 90;
       };
     };
     backup_content = {};

@@ -10,7 +10,6 @@
       rust-analyzer
       rustfmt
       tinymist
-      typstfmt
       yamlfmt
       svelte-language-server
       ;
