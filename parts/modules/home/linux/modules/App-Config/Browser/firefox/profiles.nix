@@ -90,7 +90,7 @@
       "extensions.autoDisableScopes" = 0;
     }
     true
-    (with inputs.firefox-addons.packages.${pkgs.system}; [
+    (with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
       darkreader
       bitwarden
       vimium
@@ -110,7 +110,7 @@
       "extensions.autoDisableScopes" = 0;
     }
     true
-    (with inputs.firefox-addons.packages.${pkgs.system}; [
+    (with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
       darkreader
       bitwarden
       vimium
@@ -134,7 +134,7 @@
       "extensions.autoDisableScopes" = 0;
     }
     true
-    (with inputs.firefox-addons.packages.${pkgs.system}; [
+    (with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
       darkreader
       bitwarden
       zotero-connector
@@ -150,7 +150,7 @@
       "extensions.autoDisableScopes" = 0;
     }
     true
-    (with inputs.firefox-addons.packages.${pkgs.system}; [
+    (with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
       darkreader
       bitwarden
       vimium
