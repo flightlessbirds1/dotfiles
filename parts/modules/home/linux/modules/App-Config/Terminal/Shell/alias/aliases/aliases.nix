@@ -5,12 +5,10 @@ shell: hostname: {
     stop-AA = "sudo systemctl stop wg-quick-AirVPN-America.service";
     start-AP = "sudo systemctl start wg-quick-AirVPN-Phoenix.service";
     stop-AP = "sudo systemctl stop wg-quick-AirVPN-Phoenix.service";
-    start-MI = "sudo systemctl start wg-quick-AirVPN-MI.service";
-    stop-MI = "sudo systemctl stop wg-quick-AirVPN-MI.service";
-    start-EU = "sudo systemctl start wg-quick-AirVPN-EU.service";
-    stop-EU = "sudo systemctl stop wg-quick-AirVPN-EU.service";
     start-DC = "sudo systemctl start wg-quick-AirVPN-DC.service";
     stop-DC = "sudo systemctl stop wg-quick-AirVPN-DC.service";
+    start-NC = "sudo systemctl start wg-quick-AirVPN-NC.service";
+    stop-NC = "sudo systemctl stop wg-quick-AirVPN-NC.service";
     # ─── ProtonVPN ─────────────────────────────────────────────────────────────
     start-NL = "sudo systemctl start wg-quick-Proton-NL.service";
     stop-NL = "sudo systemctl stop wg-quick-Proton-NL.service";
