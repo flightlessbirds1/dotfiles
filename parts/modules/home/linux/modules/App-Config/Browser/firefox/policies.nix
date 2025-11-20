@@ -3,7 +3,7 @@
   extensions = import ./extension_ids.nix {};
 in {
   AppAutoUpdate = false;
-  RequestedLocales = "es-ES,es,en-US,en";
+  RequestedLocales = "en-US,en,es-ES,es";
 
   DisableTelemetry = true; # sets
   datareporting.healthreport.uploadEnabled = false;

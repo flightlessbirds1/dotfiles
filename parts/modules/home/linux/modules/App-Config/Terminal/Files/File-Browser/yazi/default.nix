@@ -71,12 +71,23 @@
             orphan = false;
           }
         ];
+        pdf = [
+          {
+            run = ''zathura "$@"'';
+            block = true;
+            orphan = false;
+          }
+        ];
       };
       open = {
         prepend_rules = [
           {
             name = "*.lean";
             use = "nvim";
+          }
+          {
+            name = "*.pdf";
+            use = "pdf";
           }
         ];
         append_rules = [

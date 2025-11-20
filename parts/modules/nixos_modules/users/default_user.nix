@@ -39,7 +39,11 @@
       initialPassword = "nixos";
     };
   };
-  home-manager.users.${username} = {pkgs, ...}: {
+  home-manager.users.${username} = {
+    pkgs,
+    inputs,
+    ...
+  }: {
     imports = with flake.self.homeManagerModules; [
       Communication
       Desktop
@@ -51,6 +55,7 @@
       Utilities
       wayland
       System-Config
+      inputs.zen-browser.homeModules.beta
       ../../home/linux/modules/App-Config/Browser/split-conf
     ];
     home = {

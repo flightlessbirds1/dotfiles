@@ -261,20 +261,23 @@ getIconPathFromIconName _ cfg shareDirs err name = do
       existing <- filterM doesFileExist allCands
       pure $ fromMaybe err (listToMaybe existing)
 
-    themeDirs = [d </> "icons" </> t | d <- shareDirs, t <- preferredThemes cfg]
-    pixDirs   = (</> "pixmaps") <$> shareDirs
+    customDirs = customIconDirs cfg
+    regularDirs = filter (`notElem` customDirs) shareDirs
+    themeDirs = [d </> "icons" </> t | d <- regularDirs, t <- preferredThemes cfg]
+    pixDirs   = (</> "pixmaps") <$> regularDirs
     sz        = preferredSize cfg
     near      = [sz, sz+4, sz-4, sz+8, sz-8]
     far       = [48,40,64,16,72,96,128,192,256,512,1024] \\ near
     exts      = if preferSVG cfg then [".svg",".png"] else [".png",".svg"]
 
+    customCands = [d </> (name ++ e) | d <- customDirs, e <- [".svg",".png",".xpm"]]
     scalable  = [d </> "scalable/apps" </> (name ++ ".svg") | d <- themeDirs]
     nearSz    = [d </> show s ++ "x" ++ show s </> "apps" </> (name ++ e)
                 | d <- themeDirs, s <- near, e <- exts]
     farSz     = [d </> show s ++ "x" ++ show s </> "apps" </> (name ++ e)
                 | d <- themeDirs, s <- far, e <- exts]
     pixCands  = [d </> (name ++ e) | d <- pixDirs, e <- [".svg",".png",".xpm"]]
-    allCands  = scalable ++ nearSz ++ farSz ++ pixCands
+    allCands  = customCands ++ scalable ++ nearSz ++ farSz ++ pixCands
 
 (\\) :: Eq a => [a] -> [a] -> [a]
 xs \\ ys = filter (`notElem` ys) xs

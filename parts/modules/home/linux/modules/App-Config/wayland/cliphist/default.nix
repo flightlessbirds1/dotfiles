@@ -10,5 +10,8 @@ _: {
         "10"
       ];
     };
+    wl-clip-persist = {
+      enable = true;
+    };
   };
 }
