@@ -9,14 +9,14 @@
 .workspaceFocused {
   background-color: $surface2;
   border-radius: 6px;
-  padding: 1px;
+  padding: 0px;
   margin: 0px 4px;
 }
 
 .workspaceUnfocused {
   background-color: $surface0;
   border-radius: 6px;
-  padding: 1px;
+  padding: 0px;
   margin: 0px 4px;
 }
 
@@ -24,11 +24,11 @@
   background: $blue;
   border-radius: 8px;
   margin: 3px;
-  padding: 1px;
+  padding: 0px;
 }
 
 .imageUnfocused {
   border-radius: 2px;
   margin: 3px;
-  padding: 1px;
+  padding: 0px;
 }

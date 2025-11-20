@@ -9,7 +9,7 @@
   ...
 }: let
   inherit
-    (flake.self.packages.${pkgs.system})
+    (flake.self.packages.${pkgs.stdenv.hostPlatform.system})
     haskeww
     ;
   inherit
