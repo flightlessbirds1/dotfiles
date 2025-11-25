@@ -3,6 +3,7 @@
   inputs,
   config,
   pkgs,
+  pkgs-stable,
   ...
 }: {
   imports = [
@@ -13,16 +14,18 @@
         inputs
         config
         pkgs
+        pkgs-stable
         ;
     })
     (import ../firefox/default.nix {
       browser = "floorp";
-      package = "floorp-bin";
+      package = "floorp";
       inherit
         lib
         inputs
         pkgs
         config
+        pkgs-stable
         ;
     })
     ../zen

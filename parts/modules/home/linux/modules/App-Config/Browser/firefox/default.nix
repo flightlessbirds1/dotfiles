@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-stable,
   lib,
   config,
   browser,
@@ -14,7 +15,10 @@
 in {
   programs.${browser} = {
     enable = true;
-    package = pkgs.${package};
+    package =
+      if browser == "firefox"
+      then pkgs.${package}
+      else pkgs-stable.${package};
     nativeMessagingHosts = [pkgs.ff2mpv-rust];
 
     policies = import ./policies.nix {inherit pkgs lib config inputs;};
