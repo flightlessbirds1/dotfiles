@@ -55,24 +55,6 @@
         sopsFile = flake.self.secrets + /proton-FL.txt;
         format = "binary";
       };
-      "proxy/domain" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
-      "proxy/email" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
-      "proxy/vlessUUID" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
-      "proxy/realityPrivateKey" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
-      "proxy/naivePassword" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
-      "proxy/hysteriaPassword" = {
-        sopsFile = flake.self.secrets + /proxy-secrets.yaml;
-      };
     };
   };
   # Export both weather secrets to environment
@@ -90,5 +72,11 @@
         echo "WEATHER_API_KEY=$(cat ${config.sops.secrets.weather_api_key.path})" >> /etc/environment.d/50-weather-secrets.conf
       ''}";
     };
+  };
+  environment.systemPackages = builtins.attrValues {
+    inherit
+      (pkgs)
+      sops
+      ;
   };
 }
