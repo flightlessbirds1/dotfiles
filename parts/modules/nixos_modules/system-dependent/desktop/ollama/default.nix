@@ -18,6 +18,7 @@
       clr
       rocm-runtime
     ];
+    enable32Bit = true;
   };
   services.open-webui.enable = true;
 }
