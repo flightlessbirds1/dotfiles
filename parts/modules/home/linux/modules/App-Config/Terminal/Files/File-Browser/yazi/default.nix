@@ -64,9 +64,9 @@
         max_height = 1000;
       };
       opener = {
-        nvim = [
+        the-editor = [
           {
-            run = ''nvim "$@"'';
+            run = ''the-editor "$@"'';
             block = true;
             orphan = false;
           }
@@ -83,7 +83,7 @@
         prepend_rules = [
           {
             name = "*.lean";
-            use = "nvim";
+            use = "the-editor";
           }
           {
             name = "*.pdf";
