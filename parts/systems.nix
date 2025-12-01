@@ -1,5 +1,5 @@
 {self, ...}: let
-  stateVersion = "25.05";
+  stateVersion = "26.05";
   username = "insomniac";
 in {
   flake.nixosConfigurations = let

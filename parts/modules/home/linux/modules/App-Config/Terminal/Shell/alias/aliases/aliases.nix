@@ -27,7 +27,7 @@ shell: hostname: {
     rbnu =
       if shell == "fish"
       then ''begin; nix fmt . & find ~ -name "*.homemanagerbackup" -delete 2>/dev/null & wait; end; and nh os switch -u -H ${hostname} ~/Desktop/dotfiles''
-      else ''nu -c "nix fmt .; try { ls ~/**/*.homemanagerbackup | each { rm $in } }; nh os switch -H ${hostname} ~/Desktop/dotfiles"'';
+      else ''nu -c "nix fmt .; try { ls ~/**/*.homemanagerbackup | each { rm $in } }; nh os switch -u -H ${hostname} ~/Desktop/dotfiles"'';
     # ─── Cleanup ──────────────────────────────────────────────────────────────
     clean-a = "nh clean all";
     clean-u = "nh clean user";

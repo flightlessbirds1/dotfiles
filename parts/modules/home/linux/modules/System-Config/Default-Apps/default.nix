@@ -35,6 +35,9 @@ _: {
       "video/x-flv" = ["umpv.desktop"];
       "video/mpeg" = ["umpv.desktop"];
       "video/ogg" = ["umpv.desktop"];
+      "inode/directory" = [
+        "org.gnome.Nautilus.desktop"
+      ];
     };
   };
 }

@@ -79,6 +79,11 @@
     };
 
     systems.url = "github:nix-systems/default";
+
+    the-editor = {
+      url = "github:misterclayt0n/the-editor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

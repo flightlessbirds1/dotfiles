@@ -50,4 +50,5 @@ _:
 
   # Annoyances
   "media.autoplay.default" = 5;
+  "sidebar.visibility" = "hide-sidebar";
 }
