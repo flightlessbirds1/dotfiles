@@ -19,7 +19,7 @@
     })
     (import ../firefox/default.nix {
       browser = "floorp";
-      package = "floorp";
+      package = "floorp-bin";
       inherit
         lib
         inputs
