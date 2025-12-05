@@ -20,9 +20,11 @@ loop currentIndex = do
         [r|(box
         :class "time"
         :vexpand true
-        (label :text "|]
+        (label
+          :text "|]
           <> formatTime defaultTimeLocale "%I:%M:%S %p, %A, %B %-e, %Y" now
-          <> [r|")
+          <> [r|"
+          :justify "center")
       )|]
       ),
       ("timeSelected", show newIndex)

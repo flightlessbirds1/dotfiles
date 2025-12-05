@@ -9,6 +9,7 @@
       inherit
         (pkgs.nerd-fonts)
         jetbrains-mono
+        blex-mono
         ;
     };
   };
