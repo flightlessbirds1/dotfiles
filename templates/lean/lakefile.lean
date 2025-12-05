@@ -5,7 +5,7 @@ package «example» where
   -- add package configuration options here
 
 lean_lib «Example» where
-  require "leanprover-community" / "mathlib" @ "git#308445d7985027f538e281e18df29ca16ede2ba3"
+  require "leanprover-community" / "mathlib" @ "git#f897ebcf72cd16f89ab4577d0c826cd14afaafc7"
   -- add library configuration options here
   --
 

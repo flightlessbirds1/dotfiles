@@ -149,26 +149,6 @@
         "type": "github"
       }
     },
-    "glaumar_repo": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1737428919,
-        "narHash": "sha256-uywQK2tlqk12fznVJHJrYnYT90lv3oiS8fqdBxoJJJM=",
-        "owner": "glaumar",
-        "repo": "nur",
-        "rev": "84d56f9f26afcb07620c1e126673d033338406de",
-        "type": "github"
-      },
-      "original": {
-        "owner": "glaumar",
-        "repo": "nur",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -461,7 +441,6 @@
       "inputs": {
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
-        "glaumar_repo": "glaumar_repo",
         "home-manager": "home-manager",
         "niri-flake": "niri-flake",
         "nix-vscode-extensions": "nix-vscode-extensions",
@@ -594,11 +573,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764363024,
-        "narHash": "sha256-cN/lboRHzRqX1rq3JfJ7ISHZIj5ypgSRnTGchFKyqIc=",
+        "lastModified": 1764937872,
+        "narHash": "sha256-yU30v4c2/UKZM8tcXZc3UcUmPGPV9mKyuXmSr5cQaRg=",
         "owner": "misterclayt0n",
         "repo": "the-editor",
-        "rev": "2a49adf59909f2f11d473d67b67f6e2306116cb8",
+        "rev": "3a296eb6324d2e7f07b4bc9b73fa954f72cf4080",
         "type": "github"
       },
       "original": {
