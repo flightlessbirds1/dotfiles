@@ -18,7 +18,7 @@ shell: hostname: {
     rbn =
       if shell == "fish"
       then ''begin; nix fmt . & find ~ -name "*.homemanagerbackup" -delete 2>/dev/null & wait; end; and nh os switch -H ${hostname} ~/Desktop/dotfiles''
-      else ''nu -c "nix fmt .; try { ls ~/**/*.homemanagerbackup | each { rm $in } }; nh os switch -H ${hostname} ~/Desktop/dotfiles"'';
+      else ''nu -c "glob ~/**/*.homemanagerbackup | each { rm $in }; nh os switch -H ${hostname} ~/Desktop/dotfiles"'';
     rbnl = (
       if shell == "fish"
       then ''begin; nix fmt .; find ~ -name "*.homemanagerbackup" | xargs rm; end; nixos-rebuild switch --sudo --flake .#laptop --cores 6 --max-jobs 4''

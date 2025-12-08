@@ -311,161 +311,54 @@
     unportable_content = {
       executable = true;
       text = ''
-        #!/bin/sh
+        #!/usr/bin/env nu
 
-        # Read secrets from environment (set by systemd service, I can't forget this again, this was a nightmare to relearn.)
-        if [ -f /etc/environment.d/50-weather-secrets.conf ]; then
-          . /etc/environment.d/50-weather-secrets.conf
-        fi
+        let table = (cat /etc/environment.d/50-weather-secrets.conf
+            | lines
+            | each {split row "="}
+            | flatten
+            | chunks 2
+            | each { {key: $in.0, value: $in.1} }
+            | transpose -r -d)
+        let lat = $table | (get WEATHER_LOCATION | split row "," | get 0)
+        let lon = $table | (get WEATHER_LOCATION | split row "," | get 1)
+        let API_KEY = $table | (get WEATHER_API_KEY)
 
-        if [ -z "$WEATHER_API_KEY" ] || [ "$WEATHER_API_KEY" = "YOUR_API_KEY_HERE" ]; then
-          echo "{\"text\": \"🔑 API Key Missing\", \"tooltip\": \"Weather API key not configured in sops\"}"
-          exit 1
-        fi
+        let values = (http get $"https://api.openweathermap.org/data/2.5/weather?lat=($lat)&lon=($lon)&appid=($API_KEY)&units=imperial")
 
-        if [ -z "$WEATHER_LOCATION" ]; then
-          echo "{\"text\": \"📍 Location Missing\", \"tooltip\": \"Weather location not configured in sops\"}"
-          exit 1
-        fi
 
-        LOG_FILE="/tmp/waybar-weather.log"
-        echo "$(date): Weather script started with location: $WEATHER_LOCATION" > "$LOG_FILE"
-
-        if ! command -v jq >/dev/null 2>&1; then
-          echo "{\"text\": \"🌡️ Error: jq not found\", \"tooltip\": \"Please install jq\"}"
-          echo "$(date): jq not found" >> "$LOG_FILE"
-          exit 1
-        fi
-
-        get_weather_data() {
-          echo "$(date): Attempting to fetch weather data..." >> "$LOG_FILE"
-
-          lat=$(echo "$WEATHER_LOCATION" | cut -d',' -f1)
-          lon=$(echo "$WEATHER_LOCATION" | cut -d',' -f2)
-
-          weather=$(curl -s --connect-timeout 15 \
-            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$WEATHER_API_KEY&units=imperial" \
-            2>> "$LOG_FILE")
-          curl_status=$?
-
-          echo "$(date): curl exit status: $curl_status" >> "$LOG_FILE"
-          if [ $curl_status -eq 0 ] && [ -n "$weather" ]; then
-            # Check if the result is valid JSON
-            if echo "$weather" | jq . >/dev/null 2>&1; then
-              api_code=$(echo "$weather" | jq -r '.cod')
-              echo "$(date): API response code: $api_code" >> "$LOG_FILE"
-
-              if [ "$api_code" = "200" ]; then
-                echo "$(date): Successfully fetched valid weather data" >> "$LOG_FILE"
-                printf "%s\n" "$weather"
-                return 0
-              else
-                error_msg=$(echo "$weather" | jq -r '.message // "Unknown error"' 2>/dev/null || echo "Unknown error")
-                echo "$(date): API error (code $api_code): $error_msg" >> "$LOG_FILE"
-
-                case "$api_code" in
-                  "401")
-                    echo "{\"text\": \"🔑 API Key Issue\", \"tooltip\": \"API key invalid or not activated yet. New keys take up to 2 hours to activate.\"}"
-                    ;;
-                  "404")
-                    echo "{\"text\": \"📍 Location Not Found\", \"tooltip\": \"Coordinates not found. Check coordinates format.\"}"
-                    ;;
-                  "429")
-                    echo "{\"text\": \"⏰ Rate Limited\", \"tooltip\": \"Too many API requests. Try again later.\"}"
-                    ;;
-                  *)
-                    echo "{\"text\": \"❌ API Error\", \"tooltip\": \"$error_msg\"}"
-                    ;;
-                esac
-                return 1
-              fi
-            else
-              echo "$(date): Invalid JSON response" >> "$LOG_FILE"
-              echo "$(date): Response was: ''${weather:0:200}..." >> "$LOG_FILE"
-            fi
-          else
-            echo "$(date): Failed to fetch data (curl failed or empty response)" >> "$LOG_FILE"
-          fi
-
-          echo "{\"text\": \"🌐 Connection Error\", \"tooltip\": \"Unable to connect to weather service\"}"
-          return 1
+        let temp = $values | get main | get temp | math round
+        let name = $values | get name
+        let real_feel = $values | get main | get feels_like | math round
+        let weather = ($values | get weather)
+        let id = ($weather | get id)
+        let status = ($weather | get description | first)
+        let humidity = ($values | get main | get humidity)
+        def get_weather_icon [code: string] {
+            match $code {
+                "01d" => "☀️",
+                "01n" => "🌙",
+                "02d" => "🌤️",
+                "02n" => "☁️",
+                "03d" | "03n" => "☁️",
+                "04d" | "04n" => "☁️",
+                "09d" | "09n" => "🌧️",
+                "10d" => "🌦️",
+                "10n" => "🌧️",
+                "11d" | "11n" => "⛈️",
+                "13d" | "13n" => "❄️",
+                "50d" | "50n" => "🌫️",
+                _ => "🌡️"
+            }
         }
 
-        weather=$(get_weather_data)
+        let icon = (get_weather_icon ($weather | get icon | first))
+        let output = {
+          text : $"($icon) ($temp)°F"
+          tooltip : $"($name): ($status) - ($real_feel)"
+        }
 
-        # If get_weather_data already returned a formatted error, just output it
-        if echo "$weather" | jq -e '.text' >/dev/null 2>&1; then
-          printf "%s\n" "$weather"
-          exit 0
-        fi
-
-        echo "$(date): Processing weather data" >> "$LOG_FILE"
-
-        # Check if we got valid weather data
-        if [ "$(echo "$weather" | jq -r 'has("main") and has("weather")')" = "true" ]; then
-          condition=$(echo "$weather" | jq -r '.weather[0].description')
-          temp_f=$(echo "$weather" | jq -r '.main.temp | round')
-          feels_like_f=$(echo "$weather" | jq -r '.main.feels_like | round')
-          humidity=$(echo "$weather" | jq -r '.main.humidity')
-          wind_speed=$(echo "$weather" | jq -r '.wind.speed | round')
-          wind_deg=$(echo "$weather" | jq -r '.wind.deg // 0')
-          weather_id=$(echo "$weather" | jq -r '.weather[0].id')
-          city_name=$(echo "$weather" | jq -r '.name')
-          echo "$(date): Weather data for $city_name: $condition, ''${temp_f}°F" >> "$LOG_FILE"
-          get_wind_direction() {
-            deg=$1
-            if [ "$deg" -ge 0 ] && [ "$deg" -lt 23 ]; then echo "N"
-            elif [ "$deg" -ge 23 ] && [ "$deg" -lt 68 ]; then echo "NE"
-            elif [ "$deg" -ge 68 ] && [ "$deg" -lt 113 ]; then echo "E"
-            elif [ "$deg" -ge 113 ] && [ "$deg" -lt 158 ]; then echo "SE"
-            elif [ "$deg" -ge 158 ] && [ "$deg" -lt 203 ]; then echo "S"
-            elif [ "$deg" -ge 203 ] && [ "$deg" -lt 248 ]; then echo "SW"
-            elif [ "$deg" -ge 248 ] && [ "$deg" -lt 293 ]; then echo "W"
-            elif [ "$deg" -ge 293 ] && [ "$deg" -lt 338 ]; then echo "NW"
-            else echo "N"
-            fi
-          }
-
-          wind_dir=$(get_wind_direction "$wind_deg")
-
-          # Determine icon based on OpenWeatherMap weather codes
-          if [ "$weather_id" -ge 200 ] && [ "$weather_id" -lt 300 ]; then
-            icon="⛈️"  # Thunderstorm
-          elif [ "$weather_id" -ge 300 ] && [ "$weather_id" -lt 400 ]; then
-            icon="🌦️"  # Drizzle
-          elif [ "$weather_id" -ge 500 ] && [ "$weather_id" -lt 600 ]; then
-            icon="🌧️"  # Rain
-          elif [ "$weather_id" -ge 600 ] && [ "$weather_id" -lt 700 ]; then
-            icon="❄️"  # Snow
-          elif [ "$weather_id" -ge 700 ] && [ "$weather_id" -lt 800 ]; then
-            icon="🌫️"  # Atmosphere (fog, haze, etc.)
-          elif [ "$weather_id" -eq 800 ]; then
-            current_time=$(date +%s)
-            sunrise=$(echo "$weather" | jq -r '.sys.sunrise')
-            sunset=$(echo "$weather" | jq -r '.sys.sunset')
-            if [ "$current_time" -ge "$sunrise" ] && [ "$current_time" -lt "$sunset" ]; then
-              icon="☀️"  # Clear day
-            else
-              icon="🌙"  # Clear night
-            fi
-          elif [ "$weather_id" -gt 800 ] && [ "$weather_id" -lt 900 ]; then
-            icon="☁️"  # Clouds
-          else
-            icon="🌡️"  # Default
-          fi
-
-          # Capitalize first letter of condition
-          condition=$(echo "$condition" | sed 's/\b\w/\U&/g')
-          tooltip="$city_name: $condition - ''${temp_f}°F (feels like ''${feels_like_f}°F)\nHumidity: ''${humidity}%\nWind: ''${wind_speed} mph $wind_dir"
-          # Output the weather information in JSON format
-          result="{\"text\": \"$icon ''${temp_f}°F (''${feels_like_f}°F)\", \"tooltip\": \"$tooltip\"}"
-          printf "%s\n" "$result"
-          echo "$(date): Generated output: $result" >> "$LOG_FILE"
-        else
-          # Print the raw response for debugging
-          echo "$(date): Invalid response structure. Raw data: ''${weather:0:200}..." >> "$LOG_FILE"
-          printf "%s\n" "{\"text\": \"🌡️ Weather Unavailable\", \"tooltip\": \"Could not fetch weather data - check /tmp/waybar-weather.log\"}"
-        fi
+        print ($output | to json -r)
       '';
     };
     backup_content = {};
