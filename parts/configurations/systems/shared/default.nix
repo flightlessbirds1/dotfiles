@@ -87,10 +87,4 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      nix-your-shell fish | source
-    '';
-  };
 }

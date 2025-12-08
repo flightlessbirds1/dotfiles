@@ -3,7 +3,6 @@
     enable = true;
     interactiveShellInit = ''
       set -U fish_greeting
-      nix-your-shell fish | source
       set -gx EDITOR hx
       set -gx YAZI_ADAPTER ueberzug
       eval "$(direnv hook fish)"
