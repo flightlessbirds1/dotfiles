@@ -15,7 +15,7 @@
         # cemu # WiiU
         # azahar # 3DS - unreleased: https://azahar-emu.org/
         # lime3ds # 3DS
-        ryujinx-greemdev # Switch
+        ryubing # Switch
         # suyu # Switch
         # Sony
         # duckstation # PS1

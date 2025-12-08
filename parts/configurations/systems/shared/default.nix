@@ -40,7 +40,11 @@
   };
 
   nix = {
-    extraOptions = "experimental-features = nix-command flakes";
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+      "pipe-operator"
+    ];
     settings.allowed-users = [
       "@wheel"
     ];
