@@ -6,7 +6,7 @@
 }:
 lib.mkIf (flake.config.environment == "mine") {
   home.file."scripts/wallpaper-switcher" = {
-    source = ../../../System-Config/start-scripts/wallpaper-switcher;
+    source = ../../../System-Config/Scripts/wallpaper-switcher;
     executable = true;
   };
 
