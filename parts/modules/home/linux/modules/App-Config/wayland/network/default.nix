@@ -4,12 +4,10 @@
   lib,
   ...
 }:
-lib.mkIf (flake.config.environment == "mine")
-{
+lib.mkIf (flake.config.environment == "mine") {
   services.network-manager-applet.enable = true;
   home.packages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       networkmanagerapplet
       ;
   };

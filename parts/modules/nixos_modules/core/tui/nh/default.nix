@@ -4,7 +4,8 @@
   config,
   username,
   ...
-}: {
+}:
+{
   programs.nh = {
     enable = true;
     flake = "${config.users.users.${username}.home}/Desktop/dotfiles";
@@ -40,8 +41,7 @@
   };
 
   environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       nh
       nvd # for nix-diff style comparisons
       ;

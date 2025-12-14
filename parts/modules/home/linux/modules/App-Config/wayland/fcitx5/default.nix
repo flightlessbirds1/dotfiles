@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   home.file.".config/fcitx5/conf/quickphrase.conf" = {
     text = ''
       # Choose key modifier

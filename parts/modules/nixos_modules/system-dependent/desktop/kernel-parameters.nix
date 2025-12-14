@@ -5,5 +5,5 @@ _: {
     # "amdgpu.gpu_recovery=0"
     # "amdgpu.dpm=0"
   ];
-  boot.blacklistedKernelModules = ["iTCO_wdt"];
+  boot.blacklistedKernelModules = [ "iTCO_wdt" ];
 }

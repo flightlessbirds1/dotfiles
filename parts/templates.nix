@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   flake.templates = {
     haskell = {
       path = ../templates/haskell;

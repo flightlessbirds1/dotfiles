@@ -3,32 +3,33 @@
   hostname,
   flake,
   ...
-}: {
+}:
+{
   home.packages = [
     pkgs.swaybg
   ];
 
   programs.niri.settings = {
-    spawn-at-startup =
-      [
-        {
-          command = [
-            "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon"
-            "--start"
-            "--components=secrets,ssh,pkcs11"
-          ];
-        }
-        {
-          command = [
-            "firefox"
-          ];
-        }
-      ]
-      ++ (
-        if hostname == "laptop"
-        then [
+    spawn-at-startup = [
+      {
+        command = [
+          "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon"
+          "--start"
+          "--components=secrets,ssh,pkcs11"
+        ];
+      }
+      {
+        command = [
+          "firefox"
+        ];
+      }
+    ]
+    ++ (
+      if hostname == "laptop" then
+        [
         ]
-        else [
+      else
+        [
           {
             command = [
               "equibop"
@@ -45,24 +46,25 @@
             ];
           }
         ]
-      )
-      ++ (
-        if flake.config.environment == "noctalia"
-        then [
+    )
+    ++ (
+      if flake.config.environment == "noctalia" then
+        [
           {
             command = [
               "noctalia-shell"
             ];
           }
         ]
-        else [
+      else
+        [
           {
             command = [
               "swaync"
             ];
           }
         ]
-      );
+    );
     hotkey-overlay.skip-at-startup = true;
   };
 }

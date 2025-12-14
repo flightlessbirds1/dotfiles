@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   options = {
     environment = lib.mkOption {
       type = lib.types.str;

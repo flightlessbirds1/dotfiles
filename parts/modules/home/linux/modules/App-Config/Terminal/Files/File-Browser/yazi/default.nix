@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./extraPackages.nix
     ./keymap.nix
@@ -100,7 +101,16 @@
       };
     };
     plugins = {
-      inherit (pkgs.yaziPlugins) mediainfo chmod starship lazygit ouch bypass restore full-border;
+      inherit (pkgs.yaziPlugins)
+        mediainfo
+        chmod
+        starship
+        lazygit
+        ouch
+        bypass
+        restore
+        full-border
+        ;
     };
   };
 }

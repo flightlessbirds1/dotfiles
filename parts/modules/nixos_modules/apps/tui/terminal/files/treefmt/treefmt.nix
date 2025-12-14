@@ -1,13 +1,16 @@
-{inputs, ...}: {
-  imports = [inputs.treefmt-nix.flakeModule];
+{ inputs, ... }:
+{
+  imports = [ inputs.treefmt-nix.flakeModule ];
 
-  perSystem = {config, ...}: {
-    treefmt = {
-      programs = {
-        alejandra.enable = true;
+  perSystem =
+    { config, ... }:
+    {
+      treefmt = {
+        programs = {
+          nixfmt.enable = true;
+        };
+        projectRootFile = "flake.nix";
       };
-      projectRootFile = "flake.nix";
+      formatter = config.treefmt.build.wrapper;
     };
-    formatter = config.treefmt.build.wrapper;
-  };
 }

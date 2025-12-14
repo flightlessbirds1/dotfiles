@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./general-settings.nix
     ./idle.nix

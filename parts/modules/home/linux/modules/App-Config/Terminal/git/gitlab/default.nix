@@ -2,8 +2,9 @@
   pkgs,
   config,
   ...
-}: {
-  home.packages = [pkgs.glab];
+}:
+{
+  home.packages = [ pkgs.glab ];
 
   programs.ssh = {
     matchBlocks = {

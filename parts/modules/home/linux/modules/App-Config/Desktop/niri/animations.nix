@@ -16,7 +16,12 @@ _: {
           easing = {
             duration-ms = 700;
             curve = "cubic-bezier";
-            curve-args = [0.05 0.9 0.1 1.05];
+            curve-args = [
+              0.05
+              0.9
+              0.1
+              1.05
+            ];
           };
         };
         custom-shader = ''
@@ -42,7 +47,12 @@ _: {
           easing = {
             duration-ms = 300;
             curve = "cubic-bezier";
-            curve-args = [0.05 0.9 0.1 1.02];
+            curve-args = [
+              0.05
+              0.9
+              0.1
+              1.02
+            ];
           };
         };
       };
@@ -52,7 +62,12 @@ _: {
           easing = {
             duration-ms = 350;
             curve = "cubic-bezier";
-            curve-args = [0.13 0.75 0.29 1.1];
+            curve-args = [
+              0.13
+              0.75
+              0.29
+              1.1
+            ];
           };
         };
       };
@@ -62,7 +77,12 @@ _: {
           easing = {
             duration-ms = 500;
             curve = "cubic-bezier";
-            curve-args = [0.05 0.7 0.1 1.05];
+            curve-args = [
+              0.05
+              0.7
+              0.1
+              1.05
+            ];
           };
         };
       };
@@ -72,7 +92,12 @@ _: {
           easing = {
             duration-ms = 600;
             curve = "cubic-bezier";
-            curve-args = [0.05 0.9 0.1 1.05];
+            curve-args = [
+              0.05
+              0.9
+              0.1
+              1.05
+            ];
           };
         };
       };

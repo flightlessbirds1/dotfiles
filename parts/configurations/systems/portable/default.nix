@@ -1,6 +1,8 @@
-_: let
+_:
+let
   NM = ../../nixos_modules;
-in {
+in
+{
   imports = [
     ../shared
     ./hardware-configuration.nix

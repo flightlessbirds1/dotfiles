@@ -5,7 +5,7 @@
     ];
     icon = ./icons/al.png;
     urls = [
-      {template = "https://alternativeto.net/browse/search/?q={searchTerms}";}
+      { template = "https://alternativeto.net/browse/search/?q={searchTerms}"; }
     ];
   };
   "Urban Dictionary" = {
@@ -14,7 +14,7 @@
     ];
     icon = ./icons/ur.png;
     urls = [
-      {template = "https://www.urbandictionary.com/define.php?term={searchTerms}";}
+      { template = "https://www.urbandictionary.com/define.php?term={searchTerms}"; }
     ];
   };
 }

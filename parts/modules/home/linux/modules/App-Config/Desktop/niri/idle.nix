@@ -1,7 +1,9 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   lockCmd = "${pkgs.swaylock}/bin/swaylock";
   displayOnCmd = "${pkgs.wlr-randr}/bin/wlr-randr --output ALL --on";
-in {
+in
+{
   home.packages = [
     pkgs.wlr-randr
   ];

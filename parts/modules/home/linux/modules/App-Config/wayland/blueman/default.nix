@@ -4,11 +4,9 @@
   flake,
   ...
 }:
-lib.mkIf (flake.config.environment == "mine")
-{
+lib.mkIf (flake.config.environment == "mine") {
   home.packages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       blueman
       ;
   };

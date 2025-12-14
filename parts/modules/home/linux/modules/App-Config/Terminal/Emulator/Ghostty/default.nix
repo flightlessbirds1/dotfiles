@@ -2,7 +2,8 @@
   osConfig,
   username,
   ...
-}: {
+}:
+{
   programs.ghostty = {
     enable = true;
     settings = {

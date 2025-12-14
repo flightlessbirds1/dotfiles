@@ -4,6 +4,6 @@ _: {
     package = null;
     portalPackage = null;
 
-    settings = {};
+    settings = { };
   };
 }

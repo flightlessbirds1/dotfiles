@@ -5,7 +5,7 @@
     ];
     icon = ./icons/pd.png;
     urls = [
-      {template = "https://www.protondb.com/search?q={searchTerms}";}
+      { template = "https://www.protondb.com/search?q={searchTerms}"; }
     ];
   };
 
@@ -15,7 +15,7 @@
     ];
     icon = ./icons/sd.png;
     urls = [
-      {template = "https://steamdb.info/search/?a=all&q={searchTerms}";}
+      { template = "https://steamdb.info/search/?a=all&q={searchTerms}"; }
     ];
   };
 }

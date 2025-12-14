@@ -1,13 +1,12 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.sessionVariables.EDITOR = "hx";
 
   home.packages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       nil
       ;
-    inherit
-      (pkgs.haskellPackages)
+    inherit (pkgs.haskellPackages)
       haskell-language-server
       ;
   };
@@ -37,9 +36,9 @@
           language-servers = [
             "nil"
           ];
-          auto-format = true;
+          auto-format = false;
           formatter = {
-            command = "alejandra";
+            command = "nixfmt";
           };
         }
         {

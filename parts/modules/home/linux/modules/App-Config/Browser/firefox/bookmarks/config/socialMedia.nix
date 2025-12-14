@@ -12,7 +12,8 @@ let
     "tube"
     "yt"
   ];
-in {
+in
+{
   name = "Social Media";
   toolbar = false;
   bookmarks = [
@@ -175,11 +176,10 @@ in {
     {
       name = "YouTube Studio";
       url = "https://studio.youtube.com/channel/UCy9yYcDx2XuVVgcWLJJDoxw";
-      tags =
-        [
-          "studio"
-        ]
-        ++ youtubeTags;
+      tags = [
+        "studio"
+      ]
+      ++ youtubeTags;
       keyword = "Studio";
     }
     {

@@ -3,9 +3,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   extensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
-in {
+in
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;

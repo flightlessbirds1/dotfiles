@@ -4,7 +4,8 @@
   username,
   hostname,
   ...
-}: {
+}:
+{
   programs.waybar = {
     enable = true;
     systemd.enable = false;
@@ -78,11 +79,11 @@
             sort-by-number = true;
           };
           persistent-workspaces = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
-            "5" = [];
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
           };
         };
 
@@ -307,11 +308,11 @@
       hostname
       ;
     concatenation_type = "attribute";
-    portable_content = {};
+    portable_content = { };
     unportable_content = {
       executable = true;
       source = ../../../System-Config/Scripts/Weather.nu;
     };
-    backup_content = {};
+    backup_content = { };
   };
 }

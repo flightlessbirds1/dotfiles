@@ -3,19 +3,19 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;
     fcitx5 = {
       addons = builtins.attrValues {
-        inherit
-          (pkgs)
+        inherit (pkgs)
           fcitx5-rime
           fcitx5-gtk
           ;
       };
-      settings = import ./settings.nix {};
+      settings = import ./settings.nix { };
       quickPhrase = {
         # Greek lowercase
         "alpha" = "α";

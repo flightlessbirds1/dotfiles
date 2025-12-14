@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   networking.wg-quick.interfaces = {
     AirVPN-Phoenix = {
       address = [

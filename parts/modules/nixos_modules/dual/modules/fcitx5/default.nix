@@ -15,6 +15,6 @@ flake.self.lib.modules.mkSimpleDualModule {
   ];
   description = "Enable fcitx5 with support for English, Spanish, and Chinese input methods and logic quick phrases";
 
-  nixos_imports = [./nixos];
-  home_manager_imports = with flake.self.homeManagerModules; [fcitx5];
+  nixos_imports = [ ./nixos ];
+  home_manager_imports = with flake.self.homeManagerModules; [ fcitx5 ];
 }

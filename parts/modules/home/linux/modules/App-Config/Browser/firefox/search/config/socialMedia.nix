@@ -5,7 +5,7 @@
     ];
     icon = ./icons/re.png;
     urls = [
-      {template = "https://www.reddit.com/search/?q={searchTerms}";}
+      { template = "https://www.reddit.com/search/?q={searchTerms}"; }
     ];
   };
   "youtube" = {
@@ -14,7 +14,7 @@
     ];
     icon = ./icons/yo.png;
     urls = [
-      {template = "https://www.youtube.com/results?search_query={searchTerms}";}
+      { template = "https://www.youtube.com/results?search_query={searchTerms}"; }
     ];
   };
   "X" = {
@@ -23,7 +23,7 @@
     ];
     icon = ./icons/tw.png;
     urls = [
-      {template = "https://x.com/search?q={searchTerms}";}
+      { template = "https://x.com/search?q={searchTerms}"; }
     ];
   };
 }

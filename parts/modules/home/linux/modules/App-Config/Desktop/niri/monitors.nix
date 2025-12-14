@@ -3,14 +3,15 @@
   hostname,
   flake,
   ...
-}: {
+}:
+{
   programs.niri.settings = flake.self.dependent-checker.function {
     inherit
       username
       hostname
       ;
     concatenation_type = "attribute";
-    portable_content = {};
+    portable_content = { };
     laptop_content = {
       outputs = {
         "eDP-1" = {
@@ -55,6 +56,6 @@
         };
       };
     };
-    backup_content = {};
+    backup_content = { };
   };
 }

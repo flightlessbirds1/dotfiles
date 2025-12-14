@@ -4,7 +4,8 @@ let
     "gitlab"
   ];
   gitlabURL = "https://gitlab.com";
-in {
+in
+{
   name = "Development";
   toolbar = false;
   bookmarks = [
@@ -75,32 +76,29 @@ in {
     {
       name = "GitLab (Fallaryn)";
       url = "${gitlabURL}/fallaryn";
-      tags =
-        [
-          "fallaryn"
-        ]
-        ++ gitlabTags;
+      tags = [
+        "fallaryn"
+      ]
+      ++ gitlabTags;
       keyword = "GitLab";
     }
     {
       name = "GitLab (Isaac)";
       url = "${gitlabURL}/askyourself";
-      tags =
-        [
-          "isaac"
-          "askyourself"
-        ]
-        ++ gitlabTags;
+      tags = [
+        "isaac"
+        "askyourself"
+      ]
+      ++ gitlabTags;
       keyword = "GitLab";
     }
     {
       name = "GitLab (Nick)";
       url = "${gitlabURL}/upRootNutrition";
-      tags =
-        [
-          "uprootnutrition"
-        ]
-        ++ gitlabTags;
+      tags = [
+        "uprootnutrition"
+      ]
+      ++ gitlabTags;
       keyword = "GitLab";
     }
     {

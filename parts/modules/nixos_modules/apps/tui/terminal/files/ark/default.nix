@@ -1,7 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs.kdePackages)
+    inherit (pkgs.kdePackages)
       ark
       ;
   };

@@ -5,7 +5,7 @@
     ];
     icon = ./icons/br.png;
     urls = [
-      {template = "https://search.brave.com/search?q={searchTerms}&source=web";}
+      { template = "https://search.brave.com/search?q={searchTerms}&source=web"; }
     ];
   };
   "Kagi" = {
@@ -14,7 +14,7 @@
     ];
     icon = ./icons/ka.png;
     urls = [
-      {template = "https://kagi.com/search?q={searchTerms}";}
+      { template = "https://kagi.com/search?q={searchTerms}"; }
     ];
   };
 }

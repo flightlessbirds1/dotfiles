@@ -2,12 +2,12 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   devShells = {
     default = pkgs.mkShell {
       packages = builtins.attrValues {
-        inherit
-          (pkgs)
+        inherit (pkgs)
           just
           nil
           typst

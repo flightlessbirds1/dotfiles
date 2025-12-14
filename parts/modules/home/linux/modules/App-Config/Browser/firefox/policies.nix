@@ -1,7 +1,9 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   ThirdParty = "3rdparty";
-  extensions = import ./extension_ids.nix {};
-in {
+  extensions = import ./extension_ids.nix { };
+in
+{
   AppAutoUpdate = false;
   RequestedLocales = "en-US,en,es-ES,es";
 
@@ -140,7 +142,8 @@ in {
     "browser.search.openintab" = true;
 
     # Adblocking and Annoyances
-    "browser.contentblocking.features.strict" = "tp,tpPrivate,cookieBehavior5,cookieBehaviorPBM5,cm,fp,stp,emailTP,emailTPPrivate,lvl2,rp,rpTop,ocsp,qps,qpsPBM,fpp,fppPrivate";
+    "browser.contentblocking.features.strict" =
+      "tp,tpPrivate,cookieBehavior5,cookieBehaviorPBM5,cm,fp,stp,emailTP,emailTPPrivate,lvl2,rp,rpTop,ocsp,qps,qpsPBM,fpp,fppPrivate";
     "browser.contentblocking.category" = "strict";
     "browser.newtabpage.activity-stream.showSponsored" = false;
     "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
@@ -197,7 +200,8 @@ in {
     # enable hardware acceleration
     "gfx.webrender.force-disabled" = false;
     "layers.acceleration.disabled" = false;
-    "urlclassifier.trackingSkipURLs" = "claude.ai,statsig.anthropic.com,a-cdn.anthropic.com,r.stripe.com,js.stripe.com,m.stripe.network,intercom.io";
+    "urlclassifier.trackingSkipURLs" =
+      "claude.ai,statsig.anthropic.com,a-cdn.anthropic.com,r.stripe.com,js.stripe.com,m.stripe.network,intercom.io";
     "urlclassifier.trackingAnnotationWhitelistHosts" = "claude.ai,anthropic.com";
   };
 }

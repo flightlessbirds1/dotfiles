@@ -5,7 +5,7 @@
     ];
     icon = ./icons/sc.png;
     urls = [
-      {template = "https://sci-hub.ee/{searchTerms}";}
+      { template = "https://sci-hub.ee/{searchTerms}"; }
     ];
   };
   "Anna's Archive" = {
@@ -14,7 +14,7 @@
     ];
     icon = ./icons/aa.png;
     urls = [
-      {template = "https://annas-archive.org/scidb/{searchTerms}";}
+      { template = "https://annas-archive.org/scidb/{searchTerms}"; }
     ];
   };
   "Wikipedia" = {
@@ -22,11 +22,11 @@
       "@wi"
     ];
     urls = [
-      {template = "https://en.wikipedia.org/wiki/{searchTerms}";}
+      { template = "https://en.wikipedia.org/wiki/{searchTerms}"; }
     ];
   };
   "Internet Encyclopedia of Philosophy" = {
-    definedAliases = ["@iep"];
+    definedAliases = [ "@iep" ];
     icon = ./icons/internet-encyclopedia-of-philosophy.png;
     urls = [
       {
@@ -40,7 +40,7 @@
     ];
     icon = ./icons/ph.png;
     urls = [
-      {template = "https://plato.stanford.edu/search/searcher.py?query={searchTerms}";}
+      { template = "https://plato.stanford.edu/search/searcher.py?query={searchTerms}"; }
     ];
   };
 }

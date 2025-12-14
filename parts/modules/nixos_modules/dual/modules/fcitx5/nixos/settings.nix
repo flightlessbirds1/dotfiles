@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   inputMethod = {
     "Groups/0" = {
       "Name" = "English";

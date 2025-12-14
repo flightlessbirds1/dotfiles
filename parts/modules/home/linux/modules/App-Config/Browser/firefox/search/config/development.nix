@@ -5,7 +5,7 @@
     ];
     icon = ./icons/nx.png;
     urls = [
-      {template = "https://searchix.alanpearce.eu/options/home-manager/search?query={searchTerms}";}
+      { template = "https://searchix.alanpearce.eu/options/home-manager/search?query={searchTerms}"; }
     ];
   };
   "Nix Options" = {
@@ -36,7 +36,7 @@
     ];
     icon = ./icons/nx.png;
     urls = [
-      {template = "https://nixos.wiki/index.php?search={searchTerms}";}
+      { template = "https://nixos.wiki/index.php?search={searchTerms}"; }
     ];
   };
 }

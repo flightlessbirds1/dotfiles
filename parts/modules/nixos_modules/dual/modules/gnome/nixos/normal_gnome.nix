@@ -4,9 +4,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.dual_modules.modules.gnome;
-in {
+in
+{
   imports = [
     ./electron_wayland.nix
   ];
@@ -18,30 +20,28 @@ in {
 
   services.gnome.gnome-browser-connector.enable = lib.mkIf cfg.enable true;
 
-  environment.systemPackages = lib.mkIf cfg.enable (builtins.attrValues {
-    inherit
-      (pkgs)
-      gnome-tweaks
-      gnome-session
-      gnome-shell
-      gnome-settings-daemon
-      xdg-desktop-portal-gnome
-      ;
-    inherit
-      (pkgs.gnomeExtensions)
-      appindicator
-      compiz-windows-effect
-      tiling-assistant
-      logo-menu
-      user-themes
-      ;
-    gnome-session-sessions = pkgs.gnome-session.sessions;
-  });
+  environment.systemPackages = lib.mkIf cfg.enable (
+    builtins.attrValues {
+      inherit (pkgs)
+        gnome-tweaks
+        gnome-session
+        gnome-shell
+        gnome-settings-daemon
+        xdg-desktop-portal-gnome
+        ;
+      inherit (pkgs.gnomeExtensions)
+        appindicator
+        compiz-windows-effect
+        tiling-assistant
+        logo-menu
+        user-themes
+        ;
+      gnome-session-sessions = pkgs.gnome-session.sessions;
+    }
+  );
 
   services.displayManager.sessionPackages =
-    if cfg.enable
-    then [pkgs.gnome-session.sessions]
-    else [];
+    if cfg.enable then [ pkgs.gnome-session.sessions ] else [ ];
 
   qt.enable = lib.mkIf cfg.enable true;
   # qt.platformTheme = "gnome";
@@ -57,16 +57,19 @@ in {
     ];
 
     config.gnome = {
-      default = ["gnome"];
+      default = [ "gnome" ];
       "org.freedesktop.impl.portal.ScreenCast" = "gnome";
       "org.freedesktop.impl.portal.Screenshot" = "gnome";
     };
 
     config.niri = {
-      default = ["gnome" "gtk"];
+      default = [
+        "gnome"
+        "gtk"
+      ];
       "org.freedesktop.impl.portal.FileChooser" = "kde";
       "org.freedesktop.impl.portal.OpenURI" = "gtk";
     };
-    config.common.default = ["gnome"];
+    config.common.default = [ "gnome" ];
   };
 }

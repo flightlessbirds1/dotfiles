@@ -6,7 +6,8 @@
   osConfig,
   username,
   ...
-}: {
+}:
+{
   imports = [
     inputs.noctalia.homeModules.default
   ];
@@ -18,7 +19,7 @@
       bar = {
         position = "top";
         backgroundOpacity = 1;
-        monitors = [];
+        monitors = [ ];
         density = "comfortable";
         showCapsule = false;
         floating = false;
@@ -65,11 +66,12 @@
               id = "WallpaperSelector";
             }
             (
-              if osConfig.networking.hostName == "laptop"
-              then {
-                id = "Battery";
-              }
-              else {}
+              if osConfig.networking.hostName == "laptop" then
+                {
+                  id = "Battery";
+                }
+              else
+                { }
             )
             {
               id = "ControlCenter";
@@ -117,33 +119,40 @@
         transitionType = "random";
         transitionEdgeSmoothness = 0.05;
         monitors = (
-          if osConfig.networking.hostName == "laptop"
-          then [
-            {
-              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
-              "name" = "eDP-1";
-              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
-            }
-          ]
-          else [
-            {
-              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
-              "name" = "DP-1";
-              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
-            }
-            {
-              "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
-              "name" = "DP-2";
-              "wallpaper" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy/background-image.png";
-            }
-          ]
+          if osConfig.networking.hostName == "laptop" then
+            [
+              {
+                "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
+                "name" = "eDP-1";
+                "wallpaper" = "${
+                  osConfig.users.users.${username}.home
+                }/Desktop/dotfiles/deploy/background-image.png";
+              }
+            ]
+          else
+            [
+              {
+                "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
+                "name" = "DP-1";
+                "wallpaper" = "${
+                  osConfig.users.users.${username}.home
+                }/Desktop/dotfiles/deploy/background-image.png";
+              }
+              {
+                "directory" = "${osConfig.users.users.${username}.home}/Desktop/dotfiles/deploy";
+                "name" = "DP-2";
+                "wallpaper" = "${
+                  osConfig.users.users.${username}.home
+                }/Desktop/dotfiles/deploy/background-image.png";
+              }
+            ]
         );
       };
       appLauncher = {
         enableClipboardHistory = true;
         position = "center";
         backgroundOpacity = 1;
-        pinnedExecs = [];
+        pinnedExecs = [ ];
         useApp2Unit = false;
         sortByMostUsed = true;
       };
@@ -152,15 +161,15 @@
         exclusive = false;
         backgroundOpacity = 1;
         floatingRatio = 1;
-        monitors = [];
-        pinnedApps = [];
+        monitors = [ ];
+        pinnedApps = [ ];
       };
       network = {
         wifiEnabled = true;
       };
       notifications = {
         doNotDisturb = false;
-        monitors = [];
+        monitors = [ ];
         location = "bottom_right";
         alwaysOnTop = false;
         lastSeenTs = 0;
@@ -172,7 +181,7 @@
       osd = {
         enabled = true;
         location = "top_right";
-        monitors = [];
+        monitors = [ ];
         autoHideMs = 2000;
       };
       audio = {
@@ -180,7 +189,7 @@
         volumeOverdrive = false;
         cavaFrameRate = 60;
         visualizerType = "linear";
-        mprisBlacklist = [];
+        mprisBlacklist = [ ];
         preferredPlayer = "";
       };
       ui = {
@@ -189,23 +198,24 @@
         fontDefaultScale = 1;
         fontFixedScale = 1;
         monitorsScaling = (
-          if osConfig.networking.hostName == "desktop"
-          then [
-            {
-              "name" = "DP-1";
-              "scale" = 1.2;
-            }
-            {
-              "name" = "DP-2";
-              "scale" = 1.2;
-            }
-          ]
-          else [
-            {
-              "name" = "eDP-1";
-              "scale" = 1.2;
-            }
-          ]
+          if osConfig.networking.hostName == "desktop" then
+            [
+              {
+                "name" = "DP-1";
+                "scale" = 1.2;
+              }
+              {
+                "name" = "DP-2";
+                "scale" = 1.2;
+              }
+            ]
+          else
+            [
+              {
+                "name" = "eDP-1";
+                "scale" = 1.2;
+              }
+            ]
         );
         idleInhibitorEnabled = false;
       };
@@ -247,7 +257,7 @@
       };
     };
   };
-  home.activation.noctaliaSetLocation = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
+  home.activation.noctaliaSetLocation = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" ] ''
     set -eu
 
     $DRY_RUN_CMD echo "Setting noctalia location..."

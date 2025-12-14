@@ -2,11 +2,13 @@
   flake,
   lib,
   ...
-}: let
+}:
+let
   inherit (flake.config.aesthetics.themes.${flake.config.aesthetics.currentTheme}) colors;
   makeColor = c: "#" + c;
   makeStyle = bg: fg: "bg:" + bg + " fg:" + fg + " bold";
-  surround = fg: text:
+  surround =
+    fg: text:
     "[](fg:"
     + makeColor colors.base
     + " bg:"
@@ -19,20 +21,24 @@
     + "[█](fg:"
     + fg
     + ")";
-in {
+in
+{
   programs.starship = {
     enable = true;
     enableNushellIntegration = true;
     settings = {
       add_newline = false;
-      character = let
-        makeChar = bg: c:
-          surround (makeColor bg) ("[" + c + "](" + makeStyle (makeColor bg) (makeColor colors.crust) + ")");
-      in {
-        error_symbol = makeChar colors.maroon "⊥";
-        format = "$symbol";
-        success_symbol = makeChar colors.teal "λ";
-      };
+      character =
+        let
+          makeChar =
+            bg: c:
+            surround (makeColor bg) ("[" + c + "](" + makeStyle (makeColor bg) (makeColor colors.crust) + ")");
+        in
+        {
+          error_symbol = makeChar colors.maroon "⊥";
+          format = "$symbol";
+          success_symbol = makeChar colors.teal "λ";
+        };
       cmd_duration = {
         format = surround (makeColor colors.mauve) "[ $duration]($style)";
         min_time = 0;

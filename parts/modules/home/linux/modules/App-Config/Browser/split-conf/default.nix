@@ -5,7 +5,8 @@
   pkgs,
   pkgs-stable,
   ...
-}: {
+}:
+{
   imports = [
     (import ../firefox/default.nix {
       browser = "firefox";

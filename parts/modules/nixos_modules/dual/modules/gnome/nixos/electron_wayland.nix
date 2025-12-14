@@ -4,8 +4,10 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.dual_modules.modules.gnome;
-in {
+in
+{
   environment.sessionVariables.NIXOS_OZONE_WL = lib.mkIf cfg.enable "1";
 }
