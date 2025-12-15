@@ -61,14 +61,14 @@ in
       "org.freedesktop.impl.portal.ScreenCast" = "gnome";
       "org.freedesktop.impl.portal.Screenshot" = "gnome";
     };
-
+    xdgOpenUsePortal = true;
     config.niri = {
       default = [
         "gnome"
         "gtk"
       ];
       "org.freedesktop.impl.portal.FileChooser" = "kde";
-      "org.freedesktop.impl.portal.OpenURI" = "gtk";
+      # "org.freedesktop.impl.portal.OpenURI" = "gnome";
     };
     config.common.default = [ "gnome" ];
   };

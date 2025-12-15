@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   networking = {
     useNetworkd = true;
@@ -10,20 +10,11 @@
     ];
     networkmanager = {
       enable = true;
+      dns = lib.mkForce "none";
     };
     wireless.iwd = {
       enable = false;
     };
-  };
-  systemd.network.enable = true;
-  systemd.network.wait-online.enable = false;
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
-      iw
-      iwgtk
-      ;
-  };
-  networking = {
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -60,13 +51,43 @@
         }
       ];
     };
-    # nameservers = [
-    # 1.1
-    # .1
-    # .1
-    # 1.0
-    # .0
-    # .1
-    # ];
+  };
+  
+  systemd.network = {
+    enable = true;
+    wait-online.enable = false;
+    networks."10-ethernet" = {
+      matchConfig.Name = "enp5s0";
+      networkConfig = {
+        DHCP = "yes";
+        DNS = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ];
+      };
+      dhcpV4Config = {
+        UseDNS = false;  
+      };
+      dhcpV6Config = {
+        UseDNS = false;
+      };
+    };
+    networks."20-wifi" = {
+      matchConfig.Name = "wlp6s0";
+      networkConfig = {
+        DHCP = "yes";
+        DNS = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ];
+      };
+      dhcpV4Config = {
+        UseDNS = false;
+      };
+      dhcpV6Config = {
+        UseDNS = false;
+      };
+    };
+  };
+  
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      iw
+      iwgtk
+      ;
   };
 }

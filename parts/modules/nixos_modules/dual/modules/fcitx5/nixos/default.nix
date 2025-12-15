@@ -15,7 +15,7 @@
           fcitx5-gtk
           ;
       };
-      settings = import ./settings.nix { };
+      settings = import ./settings.nix;
       quickPhrase = {
         # Greek lowercase
         "alpha" = "α";
