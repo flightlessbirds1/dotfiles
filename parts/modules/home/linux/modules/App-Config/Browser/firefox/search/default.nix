@@ -1,12 +1,14 @@
 let
   configPath = ./config;
-  regularSearchEngines = let
-    files = builtins.attrNames (builtins.readDir configPath);
-  in
+  regularSearchEngines =
+    let
+      files = builtins.attrNames (builtins.readDir configPath);
+    in
     builtins.foldl' (
       emptySet: searchEngine: emptySet // (import (configPath + "/${searchEngine}"))
-    ) {} (builtins.filter (name: builtins.match ".*\\.nix$" name != null) files);
-in {
+    ) { } (builtins.filter (name: builtins.match ".*\\.nix$" name != null) files);
+in
+{
   search = {
     force = true;
     default = "Kagi";

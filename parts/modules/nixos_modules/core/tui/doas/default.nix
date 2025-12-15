@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # security.doas.enable = true;
   security.sudo = {
     enable = true;
@@ -9,8 +10,7 @@
   };
 
   environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       sudo
       ;
   };

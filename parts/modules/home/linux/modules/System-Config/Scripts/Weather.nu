@@ -3,14 +3,11 @@
 let table = (cat /etc/environment.d/50-weather-secrets.conf 
     | lines 
     | each {split row "="} 
-    | flatten 
-    | chunks 2 
     | each { {key: $in.0, value: $in.1} } 
     | transpose -r -d)
 let lat = $table | (get WEATHER_LOCATION | split row "," | get 0)
 let lon = $table | (get WEATHER_LOCATION | split row "," | get 1)
 let API_KEY = $table | (get WEATHER_API_KEY)
-
 let values = (http get $"https://api.openweathermap.org/data/2.5/weather?lat=($lat)&lon=($lon)&appid=($API_KEY)&units=imperial")
 
 

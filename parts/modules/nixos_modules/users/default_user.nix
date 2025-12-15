@@ -6,7 +6,8 @@
   username,
   flake,
   ...
-}: {
+}:
+{
   imports = [
     ../../home/linux/default.nix
   ];
@@ -18,8 +19,7 @@
     concatenation_type = "attribute";
     portable_content = {
       home = "/home/${username}";
-      isNormalUser =
-        true;
+      isNormalUser = true;
       extraGroups = [
         "networkManager"
         "wheel"
@@ -28,53 +28,51 @@
         "lpadmin"
         "input"
       ];
-      shell =
-        pkgs.nushell;
+      shell = pkgs.nushell;
     };
     unportable_content = {
-      hashedPasswordFile =
-        config.sops.secrets.password.path;
+      hashedPasswordFile = config.sops.secrets.password.path;
     };
     backup_content = {
       initialPassword = "nixos";
     };
   };
-  home-manager.users.${username} = {
-    pkgs,
-    inputs,
-    ...
-  }: {
-    imports = with flake.self.homeManagerModules; [
-      Communication
-      Desktop
-      Editors
-      Gaming
-      Media
-      Security
-      Terminal
-      Utilities
-      wayland
-      System-Config
-      inputs.zen-browser.homeModules.beta
-      ../../home/linux/modules/App-Config/Browser/split-conf
-    ];
-    home = {
-      inherit
-        username
-        stateVersion
-        ;
-      homeDirectory = "/home/${username}";
-      packages = builtins.attrValues {
+  home-manager.users.${username} =
+    {
+      pkgs,
+      inputs,
+      ...
+    }:
+    {
+      imports = with flake.self.homeManagerModules; [
+        Communication
+        Desktop
+        Editors
+        Gaming
+        Media
+        Security
+        Terminal
+        Utilities
+        wayland
+        System-Config
+        inputs.zen-browser.homeModules.beta
+        ../../home/linux/modules/App-Config/Browser/split-conf
+      ];
+      home = {
         inherit
-          (pkgs)
+          username
+          stateVersion
           ;
+        homeDirectory = "/home/${username}";
+        packages = builtins.attrValues {
+          inherit (pkgs)
+            ;
+        };
       };
     };
-  };
   services = {
     flatpak = {
-      enable =
-        true;
+      enable = true;
     };
   };
 

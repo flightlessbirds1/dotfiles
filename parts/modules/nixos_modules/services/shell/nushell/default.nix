@@ -1,13 +1,12 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       nushell
       ;
   };
   environment.shells = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       nushell
       ;
   };

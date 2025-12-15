@@ -7,7 +7,8 @@
   flake,
   pkgs-stable,
   ...
-}: {
+}:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];

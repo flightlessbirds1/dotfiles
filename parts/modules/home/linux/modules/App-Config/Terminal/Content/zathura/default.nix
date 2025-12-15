@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zathura = {
     enable = true;
     package = import ./package {

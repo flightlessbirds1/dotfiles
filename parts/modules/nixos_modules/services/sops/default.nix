@@ -4,7 +4,8 @@
   config,
   flake,
   ...
-}: {
+}:
+{
   imports = [
     inputs.sops-nix.nixosModules.default
   ];
@@ -74,8 +75,7 @@
     };
   };
   environment.systemPackages = builtins.attrValues {
-    inherit
-      (pkgs)
+    inherit (pkgs)
       sops
       ;
   };

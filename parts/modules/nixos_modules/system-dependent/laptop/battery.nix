@@ -3,7 +3,8 @@
   pkgs,
   username,
   ...
-}: let
+}:
+let
   powerModeSwitcher = pkgs.writeTextFile {
     name = "power-mode";
     executable = true;
@@ -115,7 +116,8 @@
       }
     '';
   };
-in {
+in
+{
   services.tlp = {
     enable = true;
     settings = {

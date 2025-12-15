@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   services.ollama = {
     enable = true;
     acceleration = "rocm";
@@ -13,11 +14,12 @@
   };
   hardware.graphics = {
     enable = true;
-    extraPackages = with inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.rocmPackages; [
-      clr.icd
-      clr
-      rocm-runtime
-    ];
+    extraPackages =
+      with inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.rocmPackages; [
+        clr.icd
+        clr
+        rocm-runtime
+      ];
     enable32Bit = true;
   };
   services.open-webui.enable = true;

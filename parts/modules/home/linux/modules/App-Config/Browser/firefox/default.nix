@@ -7,21 +7,33 @@
   browser,
   package ? browser,
   ...
-}: let
+}:
+let
   inherit (config.home) username;
   profiles = import ./profiles.nix {
-    inherit inputs pkgs lib config username;
+    inherit
+      inputs
+      pkgs
+      lib
+      config
+      username
+      ;
   };
-in {
+in
+{
   programs.${browser} = {
     enable = true;
-    package =
-      if browser == "firefox"
-      then pkgs.${package}
-      else pkgs-stable.${package};
-    nativeMessagingHosts = [pkgs.ff2mpv-rust];
+    package = if browser == "firefox" then pkgs.${package} else pkgs-stable.${package};
+    nativeMessagingHosts = [ pkgs.ff2mpv-rust ];
 
-    policies = import ./policies.nix {inherit pkgs lib config inputs;};
+    policies = import ./policies.nix {
+      inherit
+        pkgs
+        lib
+        config
+        inputs
+        ;
+    };
     inherit profiles;
   };
 }

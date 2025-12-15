@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.niri-flake.nixosModules.niri
   ];

@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.printing = {
     enable = true;
-    drivers = [pkgs.hplipWithPlugin];
+    drivers = [ pkgs.hplipWithPlugin ];
   };
   services.ipp-usb.enable = true;
   services.avahi = {

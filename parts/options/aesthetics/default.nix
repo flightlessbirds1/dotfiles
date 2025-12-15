@@ -1,4 +1,5 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   aestheticsSubmodule = lib.types.submodule {
     options = {
       currentTheme = lib.mkOption {
@@ -19,8 +20,9 @@
       };
     };
   };
-in {
-  options.aesthetics = lib.mkOption {type = aestheticsSubmodule;};
+in
+{
+  options.aesthetics = lib.mkOption { type = aestheticsSubmodule; };
 
   config.aesthetics = import ./colors.nix;
 }

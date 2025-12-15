@@ -2,20 +2,19 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   haskellProjects.default = {
     devShell = {
       enable = true;
 
       tools = hp: {
-        inherit
-          (hp)
+        inherit (hp)
           cabal-fmt
           haskell-language-server
           ;
 
-        inherit
-          (pkgs)
+        inherit (pkgs)
           dhall
           dhall-json
           dhall-lsp-server
@@ -34,8 +33,7 @@
           zlib
           ;
 
-        inherit
-          (pkgs.haskellPackages)
+        inherit (pkgs.haskellPackages)
           nixfmt
           ;
       };

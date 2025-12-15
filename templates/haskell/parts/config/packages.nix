@@ -1,1 +1,4 @@
-{self, ...}: {packages.default = self.packages.example;}
+{ self, ... }:
+{
+  packages.default = self.packages.example;
+}

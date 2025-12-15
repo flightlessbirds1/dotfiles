@@ -1,6 +1,7 @@
 let
   currentTheme = "catppuccin_mocha";
-in {
+in
+{
   inherit currentTheme;
   themes."${currentTheme}".colors = {
     rosewater = "f5e0dc";

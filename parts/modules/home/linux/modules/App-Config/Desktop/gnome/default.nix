@@ -5,10 +5,12 @@
   config,
   flake,
   ...
-}: let
+}:
+let
   username = config.home.username;
-in {
-  imports = with flake.self.homeManagerModules; [session];
+in
+{
+  imports = with flake.self.homeManagerModules; [ session ];
 
   home = {
     file.".local/share/backgrounds/.background-image" = {
@@ -62,7 +64,7 @@ in {
       # Enable Gnome extensions
       "org/gnome/shell" = {
         disable-user-extensions = false;
-        disabled-extensions = [];
+        disabled-extensions = [ ];
         enabled-extensions = [
           "compiz-windows-effect@hermes83.github.com"
           "logomenu@aryan_k"
@@ -71,7 +73,20 @@ in {
           "appindicatorsupport@rgcjonas.gmail.com"
         ];
         last-selected-power-profile = "power-saver";
-        favorite-apps = ["org.gnome.Nautilus.desktop" "org.gnome.Calendar.desktop" "mullvad-vpn.desktop" "firefox.desktop" "obsidian.desktop" "zotero.desktop" "codium.desktop" "Alacritty.desktop" "com.mitchellh.ghostty.desktop" "signal-desktop.desktop" "gnome-system-monitor.desktop" "com.obsproject.Studio.desktop"];
+        favorite-apps = [
+          "org.gnome.Nautilus.desktop"
+          "org.gnome.Calendar.desktop"
+          "mullvad-vpn.desktop"
+          "firefox.desktop"
+          "obsidian.desktop"
+          "zotero.desktop"
+          "codium.desktop"
+          "Alacritty.desktop"
+          "com.mitchellh.ghostty.desktop"
+          "signal-desktop.desktop"
+          "gnome-system-monitor.desktop"
+          "com.obsproject.Studio.desktop"
+        ];
       };
 
       # Compiz window effect
@@ -110,17 +125,17 @@ in {
       };
 
       "org/gnome/desktop/wm/keybindings" = {
-        begin-move = ["<Control>Right"];
-        switch-to-workspace-left = ["<Ctrl>s"];
-        switch-to-workspace-right = ["<Ctrl>g"];
+        begin-move = [ "<Control>Right" ];
+        switch-to-workspace-left = [ "<Ctrl>s" ];
+        switch-to-workspace-right = [ "<Ctrl>g" ];
       };
 
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        search = ["<Control>space"];
+        search = [ "<Control>space" ];
       };
 
       "org/gnome/desktop/input-sources" = {
-        xkb-options = ["compose:sclk"];
+        xkb-options = [ "compose:sclk" ];
       };
     };
   };

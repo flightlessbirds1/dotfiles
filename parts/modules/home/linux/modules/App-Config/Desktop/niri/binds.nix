@@ -5,7 +5,8 @@
   username,
   hostname,
   ...
-}: let
+}:
+let
   a = config.lib.niri.actions;
 
   ws = {
@@ -19,7 +20,8 @@
     misc = "08-misc";
   };
   script = "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/System-Config/Scripts";
-in {
+in
+{
   imports = [
     ./switch-binds.nix
   ];
@@ -36,15 +38,16 @@ in {
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
           "super+space".action = a.spawn (
-            if flake.config.environment == "noctalia"
-            then [
-              "noctalia-shell"
-              "ipc"
-              "call"
-              "launcher"
-              "toggle"
-            ]
-            else ["${script}/fuzzel.sh"]
+            if flake.config.environment == "noctalia" then
+              [
+                "noctalia-shell"
+                "ipc"
+                "call"
+                "launcher"
+                "toggle"
+              ]
+            else
+              [ "${script}/fuzzel.sh" ]
           );
           "super+comma".action = a.set-column-width "50%";
 
@@ -99,15 +102,18 @@ in {
           "super+shift+ctrl+q".action = a.spawn "qbittorrent";
           "super+shift+ctrl+o".action = a.spawn "obsidian";
           "super+shift+v".action = a.spawn (
-            if flake.config.environment == "noctalia"
-            then [
-              "noctalia-shell"
-              "ipc"
-              "call"
-              "launcher"
-              "clipboard"
-            ]
-            else ["${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"]
+            if flake.config.environment == "noctalia" then
+              [
+                "noctalia-shell"
+                "ipc"
+                "call"
+                "launcher"
+                "clipboard"
+              ]
+            else
+              [
+                "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
+              ]
           );
           "super+ctrl+shift+p".action = a.spawn [
             "${script}/plex.sh"

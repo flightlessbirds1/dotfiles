@@ -3,7 +3,8 @@
   hostname,
   flake,
   ...
-}: {
+}:
+{
   home.packages = [
     pkgs.swaybg
   ];
@@ -33,7 +34,8 @@
             ];
           }
         ]
-        else [
+      else
+        [
           {
             command = [
               "equibop"
@@ -50,24 +52,25 @@
             ];
           }
         ]
-      )
-      ++ (
-        if flake.config.environment == "noctalia"
-        then [
+    )
+    ++ (
+      if flake.config.environment == "noctalia" then
+        [
           {
             command = [
               "noctalia-shell"
             ];
           }
         ]
-        else [
+      else
+        [
           {
             command = [
               "swaync"
             ];
           }
         ]
-      );
+    );
     hotkey-overlay.skip-at-startup = true;
   };
 }

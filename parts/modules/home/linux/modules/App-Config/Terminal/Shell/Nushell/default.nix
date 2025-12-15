@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.nushell = {
     enable = true;
     package = pkgs.nushell;

@@ -5,25 +5,22 @@
   config,
   username,
   ...
-}: let
+}:
+let
   cfg = config.dual_modules.modules.gnome;
-in {
+in
+{
   imports = [
     ./normal_gnome.nix
   ];
-  environment.pathsToLink =
-    if cfg.enable
-    then ["/share/wayland-sessions"]
-    else [];
+  environment.pathsToLink = if cfg.enable then [ "/share/wayland-sessions" ] else [ ];
   services.xserver.enable = lib.mkIf cfg.enable true;
   services.xserver.xkb.layout = "us";
 
   environment.gnome.excludePackages =
-    if cfg.enable
-    then
+    if cfg.enable then
       (builtins.attrValues {
-        inherit
-          (pkgs)
+        inherit (pkgs)
           gnome-photos
           gnome-tour
           gedit
@@ -42,5 +39,6 @@ in {
           atomix # puzzle game
           ;
       })
-    else [];
+    else
+      [ ];
 }
