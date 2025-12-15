@@ -23,6 +23,11 @@
           "firefox"
         ];
       }
+      {
+        command = [
+          "systemctl --user restart xdg-desktop-portal.service"
+        ];
+      }
     ]
     ++ (
       if hostname == "laptop" then
