@@ -27,6 +27,11 @@
       ++ (
         if hostname == "laptop"
         then [
+          {
+            command = [
+              "echo i2c-ELAN9008:00 | sudo tee /sys/bus/i2c/drivers/i2c_hid_acpi/unbind"
+            ];
+          }
         ]
         else [
           {
