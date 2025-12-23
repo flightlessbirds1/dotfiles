@@ -7,7 +7,7 @@
       };
       targets = [
         {
-          domain = "libreddit.kavin.rocks";
+          domain = "lr.ptr.moe";
         }
       ];
     };
