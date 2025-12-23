@@ -4,9 +4,8 @@
     useNetworkd = true;
     dhcpcd.enable = false;
     nameservers = [
+      "194.242.2.9"
       "1.1.1.1"
-      "1.0.0.1"
-      "8.8.8.8"
     ];
     networkmanager = {
       enable = true;
@@ -17,6 +16,7 @@
     };
     firewall = {
       enable = true;
+      checkReversePath = false;
       allowedTCPPorts = [
         22
         80
@@ -27,6 +27,7 @@
         19132
         19216
         25565
+        31850
         53317
       ];
       allowedUDPPorts = [
@@ -36,6 +37,7 @@
         19132
         19216
         25565
+        31850
         53317
       ];
       allowedTCPPortRanges = [
@@ -52,7 +54,7 @@
       ];
     };
   };
-  
+
   systemd.network = {
     enable = true;
     wait-online.enable = false;
@@ -60,10 +62,13 @@
       matchConfig.Name = "enp5s0";
       networkConfig = {
         DHCP = "yes";
-        DNS = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ];
+        DNS = [
+          "194.242.2.9"
+          "1.1.1.1"
+        ];
       };
       dhcpV4Config = {
-        UseDNS = false;  
+        UseDNS = false;
       };
       dhcpV6Config = {
         UseDNS = false;
@@ -73,7 +78,10 @@
       matchConfig.Name = "wlp6s0";
       networkConfig = {
         DHCP = "yes";
-        DNS = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" ];
+        DNS = [
+          "194.242.2.9"
+          "1.1.1.1"
+        ];
       };
       dhcpV4Config = {
         UseDNS = false;
@@ -83,7 +91,7 @@
       };
     };
   };
-  
+
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       iw
