@@ -23,7 +23,7 @@
           persistentKeepalive = 25;
         }
       ];
-      autostart = false;
+      autostart = true;
     };
   };
 }
