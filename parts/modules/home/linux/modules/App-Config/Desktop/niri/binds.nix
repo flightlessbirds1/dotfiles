@@ -121,6 +121,13 @@ in
           "super+shift+ctrl+t".action = a.spawn [
             "resources"
           ];
+          # Scripts for varying purposes
+          "super+shift+p".action = a.spawn [
+            "nu"
+            "-c"
+            "${script}/hypridle.nu"
+          ];
+
           # System and Screenshot Keybinds (SUPER + ALT)
           "super+alt+r".action = a.spawn [
             "bash"

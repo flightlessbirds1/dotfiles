@@ -24,10 +24,6 @@ in
           timeout = 300;
           on-timeout = lockCmd;
         }
-        {
-          timeout = 900;
-          on-timeout = lockCmd;
-        }
       ];
     };
   };
