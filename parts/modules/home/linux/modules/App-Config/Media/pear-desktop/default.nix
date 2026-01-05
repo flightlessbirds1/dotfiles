@@ -1,3 +1,4 @@
-{pkgs, ...}: {
-  home.packages = [(pkgs.callPackage ./package {})];
+{ pkgs, ... }:
+{
+  home.packages = [ (pkgs.callPackage ./package { }) ];
 }

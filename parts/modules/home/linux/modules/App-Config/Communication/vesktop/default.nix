@@ -1,9 +1,7 @@
-{ pkgs, ... }:
+{ pkgs-stable, pkgs, ... }:
 {
-  home.packages = builtins.attrValues {
-    inherit (pkgs)
-      vesktop
-      equibop
-      ;
-  };
+  home.packages = [
+    pkgs-stable.vesktop
+    pkgs.equibop
+  ];
 }

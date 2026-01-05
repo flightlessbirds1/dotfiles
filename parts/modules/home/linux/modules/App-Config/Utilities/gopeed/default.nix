@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 {
   home.packages = [
-    pkgs.gopeed
+    pkgs-stable.gopeed
   ];
 }
