@@ -295,5 +295,5 @@ def --wrapped jc [...arguments: string@"nu-complete jc"]: [any -> table, any -> 
 }
 
 def ns [package] {
-    run-external (nix shell nixpkgs#$package)
+    (nix shell nixpkgs#($package))
 }
