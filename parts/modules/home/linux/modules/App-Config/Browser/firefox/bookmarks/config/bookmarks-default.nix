@@ -19,7 +19,7 @@
         }
         {
           name = "Anna's Archive";
-          url = "https://annas-archive.org/";
+          url = "https://annas-archive.li/";
         }
       ];
     }
