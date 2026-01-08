@@ -5,6 +5,7 @@
   home.packages = builtins.attrValues {
     inherit (pkgs)
       nil
+      jdt-language-server
       ;
     inherit (pkgs.haskellPackages)
       haskell-language-server
