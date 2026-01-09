@@ -2,7 +2,7 @@
 {
   wayland.windowManager.hyprland.settings = {
     exec-once = [
-      "${config.home.homeDirectory}/.local/bin/wallpaper-switcher"
+      "swww img ~/Desktop/dotfiles/deploy/background-image.png"
       "swaync"
     ];
   };

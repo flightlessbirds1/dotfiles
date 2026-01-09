@@ -7,15 +7,11 @@
       bookmarks = [
         {
           name = "AnimeKai";
-          url = "https://animekai.cc/home";
+          url = "https://animekai.to/home";
         }
         {
           name = "YouTube";
           url = "https://www.youtube.com/";
-        }
-        {
-          name = "Plex";
-          url = "https://plex.tony.cf/";
         }
         {
           name = "Anna's Archive";
@@ -30,14 +26,6 @@
           name = "FMHY";
           url = "https://fmhy.net/";
         }
-        {
-          name = "megathread - Piracy";
-          url = "https://www.reddit.com/r/Piracy/wiki/megathread/";
-        }
-        {
-          name = "Classroom";
-          url = "https://classroom.google.com";
-        }
       ];
     }
     {
@@ -50,26 +38,6 @@
         {
           name = "VirusTotal";
           url = "https://www.virustotal.com/gui/";
-        }
-        {
-          name = "Base64";
-          url = "https://www.base64decode.org/";
-        }
-        {
-          name = "Claude";
-          url = "https://claude.ai/chats";
-        }
-        {
-          name = "ChatGPT";
-          url = "https://chat.openai.com/";
-        }
-        {
-          name = "Google Drive";
-          url = "https://drive.google.com/drive/my-drive";
-        }
-        {
-          name = "CloudConvert";
-          url = "https://cloudconvert.com/";
         }
         {
           name = "Profiles";
