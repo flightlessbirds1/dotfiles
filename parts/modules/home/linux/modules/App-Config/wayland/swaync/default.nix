@@ -1,9 +1,13 @@
 {
   lib,
   flake,
+  pkgs,
   ...
 }:
 lib.mkIf (flake.config.environment == "mine") {
+  home.packages = [
+    pkgs.libnotify
+  ];
   services.swaync = {
     enable = true;
     settings = {

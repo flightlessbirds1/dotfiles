@@ -47,7 +47,7 @@ in
                 "toggle"
               ]
             else
-              [ "${script}/fuzzel.sh" ]
+              [ "${script}/rofi.sh" ]
           );
           "super+comma".action = a.set-column-width "50%";
 
