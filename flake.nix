@@ -71,18 +71,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
-    };
-
     systems.url = "github:nix-systems/default";
 
-    the-editor = {
-      url = "github:misterclayt0n/the-editor";
-      inputs.nixpkgs.follows = "nixpkgs";
+    rofi-tools = {
+      url = "github:szaffarano/rofi-tools";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks-nix";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
   };
 

@@ -6,6 +6,7 @@
   username,
   flake,
   pkgs-stable,
+  system,
   ...
 }:
 {
@@ -28,6 +29,7 @@
       username
       flake
       pkgs-stable
+      system
       ;
   };
 }

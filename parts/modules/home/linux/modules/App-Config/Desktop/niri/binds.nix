@@ -112,7 +112,7 @@ in
               ]
             else
               [
-                "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
+                "rofi-cliphist"
               ]
           );
           "super+ctrl+shift+p".action = a.spawn [
