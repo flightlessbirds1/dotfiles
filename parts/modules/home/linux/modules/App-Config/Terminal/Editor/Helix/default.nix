@@ -7,9 +7,6 @@
       nil
       jdt-language-server
       ;
-    inherit (pkgs.haskellPackages)
-      haskell-language-server
-      ;
   };
 
   programs.helix = {
@@ -42,27 +39,11 @@
             command = "nixfmt";
           };
         }
-        {
-          name = "haskell";
-          language-servers = [
-            "hls"
-          ];
-          auto-format = true;
-          formatter = {
-            command = "stylish-haskell";
-          };
-        }
       ];
 
       language-server = {
         nil = {
           command = "nil";
-        };
-        hls = {
-          command = "haskell-language-server-wrapper";
-          args = [
-            "--lsp"
-          ];
         };
       };
     };
