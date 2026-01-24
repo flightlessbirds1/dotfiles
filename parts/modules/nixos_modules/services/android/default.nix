@@ -1,8 +1,8 @@
+{ pkgs, ... }:
 {
-  programs = {
-    adb.enable = true;
-    droidcam.enable = true;
-  };
+  environment.systemPackages = [
+    pkgs.android-tools
+  ];
   services.udev = {
     enable = true;
     extraRules = ''

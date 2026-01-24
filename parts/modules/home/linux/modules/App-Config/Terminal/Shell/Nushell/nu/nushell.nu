@@ -297,3 +297,7 @@ def --wrapped jc [...arguments: string@"nu-complete jc"]: [any -> table, any -> 
 def ns [package] {
     (nix shell nixpkgs#($package))
 }
+
+def fold [closure : closure] {
+  | | reverse | reduce $closure
+}

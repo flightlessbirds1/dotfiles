@@ -47,7 +47,7 @@ in
                 "toggle"
               ]
             else
-              [ "${script}/fuzzel.sh" ]
+              [ "${script}/rofi.sh" ]
           );
           "super+comma".action = a.set-column-width "50%";
 
@@ -112,7 +112,7 @@ in
               ]
             else
               [
-                "${config.home.homeDirectory}/Desktop/dotfiles/parts/modules/home/linux/modules/App-Config/wayland/cliphist/cliphist-fuzzel-img"
+                "rofi-cliphist"
               ]
           );
           "super+ctrl+shift+p".action = a.spawn [

@@ -23,7 +23,6 @@
         allOfArtist
         bestMoment
         queueTime
-        addToQueueTop
       ];
       enabledCustomApps = with spicePkgs.apps; [
         newReleases
