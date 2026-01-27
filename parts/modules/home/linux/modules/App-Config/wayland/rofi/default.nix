@@ -43,8 +43,8 @@ lib.mkIf (flake.config.environment == "mine") {
     extraConfig = {
       show-icons = true;
       icon-theme = "Papirus-Dark";
-      matching = "fuzzy";
       sort = true;
+      sorting-method = "fzf";
     };
 
     theme = {

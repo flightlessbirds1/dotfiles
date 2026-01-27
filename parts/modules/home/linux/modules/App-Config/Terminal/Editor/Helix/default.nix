@@ -6,6 +6,7 @@
     inherit (pkgs)
       nil
       jdt-language-server
+      zulu25
       ;
   };
 
