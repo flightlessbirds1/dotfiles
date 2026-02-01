@@ -25,7 +25,7 @@
         [
           {
             command = [
-              "equibop"
+              "vesktop"
             ];
           }
           {
