@@ -99,5 +99,18 @@
         }
       ];
     }
+    {
+      name = "Programming";
+      bookmarks = [
+        {
+          name = "Hoogle";
+          url = "https://hoogle.haskell.org/";
+        }
+        {
+          name = "Loogle";
+          url = "https://loogle.lean-lang.org/";
+        }
+      ];
+    }
   ];
 }
