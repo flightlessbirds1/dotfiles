@@ -5,7 +5,7 @@
     dhcpcd.enable = false;
     nameservers = [
       "194.242.2.9"
-      "1.1.1.1"
+      "9.9.9.9"
     ];
     networkmanager = {
       enable = true;

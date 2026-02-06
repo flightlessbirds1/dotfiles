@@ -4,13 +4,13 @@
   flake,
   ...
 }:
-lib.mkIf (flake.config.environment == "mine") {
+{
   home.file."scripts/wallpaper-switcher.nu" = {
     source = ../../../System-Config/Scripts/wallpaper-switcher.nu;
     executable = true;
   };
 
-  systemd.user.services.swww-daemon = lib.mkIf (flake.config.environment == "mine") {
+  systemd.user.services.swww-daemon = {
     Unit = {
       Description = "swww wallpaper daemon";
       PartOf = [
@@ -42,7 +42,7 @@ lib.mkIf (flake.config.environment == "mine") {
     ];
   };
 
-  systemd.user.services.wallpaper-switcher = lib.mkIf (flake.config.environment == "mine") {
+  systemd.user.services.wallpaper-switcher = {
     Unit = {
       Description = "Time-based wallpaper switcher";
       After = [
@@ -65,7 +65,7 @@ lib.mkIf (flake.config.environment == "mine") {
     };
   };
 
-  systemd.user.timers.wallpaper-switcher = lib.mkIf (flake.config.environment == "mine") {
+  systemd.user.timers.wallpaper-switcher = {
     Unit.Description = "Run wallpaper switcher at the start of every hour";
     Timer = {
       OnCalendar = "hourly";
@@ -77,7 +77,7 @@ lib.mkIf (flake.config.environment == "mine") {
     ];
   };
 
-  systemd.user.services.wallpaper-startup = lib.mkIf (flake.config.environment == "mine") {
+  systemd.user.services.wallpaper-startup = {
     Unit = {
       Description = "Set initial wallpaper on login";
       After = [

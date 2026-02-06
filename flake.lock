@@ -229,26 +229,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769480234,
-        "narHash": "sha256-ii1N80R6zGSroR1PNNrRKT48H3GMmZMlIl4Kq6EIoCc=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "25f939f9c4b2bd8c0aa81833929d7f6df1b3407c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -268,26 +248,6 @@
       "original": {
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "type": "github"
-      }
-    },
-    "quickshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768985439,
-        "narHash": "sha256-qkU4r+l+UPz4dutMMRZSin64HuVZkEv9iFpu9yMWVY0=",
-        "owner": "outfoxxed",
-        "repo": "quickshell",
-        "rev": "191085a8821b35680bba16ce5411fc9dbe912237",
-        "type": "github"
-      },
-      "original": {
-        "owner": "outfoxxed",
-        "repo": "quickshell",
         "type": "github"
       }
     },
@@ -327,9 +287,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
-        "noctalia": "noctalia",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "quickshell": "quickshell",
         "rofi-tools": "rofi-tools",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",

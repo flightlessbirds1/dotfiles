@@ -4,7 +4,6 @@
   flake,
   lib,
   pkgs,
-  users,
   osConfig,
   ...
 }:
@@ -90,7 +89,7 @@ let
     };
   };
 in
-lib.mkIf (flake.config.environment == "mine") {
+{
   programs.eww = {
     enable = true;
     package = pkgs.eww;

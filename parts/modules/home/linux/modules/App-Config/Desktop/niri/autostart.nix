@@ -1,7 +1,6 @@
 {
   pkgs,
   hostname,
-  flake,
   ...
 }:
 {
@@ -39,17 +38,6 @@
             ];
           }
         ]
-    )
-    ++ (
-      if flake.config.environment == "noctalia" then
-        [
-          {
-            command = [
-              "noctalia-shell"
-            ];
-          }
-        ]
-      else
         [
           {
             command = [
@@ -57,7 +45,8 @@
             ];
           }
         ]
-    );
+    )
+;
     hotkey-overlay.skip-at-startup = true;
   };
 }
