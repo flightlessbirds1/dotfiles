@@ -37,7 +37,7 @@ in
           "super+k".action = a.close-window;
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
-          "super+space".action = a.spawn "vicinae open";
+          "super+space".action = a.spawn "vicinae" "open";
           "super+comma".action = a.set-column-width "50%";
 
           # Focus Keybinds

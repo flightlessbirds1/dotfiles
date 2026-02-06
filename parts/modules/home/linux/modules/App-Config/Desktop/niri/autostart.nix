@@ -15,6 +15,7 @@
           "firefox"
         ];
       }
+      { command = [ "vicinae" "server" ]; }
     ]
     ++ (
       if hostname == "laptop" then
@@ -38,15 +39,14 @@
             ];
           }
         ]
-        [
-          {
-            command = [
-              "swaync"
-            ];
-          }
-        ]
-    )
-;
+          [
+            {
+              command = [
+                "swaync"
+              ];
+            }
+          ]
+    );
     hotkey-overlay.skip-at-startup = true;
   };
 }
