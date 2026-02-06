@@ -29,29 +29,31 @@ in
         "pulseaudio"
       ])
       ++ [
-        # WRAPPER START: Parentheses ensure this is treated as a single package item
-        ((config.lib.vicinae.mkExtension {
-          name = "wifi-commander";
-          src =
-            pkgs.fetchFromGitHub {
-              owner = "explosives79";
-              repo = "extensions";
-              rev = "aecd73b10cc9877c89582be29734d77fda7b95dd";
-              sha256 = "sha256-MIl7NGrGixLXgevmFPDuSty1LBn3h382+viOMkowZI8=";
-            }
-            + "/extensions/wifi-commander";
-        }).overrideAttrs (old: {
-          preBuild = ''
-            export HOME=$(pwd)
-          '';
-          installPhase = ''
-            runHook preInstall
-            
-            mkdir -p $out
-            cp -r .local/share/vicinae/extensions/${old.name or "wifi-commander"}/. $out/
-            runHook postInstall
-          '';
-        }))
+        (
+          (config.lib.vicinae.mkExtension {
+            name = "wifi-commander";
+            src =
+              pkgs.fetchFromGitHub {
+                owner = "explosives79";
+                repo = "extensions";
+                rev = "aecd73b10cc9877c89582be29734d77fda7b95dd";
+                sha256 = "sha256-MIl7NGrGixLXgevmFPDuSty1LBn3h382+viOMkowZI8=";
+              }
+              + "/extensions/wifi-commander";
+          }).overrideAttrs
+          (old: {
+            preBuild = ''
+              export HOME=$(pwd)
+            '';
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out
+              cp -r .local/share/vicinae/extensions/${old.name or "wifi-commander"}/. $out/
+              runHook postInstall
+            '';
+          })
+        )
       ];
 
     systemd = {
