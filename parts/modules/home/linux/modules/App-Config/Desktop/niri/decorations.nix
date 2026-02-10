@@ -72,6 +72,22 @@
             open-on-workspace = "04-chat";
             open-maximized = true;
           }
+          {
+            matches = [
+              {
+                title = "wooz";
+              }
+            ];
+            open-floating = true;
+            open-fullscreen = false;
+            default-window-height.fixed = 1028;
+            default-column-width.fixed = 1830;
+            default-floating-position = {
+              x = -5;
+              y = -58;
+              relative-to = "top-left";
+            };
+          }
         ]
       else
         [
