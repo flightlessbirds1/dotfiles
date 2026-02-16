@@ -4,7 +4,8 @@
 
   home.packages = builtins.attrValues {
     inherit (pkgs)
-      nil
+      nixd
+      nixfmt
       jdt-language-server
       zulu25
       ;
@@ -33,7 +34,7 @@
         {
           name = "nix";
           language-servers = [
-            "nil"
+            "nixd"
           ];
           auto-format = false;
           formatter = {
