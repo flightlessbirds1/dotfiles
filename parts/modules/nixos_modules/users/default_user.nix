@@ -52,7 +52,6 @@
         Media
         Security
         Terminal
-        Utilities
         wayland
         System-Config
         inputs.zen-browser.homeModules.beta

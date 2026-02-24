@@ -7,6 +7,7 @@
 
   programs.yazi = {
     enable = true;
+    enableNushellIntegration = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
     initLua = ''
