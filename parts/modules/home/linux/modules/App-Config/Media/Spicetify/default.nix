@@ -16,35 +16,25 @@
       enable = true;
 
       enabledExtensions = with spicePkgs.extensions; [
-        adblock
+        adblockify
         hidePodcasts
         shuffle
-        lastfm
-        allOfArtist
-        bestMoment
-        queueTime
       ];
-      enabledCustomApps = with spicePkgs.apps; [
-        newReleases
-        ncsVisualizer
-      ];
+      # enabledCustomApps = with spicePkgs.apps; [
+      #   newReleases
+      # ];
 
       # theme = spicePkgs.themes.hazy;
       colorScheme = "custom";
       customColorScheme = {
-        # Text
         text = "f8f8f8";
         subtext = "c0c0c0";
-
-        # Backgrounds — all AMOLED black
         main = "000000";
         sidebar = "000000";
         player = "000000";
         card = "000000";
         shadow = "000000";
         misc = "000000";
-
-        # Accent / highlights
         sidebar-text = "79dac8";
         selected-row = "1db954";
         button = "74b2ff";

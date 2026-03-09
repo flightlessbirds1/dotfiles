@@ -11,7 +11,7 @@ in
 {
   search = {
     force = true;
-    default = "Kagi";
+    default = "StartPage";
     engines = regularSearchEngines;
     order = [
       "AlternativeTo"
@@ -25,7 +25,6 @@ in
       "Nix Packages"
       "Nix Wiki"
       "PeerTube"
-      "SearXNG"
       "Sci-Hub"
       "Torrent Leech"
       "Urban Dictionary"

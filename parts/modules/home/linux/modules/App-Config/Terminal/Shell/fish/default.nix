@@ -18,5 +18,4 @@
       '';
     };
   };
-  home.shell.enableShellIntegration = true;
 }

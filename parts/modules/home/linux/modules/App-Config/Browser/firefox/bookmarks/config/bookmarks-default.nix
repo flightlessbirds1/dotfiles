@@ -15,7 +15,7 @@
         }
         {
           name = "Anna's Archive";
-          url = "https://annas-archive.li/";
+          url = "https://annas-archive.gl/";
         }
       ];
     }
@@ -78,10 +78,6 @@
           url = "https://nix-community.github.io/home-manager/options.xhtml";
         }
         {
-          name = "Function Searcher";
-          url = "https://noogle.dev";
-        }
-        {
           name = "My Dotfiles";
           url = "https://gitlab.com/flightlessbird1/dotfiles";
         }
@@ -90,8 +86,8 @@
           url = "https://gitlab.com/utopianreflection/dotfiles/";
         }
         {
-          name = "AY Dotfiles";
-          url = "https://code.askyourself.ca/ask-yourself/ask-yourself/";
+          name = "RGBCube Dotfiles";
+          url = "https://github.com/RGBCube/NCC";
         }
         {
           name = "Nick Dotfiles";
@@ -109,6 +105,10 @@
         {
           name = "Loogle";
           url = "https://loogle.lean-lang.org/";
+        }
+        {
+          name = "Noogle";
+          url = "https://noogle.dev";
         }
       ];
     }

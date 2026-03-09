@@ -66,13 +66,6 @@
         max_height = 1000;
       };
       opener = {
-        the-editor = [
-          {
-            run = ''the-editor "$@"'';
-            block = true;
-            orphan = false;
-          }
-        ];
         pdf = [
           {
             run = ''zathura "$@"'';
@@ -83,10 +76,6 @@
       };
       open = {
         prepend_rules = [
-          {
-            name = "*.lean";
-            use = "the-editor";
-          }
           {
             name = "*.pdf";
             use = "pdf";

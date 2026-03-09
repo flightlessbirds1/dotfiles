@@ -77,10 +77,6 @@ in
     "${redirect}" = {
       installation_mode = "allowed";
     };
-    "${kagi-search}" = {
-      installation_mode = "allowed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/kagi-search-for-firefox/latest.xpi";
-    };
     "${movie-web}" = {
       installation_mode = "allowed";
       install_url = "https://addons.mozilla.org/firefox/downloads/file/4286163/cfu_flix_movie_web_extension-1.1.4.xpi";

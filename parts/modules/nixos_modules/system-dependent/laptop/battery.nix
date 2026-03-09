@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  username,
   ...
 }:
 let
@@ -177,8 +176,8 @@ in
     HandleSuspendKey = "suspend";
   };
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=3600
-    SuspendState=mem
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = 3600;
+    SuspendState = "mem";
+  };
 }
