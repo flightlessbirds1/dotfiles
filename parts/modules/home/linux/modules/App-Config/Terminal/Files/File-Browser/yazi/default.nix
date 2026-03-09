@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 {
   imports = [
     ./extraPackages.nix
@@ -7,6 +7,7 @@
 
   programs.yazi = {
     enable = true;
+    package = pkgs-stable.yazi;
     enableNushellIntegration = true;
     enableFishIntegration = true;
     enableBashIntegration = true;

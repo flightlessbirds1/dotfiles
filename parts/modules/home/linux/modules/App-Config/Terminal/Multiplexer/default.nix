@@ -1,6 +1,7 @@
-_: {
+{pkgs-stable, ...}: {
   programs.zellij = {
     enable = true;
+    package = pkgs-stable.zellij;
     settings = {
       default-layout = "compact";
       theme = "custom-pink-theme";
