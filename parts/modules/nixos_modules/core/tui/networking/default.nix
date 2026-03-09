@@ -95,7 +95,6 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       iw
-      iwgtk
       ;
   };
 }
