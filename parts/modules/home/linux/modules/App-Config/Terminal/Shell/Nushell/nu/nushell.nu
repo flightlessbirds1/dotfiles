@@ -151,7 +151,7 @@ let menus = [
   {
     name: completion_menu
     only_buffer_difference: false
-    marker: $env.PROMPT_INDICATOR
+    marker: ($env.PROMPT_INDICATOR? | default "> ")
     type: {
       layout: ide
       min_completion_width: 0
@@ -178,7 +178,7 @@ let menus = [
   {
     name: history_menu
     only_buffer_difference: true
-    marker: $env.PROMPT_INDICATOR
+    marker: ($env.PROMPT_INDICATOR? | default "> ")
     type: {
       layout: list
       page_size: 10

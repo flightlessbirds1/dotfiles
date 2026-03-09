@@ -18,4 +18,5 @@
       '';
     };
   };
+  home.shell.enableShellIntegration = true;
 }
