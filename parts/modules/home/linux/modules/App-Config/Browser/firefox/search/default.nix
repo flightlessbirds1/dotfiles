@@ -11,7 +11,7 @@ in
 {
   search = {
     force = true;
-    default = "StartPage";
+    default = "Kagi";
     engines = regularSearchEngines;
     order = [
       "AlternativeTo"

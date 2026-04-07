@@ -15,7 +15,7 @@ main = loop
 loop :: IO ()
 loop = do
   updateNetworkStats
-  threadDelay 1_000_000
+  threadDelay 5_000_000
   loop
 
 updateNetworkStats :: IO ()
@@ -41,7 +41,7 @@ getActiveInterface = do
 
 getNetworkStats :: String -> IO (Double, Double)
 getNetworkStats iface = do
-  result <- readProcess "cat" ["/proc/net/dev"] ""
+  result <- readFile "/proc/net/dev"
   let devLines = lines result
       ifaceLine = find (isInfixOf iface) devLines
   case ifaceLine of

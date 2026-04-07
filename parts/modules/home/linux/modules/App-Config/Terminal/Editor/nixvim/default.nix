@@ -1,0 +1,28 @@
+{ inputs, pkgs, ... }:
+{
+  imports = [
+    ./config/plugins/bufferline.nix
+    ./config/plugins/cmp.nix
+    ./config/plugins/conform.nix
+    ./config/plugins/flash.nix
+    ./config/plugins/lazygit.nix
+    ./config/plugins/lean.nix
+    ./config/plugins/lsp.nix
+    ./config/plugins/neo_tree.nix
+    ./config/plugins/telescope.nix
+    ./config/plugins/treesitter.nix
+    ./config/plugins/web_devicons.nix
+    ./config/plugins/yazi.nix
+    ./config/colorschemes.nix
+    ./config/keymap.nix
+    ./config/options.nix
+    ./config/dep-ignore.nix
+    inputs.nixvim.homeModules.nixvim
+  ];
+
+  home.packages = [
+    pkgs.ripgrep
+    pkgs.fd
+  ];
+  programs.nixvim.enable = true;
+}

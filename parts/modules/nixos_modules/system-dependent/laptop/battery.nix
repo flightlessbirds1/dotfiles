@@ -25,18 +25,8 @@ let
         match $mode {
           "performance" | "perf" => {
             print "🚀 Switching to PERFORMANCE mode..."
-
-            (sudo ${pkgs.tlp}/bin/tlp setcharge 0 100 BAT0
-              | complete | ignore)
-
-            (echo "performance"
-              | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference
-              | complete | ignore)
-
-            (echo "performance"
-              | sudo tee /sys/firmware/acpi/platform_profile
-              | complete | ignore)
-
+            (sudo ${pkgs.tlp}/bin/tlp setcharge 0 100 BAT0 | complete | ignore)
+            
             sudo ${pkgs.tlp}/bin/tlp ac
 
             print "✓ Performance mode active - Maximum power!"
@@ -44,38 +34,17 @@ let
 
           "balanced" | "balance" => {
             print "⚖️  Switching to BALANCED mode..."
-
-            (sudo ${pkgs.tlp}/bin/tlp setcharge 80 95 BAT0
-              | complete | ignore)
-
-            (echo "balance_performance"
-              | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference
-              | complete | ignore)
-
-            (echo "balanced"
-              | sudo tee /sys/firmware/acpi/platform_profile
-              | complete | ignore)
-
-            # Use actual power source
+            (sudo ${pkgs.tlp}/bin/tlp setcharge 80 95 BAT0 | complete | ignore)
+            
             sudo ${pkgs.tlp}/bin/tlp start
 
             print "✓ Balanced mode active - Good mix of performance and efficiency"
           }
 
           "powersave" | "save" | "quiet" => {
-            print "🔋 Switching to POWER SAVING mode..."
-
-            (sudo ${pkgs.tlp}/bin/tlp setcharge 85 90 BAT0
-              | complete | ignore)
-
-            (echo "power"
-              | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference
-              | complete | ignore)
-
-            (echo "quiet"
-              | sudo tee /sys/firmware/acpi/platform_profile
-              | complete | ignore)
-
+            print "🔋 Switching to POWER SAVING (SILENT) mode..."
+            (sudo ${pkgs.tlp}/bin/tlp setcharge 85 90 BAT0 | complete | ignore)
+            
             sudo ${pkgs.tlp}/bin/tlp bat
 
             print "✓ Power saving mode active - Quiet and efficient"
@@ -83,28 +52,14 @@ let
 
           "status" => {
             print "\n📊 Current Power Status:\n"
-
             print "TLP Mode:"
             (sudo ${pkgs.tlp}/bin/tlp-stat -s
               | lines
               | find "Mode"
               | each { |line| print $"  ($line)" })
-
-            print "\nPlatform Profile:"
-            let profile = (open /sys/firmware/acpi/platform_profile
-              | complete)
-            if $profile.exit_code == 0 {
-              print $"  ($profile.stdout | str trim)"
-            } else {
-              print "  Not available"
-            }
-
-            print "\nCPU Energy Preference:"
-            let cpu_pref = (open /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference
-              | complete)
-            if $cpu_pref.exit_code == 0 {
-              print $"  ($cpu_pref.stdout | str trim)"
-            }
+              
+            print "\nASUS Hardware Profile:"
+            (asusctl profile -p | print)
           }
 
           _ => {
@@ -124,10 +79,10 @@ in
       CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
 
       CPU_BOOST_ON_BAT = 0;
-      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_AC = 0;
 
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 60;
+      CPU_MAX_PERF_ON_BAT = 100;
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
 
@@ -148,7 +103,7 @@ in
       AHCI_RUNTIME_PM_ON_AC = "on";
 
       PLATFORM_PROFILE_ON_BAT = "quiet";
-      PLATFORM_PROFILE_ON_AC = "balanced";
+      PLATFORM_PROFILE_ON_AC = "quiet";
     };
   };
 
@@ -161,6 +116,8 @@ in
 
   boot.kernelParams = [
     "amd_pstate=active"
+    "amdgpu.abmlevel=3"
+    "amdgpu.sg_display=1"
   ];
 
   powerManagement = {
@@ -178,6 +135,5 @@ in
 
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = 3600;
-    SuspendState = "mem";
   };
 }

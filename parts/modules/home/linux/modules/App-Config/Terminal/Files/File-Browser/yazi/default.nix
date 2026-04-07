@@ -1,4 +1,10 @@
 { pkgs, pkgs-stable, ... }:
+let
+  fileViewers = fileType: {
+    mime = "application/" + fileType;
+    run = "ouch";
+  };
+in
 {
   imports = [
     ./extraPackages.nix
@@ -15,52 +21,21 @@
       require("full-border"):setup()
     '';
     settings = {
-      plugin.prepend_previewers = [
-        {
-          mime = "application/*zip";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-tar";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-bzip2";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-7z-compressed";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-rar";
-          run = "ouch";
-        }
-        {
-          mime = "application/vnd.rar";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-xz";
-          run = "ouch";
-        }
-        {
-          mime = "application/xz";
-          run = "ouch";
-        }
-        {
-          mime = "application/x-zstd";
-          run = "ouch";
-        }
-        {
-          mime = "application/zstd";
-          run = "ouch";
-        }
-        {
-          mime = "application/java-archive";
-          run = "ouch";
-        }
-      ];
+      plugin.prepend_previewers = (
+        map fileViewers [
+          "*zip"
+          "x-tar"
+          "x-bzip2"
+          "x-7z-compressed"
+          "x-rar"
+          "vnd.rar"
+          "x-xz"
+          "xz"
+          "x-zstd"
+          "zstd"
+          "java-archive"
+        ]
+      );
       mgr.show_hidden = false;
       preview = {
         max_width = 1000;
@@ -74,12 +49,23 @@
             orphan = false;
           }
         ];
+        nvim = [
+          {
+            run = ''nvim "$@"'';
+            block = true;
+            orphan = false;
+          }
+        ];
       };
       open = {
         prepend_rules = [
           {
             name = "*.pdf";
             use = "pdf";
+          }
+          {
+            name = "*.lean";
+            use = "nvim";
           }
         ];
         append_rules = [

@@ -20,7 +20,7 @@ main = do
 loop :: FilePath -> Int -> IO ()
 loop home currentIndex = do
   tuplifyBattery home newIndex
-  threadDelay 1_000_000
+  threadDelay 5_000_000
   loop home newIndex
   where
     newIndex :: Int
@@ -28,8 +28,8 @@ loop home currentIndex = do
 
 tuplifyBattery :: FilePath -> Int -> IO ()
 tuplifyBattery home newIndex = do
-  status <- readProcess "cat" ["/sys/class/power_supply/BATT/status"] ""
-  capacity <- readProcess "cat" ["/sys/class/power_supply/BATT/capacity"] ""
+  status <- readFile "/sys/class/power_supply/BATT/status" 
+  capacity <- readFile "/sys/class/power_supply/BATT/capacity" 
   let (newBatteryClass, newBatteryText) = getBatteryClassAndText home capacity status
   update
     [ ("batteryClass" <> show newIndex, newBatteryClass),

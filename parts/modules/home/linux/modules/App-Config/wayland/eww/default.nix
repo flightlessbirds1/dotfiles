@@ -14,7 +14,6 @@ let
   inherit (builtins)
     filter
     listToAttrs
-    map
     ;
   configSource = if hostname == "desktop" then "desktop" else "laptop";
   configPath = "${osConfig.users.users.${username}.home}/.config/eww";

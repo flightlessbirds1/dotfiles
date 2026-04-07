@@ -19,7 +19,7 @@
       editor = {
         auto-format = true;
         auto-save = true;
-        line-number = "absolute";
+        line-number = "relative";
         cursor-shape = {
           insert = "bar";
           normal = "block";
@@ -36,7 +36,7 @@
           language-servers = [
             "nixd"
           ];
-          auto-format = false;
+          auto-format = true;
           formatter = {
             command = "nixfmt";
           };

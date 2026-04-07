@@ -189,6 +189,8 @@ in
     "browser.xul.error_pages.expert_bad_cert" = true;
     "security.tls.enable_0rtt_data" = false;
     "security.OCSP.require" = true;
+    "network.proxy.socks_remote_dns" = true;
+    "network.proxy.socks5_remote_dns" = true;
 
     # Misc security
     "network.IDN_show_punycode" = true;

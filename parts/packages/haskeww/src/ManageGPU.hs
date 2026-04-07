@@ -1,25 +1,24 @@
 {-# LANGUAGE NumericUnderscores #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 import Control.Concurrent (threadDelay)
-import Control.Monad (forever)
-import Data.Aeson (Value, decode, withObject, (.:))
-import Data.Aeson.Types (Parser, parseMaybe)
-import qualified Data.ByteString.Lazy.Char8 as BL
-import Data.Text (Text, unpack)
+import Data.Char (isSpace)
+import Data.List (dropWhileEnd)
 import EWWLib (update)
-import System.Process (readProcess)
 
 main :: IO ()
-main = forever $ do
-  raw <- readProcess "rocm-smi" ["-u", "--json"] ""
-  case decode (BL.pack raw) of
-    Just val -> case parseMaybe extractGpu val of
-      Just usage -> update [("gpu", unpack usage)]
-      Nothing -> pure ()
-    Nothing -> pure ()
-  threadDelay 2_000_000
+main = loop
 
-extractGpu :: Value -> Parser Text
-extractGpu = withObject "top" $ \top ->
-  top .: "card0" >>= withObject "card0" (.: "GPU use (%)")
+trim :: String -> String
+trim = dropWhileEnd isSpace . dropWhile isSpace
+
+loop :: IO ()
+loop = do
+  status <- readFile "/sys/class/drm/card1/device/power/runtime_status"
+  if trim status == "suspended"
+    then 
+      update [("gpu", "0")]
+    else do
+      usage <- readFile "/sys/class/drm/card1/device/gpu_busy_percent"
+      let cleanUsage = filter (`elem` ['0'..'9']) usage
+      update [("gpu", cleanUsage)]
+  threadDelay 1_000_000

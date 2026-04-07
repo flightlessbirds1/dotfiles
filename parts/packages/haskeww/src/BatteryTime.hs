@@ -12,7 +12,7 @@ main = loop 0
 loop :: Int -> IO ()
 loop currentIndex = do
   calculateBatteryTime currentIndex
-  threadDelay 5_000_000 -- Update every 5 seconds
+  threadDelay 10_000_000 -- Update every 10 seconds
   loop newIndex
   where
     newIndex = (currentIndex + 1) `mod` 2
@@ -37,11 +37,11 @@ calculateBatteryTime _newIndex = do
 
 readBatteryData :: IO (Maybe (Double, String, Double, Double, Double))
 readBatteryData = do
-  capacityStr <- readProcess "cat" ["/sys/class/power_supply/BATT/capacity"] ""
-  statusStr   <- readProcess "cat" ["/sys/class/power_supply/BATT/status"] ""
-  currentNowStr <- readProcess "cat" ["/sys/class/power_supply/BATT/current_now"] ""
-  chargeNowStr  <- readProcess "cat" ["/sys/class/power_supply/BATT/charge_now"] ""
-  chargeFullStr <- readProcess "cat" ["/sys/class/power_supply/BATT/charge_full"] ""
+  capacityStr <- readFile "/sys/class/power_supply/BATT/capacity"
+  statusStr   <- readFile "/sys/class/power_supply/BATT/status"
+  currentNowStr <- readFile "/sys/class/power_supply/BATT/current_now"
+  chargeNowStr  <- readFile "/sys/class/power_supply/BATT/charge_now"
+  chargeFullStr <- readFile "/sys/class/power_supply/BATT/charge_full"
   let capacity   = readMaybe (init capacityStr) :: Maybe Double
       currentNow = readMaybe (init currentNowStr) :: Maybe Double
       chargeNow  = readMaybe (init chargeNowStr) :: Maybe Double
