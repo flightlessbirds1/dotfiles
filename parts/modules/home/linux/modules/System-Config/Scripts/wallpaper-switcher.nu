@@ -5,9 +5,9 @@ let imgDir = ("~/Desktop/dotfiles/deploy" | path expand | ls $in | find 1 2 3 --
 
 def check [hour: int] {
   match $hour {
-    1..8 => (run-external "swww" "img" $imgDir.0)
-    9..20 => (run-external "swww" "img" $imgDir.1)
-    21..24 => (run-external "swww" "img" $imgDir.2)
+    1..8 => (run-external "awww" "img" $imgDir.0)
+    9..20 => (run-external "awww" "img" $imgDir.1)
+    21..24 => (run-external "awww" "img" $imgDir.2)
   }
 }
 

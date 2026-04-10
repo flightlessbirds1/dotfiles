@@ -116,8 +116,6 @@ in
 
   boot.kernelParams = [
     "amd_pstate=active"
-    "amdgpu.abmlevel=3"
-    "amdgpu.sg_display=1"
   ];
 
   powerManagement = {

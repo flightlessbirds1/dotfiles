@@ -14,7 +14,10 @@
       {
         key = "<leader>fm";
         action = "<cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<CR>";
-        mode = ["n" "v"];
+        mode = [
+          "n"
+          "v"
+        ];
         options = {
           silent = true;
           desc = "Format buffer";

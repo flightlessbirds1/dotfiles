@@ -13,10 +13,10 @@
           '';
 
           sources = [
-            {name = "nvim_lsp";}
-            {name = "luasnip";}
-            {name = "buffer";}
-            {name = "path";}
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "buffer"; }
+            { name = "path"; }
           ];
 
           mapping = {
@@ -62,7 +62,11 @@
           };
 
           formatting = {
-            fields = ["kind" "abbr" "menu"];
+            fields = [
+              "kind"
+              "abbr"
+              "menu"
+            ];
             format = ''
               function(entry, vim_item)
                 local kind_icons = {

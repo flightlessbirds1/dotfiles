@@ -1,4 +1,5 @@
-{pkgs-stable, ...}: {
+{ pkgs-stable, ... }:
+{
   programs.zellij = {
     enable = true;
     package = pkgs-stable.zellij;

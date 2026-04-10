@@ -34,17 +34,17 @@
     };
   };
   systemd.services.unbind-elan = {
-  description = "Unbind ELAN9008 i2c device";
-  wantedBy = [ "multi-user.target" ];
-  after = [ "systemd-udev-settle.service" ];
-  script = ''
-    if [ -e /sys/bus/i2c/drivers/i2c_hid_acpi/i2c-ELAN9008:00 ]; then
-      echo "i2c-ELAN9008:00" > /sys/bus/i2c/drivers/i2c_hid_acpi/unbind
-    fi
-  '';
-  serviceConfig = {
-    Type = "oneshot";
-    RemainAfterExit = true;
+    description = "Unbind ELAN9008 i2c device";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-udev-settle.service" ];
+    script = ''
+      if [ -e /sys/bus/i2c/drivers/i2c_hid_acpi/i2c-ELAN9008:00 ]; then
+        echo "i2c-ELAN9008:00" > /sys/bus/i2c/drivers/i2c_hid_acpi/unbind
+      fi
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
   };
-};
 }

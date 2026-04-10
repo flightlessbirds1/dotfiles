@@ -10,9 +10,9 @@
     executable = true;
   };
 
-  systemd.user.services.swww-daemon = {
+  systemd.user.services.awww-daemon = {
     Unit = {
-      Description = "swww wallpaper daemon";
+      Description = "awww wallpaper daemon";
       PartOf = [
         "graphical-session.target"
       ];
@@ -23,8 +23,8 @@
     };
     Service = {
       Type = "simple";
-      ExecStartPre = "-/bin/sh -c 'rm -f /run/user/$UID/swww*.sock'";
-      ExecStart = "${pkgs.swww}/bin/swww-daemon --format xrgb";
+      ExecStartPre = "-/bin/sh -c 'rm -f /run/user/$UID/awww*.sock'";
+      ExecStart = "${pkgs.awww}/bin/awww-daemon --format xrgb";
       Restart = "on-failure";
       RestartSec = "3s";
       MemoryMax = "256M";
@@ -33,8 +33,8 @@
       Environment = [
         "WAYLAND_DISPLAY=wayland-1"
         "XDG_RUNTIME_DIR=/run/user/1000"
-        "SWWW_TRANSITION_ANGLE=0"
-        "SWWW_TRANSITION_DURATION=0"
+        "awwW_TRANSITION_ANGLE=0"
+        "awwW_TRANSITION_DURATION=0"
       ];
     };
     Install.WantedBy = [
@@ -46,17 +46,17 @@
     Unit = {
       Description = "Time-based wallpaper switcher";
       After = [
-        "swww-daemon.service"
+        "awww-daemon.service"
       ];
       Wants = [
-        "swww-daemon.service"
+        "awww-daemon.service"
       ];
     };
     Service = {
       Type = "oneshot";
       ExecStart = "${pkgs.bash}/bin/bash %h/scripts/wallpaper-switcher";
       Environment = [
-        "PATH=${pkgs.swww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
+        "PATH=${pkgs.awww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
       ];
       PassEnvironment = [
         "WAYLAND_DISPLAY"
@@ -82,10 +82,10 @@
       Description = "Set initial wallpaper on login";
       After = [
         "graphical-session.target"
-        "swww-daemon.service"
+        "awww-daemon.service"
       ];
       Wants = [
-        "swww-daemon.service"
+        "awww-daemon.service"
       ];
       # Don't block login
       DefaultDependencies = false;
@@ -94,7 +94,7 @@
       Type = "simple";
       ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 1 && exec ${pkgs.bash}/bin/bash %h/scripts/wallpaper-switcher'";
       Environment = [
-        "PATH=${pkgs.swww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
+        "PATH=${pkgs.awww}/bin:${pkgs.coreutils}/bin:/run/current-system/sw/bin"
       ];
       PassEnvironment = [
         "WAYLAND_DISPLAY"
