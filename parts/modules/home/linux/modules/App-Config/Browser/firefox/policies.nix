@@ -66,28 +66,12 @@ in
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
       installation_mode = "allowed";
     };
-    "${mal-sync}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/mal-sync/latest.xpi";
-      installation_mode = "allowed";
-    };
     "${translate-web-pages}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
       installation_mode = "force_installed";
     };
     "${redirect}" = {
       installation_mode = "allowed";
-    };
-    "${movie-web}" = {
-      installation_mode = "allowed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4286163/cfu_flix_movie_web_extension-1.1.4.xpi";
-    };
-    "${chameleon-ext}" = {
-      installation_mode = "allowed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/chameleon-ext/latest.xpi";
-    };
-    "${ff2mpv}" = {
-      installation_mode = "allowed";
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4394631/ff2mpv-6.0.0.xpi";
     };
   };
 

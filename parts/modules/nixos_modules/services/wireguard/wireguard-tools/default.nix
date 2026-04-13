@@ -3,7 +3,7 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       wireguard-tools
-      protonvpn-gui
+      proton-vpn
       ;
   };
 }

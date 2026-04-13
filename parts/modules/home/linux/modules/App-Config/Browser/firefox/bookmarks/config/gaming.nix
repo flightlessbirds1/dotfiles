@@ -3,16 +3,6 @@
   toolbar = false;
   bookmarks = [
     {
-      name = "Battle.net";
-      url = "https://us.shop.battle.net";
-      tags = [
-        "battle.net"
-        "battle"
-        "net"
-      ];
-      keyword = "Battle";
-    }
-    {
       name = "Chess.com";
       url = "https://www.chess.com/home";
       tags = [

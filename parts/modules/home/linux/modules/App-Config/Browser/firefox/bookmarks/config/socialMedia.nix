@@ -18,29 +18,6 @@ in
   toolbar = false;
   bookmarks = [
     {
-      name = "upRootNutrition";
-      url = "https://upRootNutrition.com";
-      tags = [
-        "uprootnutrition"
-        "up"
-        "root"
-        "nutrition"
-      ];
-      keyword = "Root";
-    }
-    {
-      name = "Disboard";
-      url = "https://disboard.org";
-      tags = discordTags;
-      keyword = "Disboard";
-    }
-    {
-      name = "Discord (Web Client)";
-      url = "https://discord.com/channels/@me";
-      tags = discordTags;
-      keyword = "Discord";
-    }
-    {
       name = "Facebook";
       url = "https://www.facebook.com/";
       tags = [
@@ -63,15 +40,6 @@ in
       keyword = "Gmail";
     }
     {
-      name = "Lemmy";
-      url = "https://lemmy.world";
-      tags = [
-        "lemmy"
-        "social"
-      ];
-      keyword = "Lem";
-    }
-    {
       name = "Instagram";
       url = "https://www.instagram.com/";
       tags = [
@@ -79,26 +47,6 @@ in
         "insta"
       ];
       keyword = "IG";
-    }
-    {
-      name = "OnlyFans";
-      url = "https://onlyfans.com";
-      tags = [
-        "onlyfans"
-        "only"
-        "fans"
-      ];
-      keyword = "Only";
-    }
-    {
-      name = "Pixelfed";
-      url = "https://pixelfed.social/i/web/profile/651714972141461392";
-      tags = [
-        "pixelfed"
-        "pixel"
-        "pi"
-      ];
-      keyword = "Pix";
     }
     {
       name = "Proton Mail";
@@ -139,58 +87,10 @@ in
       keyword = "Reddit";
     }
     {
-      name = "Slack";
-      url = "https://app.slack.com/";
-      tags = [
-        "slack"
-        "social"
-      ];
-      keyword = "Slack";
-    }
-    {
-      name = "StreamLabs";
-      url = "https://streamlabs.com/dashboard";
-      tags = [
-        "streamlabs"
-        "stream"
-        "labs"
-      ];
-      keyword = "Stream";
-    }
-    {
-      name = "Tinder";
-      url = "https://tinder.com/app/recs";
-      tags = [
-        "tinder"
-        "dating"
-        "booty"
-      ];
-      keyword = "Tinder";
-    }
-    {
       name = "YouTube";
       url = "https://www.youtube.com";
       tags = youtubeTags;
       keyword = "You";
-    }
-    {
-      name = "YouTube Studio";
-      url = "https://studio.youtube.com/channel/UCy9yYcDx2XuVVgcWLJJDoxw";
-      tags = [
-        "studio"
-      ]
-      ++ youtubeTags;
-      keyword = "Studio";
-    }
-    {
-      name = "X (Twitter)";
-      url = "https://x.com/upRootNutrition";
-      tags = [
-        "twitter"
-        "x"
-        "social"
-      ];
-      keyword = "Twitter";
     }
   ];
 }

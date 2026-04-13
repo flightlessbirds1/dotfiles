@@ -89,10 +89,6 @@
           name = "RGBCube Dotfiles";
           url = "https://github.com/RGBCube/NCC";
         }
-        {
-          name = "Nick Dotfiles";
-          url = "https://gitlab.com/upRootNutrition/dotfiles/";
-        }
       ];
     }
     {

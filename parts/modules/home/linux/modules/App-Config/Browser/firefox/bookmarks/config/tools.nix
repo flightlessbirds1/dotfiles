@@ -58,57 +58,13 @@
       keyword = "Smtp";
     }
     {
-      name = "Oryx";
-      url = "https://configure.zsa.io/moonlander";
+      name = "Gemini";
+      url = "https://gemini.google.com/app";
       tags = [
-        "zsa"
-        "moonlander"
-        "keyboard"
-        "layout"
+        "gemini"
+        "gem"
       ];
-      keyword = "Moon";
-    }
-    {
-      name = "Hugging Face";
-      url = "https://www.huggingface.co";
-      tags = [
-        "hugging"
-        "face"
-        "ai"
-        "gguf"
-      ];
-      keyword = "Hug";
-    }
-    {
-      name = "DeepSeek";
-      url = "https://chat.deepseek.com/";
-      tags = [
-        "deepseek"
-        "deep"
-        "seek"
-        "ai"
-      ];
-      keyword = "Deep";
-    }
-    {
-      name = "Canadian Blood Services";
-      url = "https://www.blood.ca/en";
-      tags = [
-        "canadian"
-        "blood"
-        "services"
-        "give"
-      ];
-      keyword = "Give";
-    }
-    {
-      name = "Chmod Calculator";
-      url = "https://chmod-calculator.com";
-      tags = [
-        "chmod"
-        "calculator"
-      ];
-      keyword = "Chmod";
+      keyword = "Gemini";
     }
     {
       name = "ChatGPT";
@@ -130,35 +86,6 @@
       keyword = "Claude";
     }
     {
-      name = "Cronometer";
-      url = "https://cronometer.com/#diary";
-      tags = [
-        "cronometer"
-        "cron"
-        "nutrition"
-      ];
-      keyword = "Cron";
-    }
-    {
-      name = "DNS Checker";
-      url = "https://dnschecker.org";
-      tags = [
-        "dns"
-        "checker"
-      ];
-      keyword = "DNS";
-    }
-    {
-      name = "EventBrite";
-      url = "https://www.eventbrite.ca/d/canada--winnipeg/events--today/winnipeg/?page=1";
-      tags = [
-        "eventbrite"
-        "event"
-        "brite"
-      ];
-      keyword = "Event";
-    }
-    {
       name = "Google Maps";
       url = "https://www.google.com/maps";
       tags = [
@@ -166,68 +93,6 @@
         "google"
       ];
       keyword = "Map";
-    }
-    {
-      name = "ListenBrainz";
-      url = "https://listenbrainz.org/user/BRBWaffles";
-      tags = [
-        "listenbrainz"
-        "listen"
-        "brains"
-      ];
-      keyword = "Listen";
-    }
-    {
-      name = "Memory Express";
-      url = "https://www.memoryexpress.com";
-      tags = [
-        "memoryexpress"
-        "memory"
-        "mem"
-        "express"
-      ];
-      keyword = "Mem";
-    }
-    {
-      name = "Percentage Calculator";
-      url = "https://percentagecalculator.net";
-      tags = [
-        "percentage"
-        "percent"
-        "calculator"
-      ];
-      keyword = "Percent";
-    }
-    {
-      name = "Portchecker";
-      url = "https://portchecker.co";
-      tags = [
-        "portchecker"
-        "port"
-        "checker"
-      ];
-      keyword = "Port";
-    }
-    {
-      name = "Proof Tree";
-      url = "https://www.umsu.de/trees";
-      tags = [
-        "proof"
-        "tree"
-        "logic"
-        "academic"
-      ];
-      keyword = "Logic";
-    }
-    {
-      name = "RhymeZone";
-      url = "https://www.rhymezone.com";
-      tags = [
-        "rhymezone"
-        "rhyme"
-        "zone"
-      ];
-      keyword = "Rhyme";
     }
     {
       name = "Sci-Hub";
@@ -245,9 +110,9 @@
     }
     {
       name = "Speedtest";
-      url = "https://www.speedtest.net";
+      url = "https://www.fast.net";
       tags = [
-        "speedtest"
+        "fast"
         "speed"
         "test"
       ];
@@ -263,38 +128,6 @@
         "phil"
       ];
       keyword = "Phil";
-    }
-    {
-      name = "Telus (Billing)";
-      url = "https://www.telus.com/my-telus/billing/summary";
-      tags = [
-        "telus"
-        "phone"
-        "bills"
-        "money"
-      ];
-      keyword = "Telus";
-    }
-    {
-      name = "TinEye";
-      url = "https://tineye.com";
-      tags = [
-        "tineye"
-        "tin"
-        "eye"
-      ];
-      keyword = "Tin";
-    }
-    {
-      name = "Zotero Bibliography";
-      url = "https://zbib.org";
-      tags = [
-        "votero"
-        "bibliography"
-        "bib"
-        "zbib"
-      ];
-      keyword = "Bib";
     }
   ];
 }

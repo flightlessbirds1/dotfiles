@@ -38,34 +38,6 @@ in
       keyword = "awesome";
     }
     {
-      name = "GitLab (Fallaryn)";
-      url = "${gitlabURL}/fallaryn";
-      tags = [
-        "fallaryn"
-      ]
-      ++ gitlabTags;
-      keyword = "GitLab";
-    }
-    {
-      name = "GitLab (Isaac)";
-      url = "${gitlabURL}/askyourself";
-      tags = [
-        "isaac"
-        "askyourself"
-      ]
-      ++ gitlabTags;
-      keyword = "GitLab";
-    }
-    {
-      name = "GitLab (Nick)";
-      url = "${gitlabURL}/upRootNutrition";
-      tags = [
-        "uprootnutrition"
-      ]
-      ++ gitlabTags;
-      keyword = "GitLab";
-    }
-    {
       name = "Hackage";
       url = "https://hackage.haskell.org";
       tags = [

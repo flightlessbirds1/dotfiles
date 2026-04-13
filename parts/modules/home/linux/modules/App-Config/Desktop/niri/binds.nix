@@ -37,7 +37,15 @@ in
           "super+k".action = a.close-window;
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
-          "super+space".action = a.spawn "vicinae" "open";
+          "super+space".action = a.spawn "rofi" "-show";
+          "super+shift+v".action = a.spawn [
+            "nu"
+            "-c"
+            "rofi -modi clipboard:/${script}/cliphist -show clipboard -show-icons"
+          ];
+          "super+shift+b".action = a.spawn "bzmenu" "--launcher" "rofi";
+          "super+shift+w".action = a.spawn "iwmenu" "--launcher" "rofi";
+          "super+shift+a".action = a.spawn "pwmenu" "--launcher" "rofi";
           "super+comma".action = a.set-column-width "50%";
 
           # Focus Keybinds
@@ -47,7 +55,7 @@ in
           "super+up".action = a.focus-window-or-workspace-up;
           "super+f".action = a.maximize-column;
           "super+shift+f".action = a.fullscreen-window;
-          "super+alt+shift+f".action = a.toggle-window-floating;
+          "super+ctrl+f".action = a.toggle-window-floating;
 
           # Move Window Keybinds
           "super+shift+left".action = a.move-column-left;

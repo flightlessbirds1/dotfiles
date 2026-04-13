@@ -12,15 +12,5 @@
       ];
       keyword = "Amazon";
     }
-    {
-      name = "Fiverr";
-      url = "https://www.fiverr.com";
-      tags = [
-        "fiverr"
-        "graphic"
-        "design"
-      ];
-      keyword = "Five";
-    }
   ];
 }

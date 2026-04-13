@@ -89,8 +89,6 @@ let
         vimium
         translate-web-pages
         redirect
-        mal-sync
-        ff2mpv
         violentmonkey
       ])
       (bookmarks // search);
@@ -148,9 +146,7 @@ let
         vimium
         translate-web-pages
       ])
-      {
-        bookmarks = import ./bookmarks/bookmarks-study.nix { };
-      };
+      { };
 
   all_profiles = [
     default_profile
