@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   networking = {
     nameservers = [
@@ -9,7 +9,7 @@
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
-      dns = lib.mkForce "none";
+      # dns = lib.mkForce "none";
     };
     wireless.iwd = {
       enable = true;
