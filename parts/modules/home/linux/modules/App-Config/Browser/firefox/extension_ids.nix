@@ -8,5 +8,4 @@ _: {
   sponsorblock = "sponsorBlocker@ajay.app";
   translate-web-pages = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
   redirect = "{bf70dbf9-8145-45a7-ac49-203f029f723f}";
-  chameleon-ext = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
 }

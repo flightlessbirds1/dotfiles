@@ -127,9 +127,8 @@ let
       (with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         darkreader
         bitwarden
-        zotero-connector
+        vimium
         translate-web-pages
-        chameleon-ext
       ])
       { };
 

@@ -77,6 +77,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
+    # nixvim-config.url = "github:Myxogastria0808/nix-flakes-nixvim";
   };
 
   outputs =

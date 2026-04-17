@@ -1,349 +1,63 @@
+let
+  kmap = key: action: mode: {
+    inherit key action mode;
+    options.silent = true;
+  };
+  normap = key: action: kmap key action [ "n" ];
+  vismap = key: action: kmap key action [ "v" ];
+  norvismap =
+    key: action:
+    kmap key action [
+      "n"
+      "v"
+    ];
+
+in
 {
   programs.nixvim = {
     globals.mapleader = " ";
     keymaps = [
-      {
-        key = "gh";
-        action = "^";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gl";
-        action = "$";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gm";
-        action = "%";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gs";
-        action = "0";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "ge";
-        action = "G";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gt";
-        action = "H";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gc";
-        action = "M";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "gb";
-        action = "L";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "m";
-        action = "v%";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = ",";
-        action = "<Esc>";
-        mode = "v";
-        options.silent = true;
-      }
-      {
-        key = "s";
-        action = ":s/";
-        mode = "v";
-        options.silent = false;
-      }
-      {
-        key = "`";
-        action = "gu";
-        mode = "v";
-        options.silent = true;
-      }
-      {
-        key = "<leader>f";
-        action = "<cmd>Telescope find_files<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>F";
-        action = "<cmd>Telescope find_files cwd=%:p:h<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>b";
-        action = "<cmd>Telescope buffers<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>c";
-        action = "<cmd>bd<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>k";
-        action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>r";
-        action = "<cmd>lua vim.lsp.buf.rename()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>a";
-        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "<leader>s";
-        action = "<cmd>Telescope lsp_document_symbols<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>S";
-        action = "<cmd>Telescope lsp_workspace_symbols<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>d";
-        action = "<cmd>Telescope diagnostics<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>?";
-        action = "<cmd>Telescope commands<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>w";
-        action = "<cmd>w<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>e";
-        action = "<cmd>Neotree toggle<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>g";
-        action = "<cmd>LazyGit<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>y";
-        action = "<cmd>Yazi<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<leader>p";
-        action = "\"+p";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "<leader>P";
-        action = "\"+P";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "<leader>Y";
-        action = "\"+y";
-        mode = "v";
-        options.silent = true;
-      }
-      {
-        key = "<leader>R";
-        action = "\"+p";
-        mode = "v";
-        options.silent = true;
-      }
-      {
-        key = "gd";
-        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "gr";
-        action = "<cmd>Telescope lsp_references<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "gi";
-        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "gy";
-        action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "gD";
-        action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "K";
-        action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "]d";
-        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "[d";
-        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "]D";
-        action = "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "[D";
-        action = "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "]b";
-        action = "<cmd>bnext<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "[b";
-        action = "<cmd>bprevious<CR>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<C-h>";
-        action = "<C-w>h";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<C-j>";
-        action = "<C-w>j";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<C-k>";
-        action = "<C-w>k";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<C-l>";
-        action = "<C-w>l";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "U";
-        action = "<C-r>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<A-J>";
-        action = "gJ";
-        mode = [
-          "n"
-          "v"
-        ];
-        options.silent = true;
-      }
-      {
-        key = "<C-a>";
-        action = "<C-a>";
-        mode = "n";
-        options.silent = true;
-      }
-      {
-        key = "<C-x>";
-        action = "<C-x>";
-        mode = "n";
-        options.silent = true;
-      }
+      (norvismap "gh" "0")
+      (norvismap "gl" "$")
+      (normap "<leader>f" "<cmd>Telescope find_files<CR>")
+      (normap "<leader>F" "<cmd>Telescope find_files cwd=%:p:h<CR>")
+      (normap "<leader>b" "<cmd>Telescope buffers<CR>")
+      (normap "<leader>c" "<cmd>bd<CR>")
+      (normap "<leader>k" "<cmd>lua vim.lsp.buf.hover()<CR>")
+      (normap "<leader>r" "<cmd>lua vim.lsp.buf.rename()<CR>")
+      (norvismap "<leader>a" "<cmd>lua vim.lsp.buf.code_action()<CR>")
+      (normap "<leader>s" "<cmd>Telescope lsp_document_symbols<CR>")
+      (normap "<leader>S" "<cmd>Telescope lsp_workspace_symbols<CR>")
+      (normap "<leader>d" "<cmd>Telescope diagnostics<CR>")
+      (normap "<leader>?" "<cmd>Telescope commands<CR>")
+      (normap "<leader>e" "<cmd>Neotree toggle<CR>")
+      (normap "<leader>g" "<cmd>LazyGit<CR>")
+      (normap "<leader>y" "<cmd>Yazi<CR>")
+      (norvismap "<leader>p" "\"+p")
+      (norvismap "<leader>P" "\"+P")
+      (vismap "<leader>Y" "\"+y")
+      (vismap "<leader>R" "\"+p")
+      (normap "gd" "<cmd>lua vim.lsp.buf.definition()<CR>")
+      (normap "gr" "<cmd>Telescope lsp_references<CR>")
+      (normap "gi" "<cmd>lua vim.lsp.buf.implementation()<CR>")
+      (normap "gy" "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+      (normap "gD" "<cmd>lua vim.lsp.buf.declaration()<CR>")
+      (normap "K" "<cmd>lua vim.lsp.buf.hover()<CR>")
+      (normap "]d" "<cmd>lua vim.diagnostic.goto_next()<CR>")
+      (normap "[d" "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+      (normap "]D" "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>")
+      (normap "[D" "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>")
+      (normap "]b" "<cmd>bnext<CR>")
+      (normap "[b" "<cmd>bprevious<CR>")
+      (normap "gw" "<cmd>HopWord<CR>")
+      (normap "<C-h>" "<C-w>h")
+      (normap "<C-j>" "<C-w>j")
+      (normap "<C-k>" "<C-w>k")
+      (normap "<C-l>" "<C-w>l")
+      (normap "U" "<C-r>")
+      (norvismap "<A-J>" "gJ")
+      (normap "<C-a>" "<C-a>")
+      (normap "<C-x>" "<C-x>")
     ];
   };
 }
