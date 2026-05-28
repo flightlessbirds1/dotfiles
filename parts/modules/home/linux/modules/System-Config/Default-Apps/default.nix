@@ -4,28 +4,28 @@ _: {
     # change default apps for a file or link type
     defaultApplications = {
       "text/html" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "x-scheme-handler/http" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "x-scheme-handler/https" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "x-scheme-handler/about" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "x-scheme-handler/unknown" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "application/pdf" = [
         "org.pwmt.zathura.desktop"
       ];
       "image/png" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "image/jpeg" = [
-        "firefox.desktop"
+        "floorp.desktop"
       ];
       "video/mp4" = [ "umpv.desktop" ];
       "video/x-matroska" = [ "umpv.desktop" ]; # .mkv

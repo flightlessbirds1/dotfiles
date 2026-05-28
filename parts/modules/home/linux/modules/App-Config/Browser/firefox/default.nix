@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  pkgs-stable,
   lib,
   config,
   browser,
@@ -23,7 +22,7 @@ in
 {
   programs.${browser} = {
     enable = true;
-    package = if browser == "firefox" then pkgs.${package} else pkgs-stable.${package};
+    package = pkgs.${package};
     nativeMessagingHosts = [ pkgs.ff2mpv-rust ];
 
     policies = import ./policies.nix {

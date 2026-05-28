@@ -8,7 +8,15 @@
 }:
 let
   a = config.lib.niri.actions;
-
+  dms =
+    app: command:
+    a.spawn [
+      "dms"
+      "ipc"
+      "call"
+      "${app}"
+      "${command}"
+    ];
   ws = {
     terminal = "01-terminal";
     web = "02-web";
@@ -37,15 +45,8 @@ in
           "super+k".action = a.close-window;
           "super+period".action = a.set-column-width "+5%";
           "super+slash".action = a.set-column-width "-5%";
-          "super+space".action = a.spawn "rofi" "-show";
-          "super+shift+v".action = a.spawn [
-            "nu"
-            "-c"
-            "rofi -modi clipboard:/${script}/cliphist -show clipboard -show-icons"
-          ];
-          "super+shift+b".action = a.spawn "bzmenu" "--launcher" "rofi";
-          "super+shift+w".action = a.spawn "iwmenu" "--launcher" "rofi";
-          "super+shift+a".action = a.spawn "pwmenu" "--launcher" "rofi";
+          "super+space".action = dms "spotlight" "toggle";
+          "super+shift+v".action = dms "clipboard" "toggle";
           "super+comma".action = a.set-column-width "50%";
 
           # Focus Keybinds
@@ -85,8 +86,8 @@ in
           # "super+shift+8".action = a.move-window-to-workspace ws.misc;
 
           # App Launchers (SUPER + SHIFT + CTRL)
-          "super+shift+ctrl+f".action = a.spawn "firefox";
-          "super+shift+ctrl+slash".action = a.spawn "nu" "-c" ''firefox --no-remote -P "school"'';
+          "super+shift+ctrl+f".action = a.spawn "floorp";
+          "super+shift+ctrl+slash".action = a.spawn "nu" "-c" ''floorp --no-remote -P "school"'';
           "super+shift+ctrl+v".action = a.spawn "equibop";
           "super+shift+ctrl+g".action = a.spawn [
             "nu"
@@ -118,13 +119,13 @@ in
             "systemctl reboot"
           ];
 
-          "super+alt+l".action = a.spawn [
-            "niri"
-            "msg"
-            "action"
-            "quit"
-            "--skip-confirmation"
-          ];
+          # "super+alt+l".action = a.spawn [
+          #   "niri"
+          #   "msg"
+          #   "action"
+          #   "quit"
+          #   "--skip-confirmation"
+          # ];
           "super+s".action = a.spawn [
             "nu"
             "-c"

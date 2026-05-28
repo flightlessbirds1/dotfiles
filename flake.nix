@@ -63,21 +63,17 @@
 
     systems.url = "github:nix-systems/default";
 
-    rofi-tools = {
-      url = "github:szaffarano/rofi-tools";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks-nix";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
     };
-    # nixvim-config.url = "github:Myxogastria0808/nix-flakes-nixvim";
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

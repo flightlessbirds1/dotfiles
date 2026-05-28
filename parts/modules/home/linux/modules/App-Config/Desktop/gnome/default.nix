@@ -76,8 +76,7 @@ in
         favorite-apps = [
           "org.gnome.Nautilus.desktop"
           "org.gnome.Calendar.desktop"
-          "mullvad-vpn.desktop"
-          "firefox.desktop"
+          "floorp.desktop"
           "obsidian.desktop"
           "zotero.desktop"
           "codium.desktop"

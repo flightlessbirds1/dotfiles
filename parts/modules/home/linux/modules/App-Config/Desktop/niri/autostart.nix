@@ -12,7 +12,7 @@
     spawn-at-startup = [
       {
         command = [
-          "firefox"
+          "floorp"
         ];
       }
       {

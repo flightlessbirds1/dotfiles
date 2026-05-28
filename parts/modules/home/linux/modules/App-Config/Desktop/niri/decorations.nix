@@ -41,6 +41,9 @@
               {
                 app-id = "firefox";
               }
+              {
+                app-id = "floorp";
+              }
             ];
             open-on-workspace = "02-web";
             open-maximized = true;
@@ -49,6 +52,9 @@
             matches = [
               {
                 app-id = "spotify";
+              }
+              {
+                app-id = "Spotify";
               }
             ];
             open-on-workspace = "03-music";

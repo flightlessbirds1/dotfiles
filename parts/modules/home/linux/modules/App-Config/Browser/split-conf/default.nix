@@ -3,7 +3,6 @@
   inputs,
   config,
   pkgs,
-  pkgs-stable,
   ...
 }:
 {
@@ -15,7 +14,6 @@
         inputs
         config
         pkgs
-        pkgs-stable
         ;
     })
     (import ../firefox/default.nix {
@@ -26,7 +24,6 @@
         inputs
         pkgs
         config
-        pkgs-stable
         ;
     })
     ../zen

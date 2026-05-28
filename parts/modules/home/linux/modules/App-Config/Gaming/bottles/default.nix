@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 {
   home.packages = builtins.attrValues {
-    inherit (pkgs)
+    inherit (pkgs-stable)
       bottles
       ;
   };
