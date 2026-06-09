@@ -6,10 +6,10 @@
         "10.158.41.80/32"
         "fd7d:76ee:e68f:a993:47f:d5ee:cb27:8280/128"
       ];
-      dns = [
-        "10.128.0.1"
-        "fd7d:76ee:e68f:a993::1"
-      ];
+      # dns = [
+      #   "10.128.0.1"
+      #   "fd7d:76ee:e68f:a993::1"
+      # ];
       privateKeyFile = config.sops.secrets.private.path;
 
       peers = [
@@ -23,7 +23,7 @@
           persistentKeepalive = 25;
         }
       ];
-      autostart = true;
+      autostart = false;
     };
   };
 }

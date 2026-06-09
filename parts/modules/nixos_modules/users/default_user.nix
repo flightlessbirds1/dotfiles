@@ -39,7 +39,6 @@
   };
   home-manager.users.${username} =
     {
-      pkgs,
       inputs,
       ...
     }:
@@ -78,5 +77,6 @@
   dual_modules.users."${username}".use = [
     "fcitx5"
     "gnome"
+    "mullvad"
   ];
 }

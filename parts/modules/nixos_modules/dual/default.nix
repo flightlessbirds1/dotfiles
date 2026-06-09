@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  flake,
   ...
 }:
 let
@@ -12,6 +10,7 @@ in
   imports = [
     ./modules/fcitx5
     ./modules/gnome
+    ./modules/mullvad
   ];
 
   options = {
