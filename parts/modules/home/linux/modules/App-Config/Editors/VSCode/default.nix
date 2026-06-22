@@ -1,14 +1,13 @@
 {
   inputs,
   pkgs,
-  config,
   ...
 }:
 let
   extensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
     package = pkgs.vscodium;
     profiles.default = {

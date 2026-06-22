@@ -27,7 +27,7 @@
     };
 
     spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix/b2ce438f386943ef611e196a178af2d79042903b";
+      url = "github:Gerg-L/spicetify-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
@@ -63,11 +63,11 @@
 
     systems.url = "github:nix-systems/default";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
-    };
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.flake-parts.follows = "flake-parts";
+    #   inputs.systems.follows = "systems";
+    # };
 
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";

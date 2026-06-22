@@ -35,7 +35,7 @@
 
   dual_modules.modules = {
     fcitx5.enable = lib.mkDefault true;
-    gnome.enable = lib.mkDefault true;
+    # gnome.enable = lib.mkDefault true;
     mullvad.enable = lib.mkDefault true;
   };
 

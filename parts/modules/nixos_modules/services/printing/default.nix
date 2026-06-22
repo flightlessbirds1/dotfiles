@@ -2,7 +2,11 @@
 {
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [
+      pkgs.cups-filters
+      pkgs.cups-browsed
+      pkgs.brlaser
+    ];
   };
   services.ipp-usb.enable = true;
   services.avahi = {

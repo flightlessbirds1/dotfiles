@@ -10,37 +10,37 @@
     executable = true;
   };
 
-  systemd.user.services.awww-daemon = {
-    Unit = {
-      Description = "awww wallpaper daemon";
-      PartOf = [
-        "graphical-session.target"
-      ];
-      After = [
-        "graphical-session.target"
-      ];
-      ConditionEnvironment = "WAYLAND_DISPLAY";
-    };
-    Service = {
-      Type = "simple";
-      ExecStartPre = "-/bin/sh -c 'rm -f /run/user/$UID/awww*.sock'";
-      ExecStart = "${pkgs.awww}/bin/awww-daemon --format xrgb";
-      Restart = "on-failure";
-      RestartSec = "3s";
-      MemoryMax = "256M";
-      CPUQuota = "75%";
-      Nice = 10;
-      Environment = [
-        "WAYLAND_DISPLAY=wayland-1"
-        "XDG_RUNTIME_DIR=/run/user/1000"
-        "awwW_TRANSITION_ANGLE=0"
-        "awwW_TRANSITION_DURATION=0"
-      ];
-    };
-    Install.WantedBy = [
-      "graphical-session.target"
-    ];
-  };
+  # systemd.user.services.awww-daemon = {
+  #   Unit = {
+  #     Description = "awww wallpaper daemon";
+  #     PartOf = [
+  #       "graphical-session.target"
+  #     ];
+  #     After = [
+  #       "graphical-session.target"
+  #     ];
+  #     ConditionEnvironment = "WAYLAND_DISPLAY";
+  #   };
+  #   Service = {
+  #     Type = "simple";
+  #     ExecStartPre = "-/bin/sh -c 'rm -f /run/user/$UID/awww*.sock'";
+  #     ExecStart = "${pkgs.awww}/bin/awww-daemon --format xrgb";
+  #     Restart = "on-failure";
+  #     RestartSec = "3s";
+  #     MemoryMax = "256M";
+  #     CPUQuota = "75%";
+  #     Nice = 10;
+  #     Environment = [
+  #       "WAYLAND_DISPLAY=wayland-1"
+  #       "XDG_RUNTIME_DIR=/run/user/1000"
+  #       "awwW_TRANSITION_ANGLE=0"
+  #       "awwW_TRANSITION_DURATION=0"
+  #     ];
+  #   };
+  #   Install.WantedBy = [
+  #     "graphical-session.target"
+  #   ];
+  # };
 
   systemd.user.services.wallpaper-switcher = {
     Unit = {
