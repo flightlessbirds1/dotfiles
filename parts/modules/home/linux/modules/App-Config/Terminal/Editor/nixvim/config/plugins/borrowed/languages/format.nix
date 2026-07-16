@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.nixvim = {
-    plugins.conform.enable = true;
+    plugins.conform-nvim.enable = true;
     extraPackages = with pkgs; [
       nixfmt
       haskellPackages.fourmolu
@@ -12,7 +12,7 @@
       oxlint
     ];
 
-    initLua = ''
+    extraConfigLua = ''
       -- ── Conform.nvim Setup ────────────────────────────────────────────────
       require("conform").setup({
         format_on_save = {

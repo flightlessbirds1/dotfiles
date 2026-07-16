@@ -77,6 +77,7 @@
 
   dual_modules.users."${username}".use = [
     "fcitx5"
-    "gnome"
+    # "gnome"
+    # "mullvad"
   ];
 }

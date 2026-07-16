@@ -95,7 +95,7 @@ in
             "ghostty -e nu -c 'cd ~/Desktop/dotfiles; zellij'"
           ];
           "super+shift+ctrl+s".action = a.spawn "spotify";
-          "super+shift+ctrl+i".action = a.spawn "nautilus";
+          "super+shift+ctrl+i".action = a.spawn "dolphin";
           "super+shift+ctrl+d".action = a.spawn "${script}/steam.sh";
           "super+shift+ctrl+q".action = a.spawn "qbittorrent";
           "super+shift+ctrl+o".action = a.spawn "obsidian";

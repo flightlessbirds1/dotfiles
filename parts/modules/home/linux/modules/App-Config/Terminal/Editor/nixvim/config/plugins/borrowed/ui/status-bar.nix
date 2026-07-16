@@ -3,7 +3,7 @@
     plugins = {
       lualine.enable = true;
     };
-    initLua = ''
+    extraConfigLua = ''
       -- ── Lualine Setup ─────────────────────────────────────────────────────
       local notNeoTree = function()
         return vim.bo.filetype ~= 'neo-tree'

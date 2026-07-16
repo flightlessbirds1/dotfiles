@@ -5,4 +5,6 @@ def hypridleChecker [hypridleProcess: table] {
   if ($hypridleProcess | length) > 0 { true } else { false }
 }
 
-if (hypridleChecker $hypridleProcess) == true { run-external (systemctl --user stop hypridle.service) } else { run-external (systemctl --user start hypridle.service) }
+(match (hypridleChecker $hypridleProcess)
+  {true => (run-external "systemctl" "--user" "stop" "hypridle.service"; run-external "notify-send" "Stopping HyprIdle"),
+   _ => (run-external "systemctl" "--user" "start" "hypridle.service"; run-external "notify-send" "Starting HyprIdle")})

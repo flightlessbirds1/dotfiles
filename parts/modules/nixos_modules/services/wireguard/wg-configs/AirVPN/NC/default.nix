@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, username, ... }:
 {
   networking.wg-quick.interfaces = {
     AirVPN-NC = {
@@ -23,7 +23,9 @@
           persistentKeepalive = 25;
         }
       ];
-      autostart = true;
+      autostart = (
+        if (builtins.elem "mullvad" config.dual_modules.users."${username}".use) then false else true
+      );
     };
   };
 }

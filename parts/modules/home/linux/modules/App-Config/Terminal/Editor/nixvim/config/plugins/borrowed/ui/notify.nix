@@ -6,7 +6,7 @@
       noice.enable = true;
     };
 
-    initLua = ''
+    extraConfigLua = ''
       -- ── Nvim-Notify Setup ──────────────────────────────────────────────────
       require("notify").setup({
         stages = "fade",
@@ -22,11 +22,7 @@
         },
         render = "wrapped-compact",
       })
-
-      -- Set notify as the default vim.notify
       vim.notify = require("notify")
-
-      -- Your custom wrapper to fix null characters
       do
         local original_notify = vim.notify
         vim.notify = function(msg, ...)
@@ -36,25 +32,16 @@
           return original_notify(msg, ...)
         end
       end
-
-      -- ── Keymaps ───────────────────────────────────────────────────────────
       vim.keymap.set(
         { "n", "i", "v", "t", "c" },
         "<A-q>",
         function() require("notify").dismiss({ silent = true, pending = false }) end,
         { desc = "Dismiss all visible notifications" }
       )
-
       -- ── Noice Setup ───────────────────────────────────────────────────────
       require("noice").setup({
-        notify = {
-          enabled = true,
-        },
-        lsp = {
-          progress = {
-            enabled = true,
-          },
-        },
+        notify = { enabled = true },
+        lsp = { progress = { enabled = true } },
         routes = {
           { filter = { event = "msg_show", min_height = 10 }, view = "split" },
           { filter = { event = "msg_show", kind = "emsg" }, view = "notify", opts = { level = "error", timeout = 1000 } },

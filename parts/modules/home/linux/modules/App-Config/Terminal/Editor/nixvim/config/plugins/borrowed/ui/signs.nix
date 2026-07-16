@@ -4,7 +4,7 @@
       gitsigns.enable = true;
     };
 
-    initLua = ''
+    extraConfigLua = ''
       -- ── Gitsigns Setup ────────────────────────────────────────────────────
       require('gitsigns').setup({})
     '';

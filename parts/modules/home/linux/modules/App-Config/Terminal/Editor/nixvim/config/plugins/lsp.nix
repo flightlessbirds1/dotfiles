@@ -1,9 +1,9 @@
 {
   programs.nixvim = {
     plugins = {
-      nvim-lspconfig.enable = true;
+      lspconfig.enable = true;
       lean.enable = true;
-      plenary.enable = true;
+      # neotest.adapters.plenary.enable = true;
     };
     # Optional Language Servers
     # extraPackages = with pkgs; [
@@ -27,7 +27,7 @@
     # rustc # rust_analyzer (installRustc)
     # ];
 
-    initLua = ''
+    extraConfigLua = ''
       -- ── LSP Configuration ──────────────────────────────────────────────────
       local lspconfig = require('lspconfig')
 

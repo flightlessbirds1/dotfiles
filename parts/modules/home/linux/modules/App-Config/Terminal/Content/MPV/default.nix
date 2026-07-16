@@ -155,7 +155,7 @@
       owner = "CogentRedTester";
       repo = "mpv-file-browser";
       rev = "master";
-      sha256 = "sha256-fty26U84KVHa2/OD+i+8fkCnGYacHdlYhKADBDngs5k=";
+      sha256 = "sha256-zCDBxsGC7THQ2k0qDkjOq4TZm4thI2yk57a3i9PRCAs=";
     };
   };
 

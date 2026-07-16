@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.lspsaga.enable = true;
-    initLua = ''
+    extraConfigLua = ''
       -- Guard function for LSP-dependent keymaps.
       _G.lspsaga_guard = function(capability, cmd, desc)
         for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do

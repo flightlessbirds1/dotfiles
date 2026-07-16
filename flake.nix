@@ -29,7 +29,7 @@
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix/b2ce438f386943ef611e196a178af2d79042903b";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      # inputs.systems.follows = "systems";
     };
 
     zen-browser = {
@@ -65,9 +65,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.systems.follows = "systems";
     };
 
     dms = {

@@ -11,7 +11,7 @@
       todo-comments.enable = true;
     };
 
-    initLua = ''
+    extraConfigLua = ''
       -- ── Vim Options ───────────────────────────────────────────────────────
       vim.opt.swapfile = false
       vim.opt.undofile = true
