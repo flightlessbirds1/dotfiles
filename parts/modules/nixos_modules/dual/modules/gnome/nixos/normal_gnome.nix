@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -62,8 +61,8 @@ in
     xdgOpenUsePortal = true;
     config.niri = {
       default = [
-        "gnome"
         "gtk"
+        "gnome"
       ];
       "org.freedesktop.impl.portal.FileChooser" = "kde";
       # "org.freedesktop.impl.portal.OpenURI" = "gnome";

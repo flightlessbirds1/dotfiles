@@ -18,4 +18,5 @@
       # rustdesk
       ;
   };
+  hardware.bluetooth.enable = true;
 }

@@ -1,5 +1,4 @@
 {
-  lib,
   config,
   flake,
   username,
@@ -119,13 +118,13 @@ in
             "systemctl reboot"
           ];
 
-          # "super+alt+l".action = a.spawn [
-          #   "niri"
-          #   "msg"
-          #   "action"
-          #   "quit"
-          #   "--skip-confirmation"
-          # ];
+          "super+alt+l".action = a.spawn [
+            "niri"
+            "msg"
+            "action"
+            "quit"
+            "--skip-confirmation"
+          ];
           "super+s".action = a.spawn [
             "nu"
             "-c"
@@ -137,6 +136,7 @@ in
           "super+ctrl+right".action = a.move-window-to-monitor-right;
           "super+ctrl+up".action = a.move-window-to-monitor-up;
           "super+ctrl+down".action = a.move-window-to-monitor-down;
+
           # Brightness Control
           "super+alt+d".action = a.spawn [
             "brightnessctl"
@@ -149,6 +149,7 @@ in
             "+5%"
           ];
         };
+
         laptop_content = {
           "super+alt+delete".action = a.spawn [
             "bash"

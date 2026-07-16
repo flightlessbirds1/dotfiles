@@ -39,7 +39,6 @@
   };
   home-manager.users.${username} =
     {
-      pkgs,
       inputs,
       ...
     }:
@@ -65,6 +64,7 @@
         homeDirectory = "/home/${username}";
         packages = builtins.attrValues {
           inherit (pkgs)
+            bluez
             ;
         };
       };
@@ -73,6 +73,33 @@
     flatpak = {
       enable = true;
     };
+  };
+  qt.enable = true;
+  # qt.platformTheme = "gnome";
+  qt.style = "adwaita-dark";
+  xdg.portal = {
+    enable = true;
+
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+
+    config.gnome = {
+      default = [ "gnome" ];
+    };
+    xdgOpenUsePortal = true;
+    config.niri = {
+      default = [
+        "gtk"
+        "gnome"
+      ];
+      "org.freedesktop.impl.portal.FileChooser" = "kde";
+      # "org.freedesktop.impl.portal.OpenURI" = "gnome";
+    };
+    config.common.default = [ "gnome" ];
   };
 
   dual_modules.users."${username}".use = [

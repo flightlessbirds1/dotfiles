@@ -7,9 +7,11 @@
 
   programs.dank-material-shell = {
     enable = true;
-    niri.includes = {
-      enable = false;
+    niri = {
+      enableSpawn = true;
+      includes.enable = false;
     };
+    enableDynamicTheming = true;
     settings = {
       currentThemeName = "dynamic";
       currentThemeCategory = "dynamic";
@@ -85,10 +87,5 @@
         }
       ];
     };
-    systemd = {
-      enable = true;
-      restartIfChanged = true;
-    };
-    enableDynamicTheming = true;
   };
 }
