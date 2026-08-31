@@ -8,20 +8,20 @@
     # ];
     networkmanager = {
       enable = true;
-      wifi.backend = "iwd";
+      # wifi.backend = "iwd";
       dns = "systemd-resolved";
     };
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        Network = {
-          EnableIPv6 = true;
-        };
-        Settings = {
-          AutoConnect = true;
-        };
-      };
-    };
+    # # wireless.iwd = {
+    # #   enable = true;
+    # #   settings = {
+    # #     Network = {
+    # #       EnableIPv6 = true;
+    # #     };
+    # #     Settings = {
+    # #       AutoConnect = true;
+    # #     };
+    # #   };
+    # };
 
     firewall = {
       enable = true;
@@ -53,6 +53,7 @@
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       iw
+      networkmanagerapplet
       ;
   };
 }

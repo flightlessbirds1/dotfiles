@@ -90,6 +90,7 @@ let
         translate-web-pages
         redirect
         violentmonkey
+        sponsorblock
       ])
       (bookmarks // search);
 
